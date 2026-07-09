@@ -1,0 +1,54 @@
+site_name: "MTUOC: A Practical Course on Machine Translation Technologies"
+site_description: An open online course on machine translation technologies with MTUOC
+site_author: Antoni Oliver and Sergi Alvarez-Vidal
+
+theme:
+  name: material
+  features:
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - About this Course: about.md
+  - How to Navigate this Course: how-to-navigate.md
+  
+  - Module 1. Deployment, Integration and Evaluation:
+      - Overview: module-1/index.md
+      - Deployment: module-1/deployment.md
+      - Starting NMT models with MTUOC Server: module-1/mtuoc-server-nmt.md
+      - Starting LLM-based translation models: module-1/mtuoc-server-llm.md
+      - Integration into translation workflows: module-1/integration.md
+      - MTUOC Translator: module-1/mtuoc-translator.md
+      - Automatic evaluation: module-1/evaluation.md
+      - Practical activity: module-1/activity.md
+      - Self-assessment: module-1/self-assessment.md
+
+  - Module 2. Corpus Engineering:
+      - Overview: module-2/index.md
+
+  - Module 3. NMT Training and Fine-tuning:
+      - Overview: module-3/index.md
+
+  - Module 4. LLMs for Translation:
+      - Overview: module-4/index.md
+
+  - Final project: final-project.md
+  - Glossary: glossary.md
+  - Troubleshooting: troubleshooting.md
+  - References: references.md
+  - Credits and licence: credits.md
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - tables
+  - fenced_code
+  - attr_list
+  
+extra_css:
+
+  - stylesheets/extra.css
