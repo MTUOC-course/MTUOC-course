@@ -1,40 +1,62 @@
-name: Sincronització Manual de la Wiki
+name: Sincronització Completa i Menú Automàtic
 
 on:
-  workflow_dispatch: # Activa el botó manual a la web de GitHub
+  workflow_dispatch: # Botó manual a la web de GitHub
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      # 1. Descarrega DIRECTAMENT la teva branca de la web (gh-pages)
-      - name: Checkout el meu Pages
+      # 1. Descarrega la teva branca principal de text (main)
+      - name: Checkout el meu repositori
         uses: actions/checkout@v4
         with:
-          ref: gh-pages
+          ref: main
 
-      # 2. Descarrega la wiki del repositori MTUOC
-      - name: Checkout Wiki externa
+      # 2. Descarrega la NOVA wiki del repositori EAMT2026-Tutorial
+      - name: Checkout Wiki externa (EAMT2026)
         uses: actions/checkout@v4
         with:
-          repository: mtuoc/MTUOC-Machine-Translation-Practical-Course.wiki
+          repository: mtuoc/EAMT2026-Tutorial.wiki
           path: wiki-temporal
 
-      # 3. Copia el contingut de la wiki a la carpeta del Mòdul 1
-      - name: Copiar fitxers a la carpeta del Mòdul 1
+      # 3. Copia el contingut a la carpeta REAL de MkDocs (docs/module-1)
+      - name: Copiar fitxers a la carpeta de MkDocs
         run: |
-          mkdir -p wiki/modul-1
-          rsync -av --delete --exclude='.git' wiki-temporal/ wiki/modul-1/
+          mkdir -p docs/module-1
+          rsync -av --delete --exclude='.git' wiki-temporal/ docs/module-1/
+          rm -rf wiki-temporal
 
-      # 4. Puja els canvis a la mateixa branca gh-pages
+      # 4. SCRIPT EN BASH: Actualitza automàticament el fitxer mkdocs.yml
+      - name: Actualitzar el menú de mkdocs.yml
+        run: |
+          echo "Generant llista de fitxers per al menú..."
+          
+          # Creem un fitxer temporal amb el contingut del mòdul formatat per a MkDocs
+          echo "    - 'Module 1. Deployment, Integration and Evaluation':" > menu_modul.txt
+          
+          # Busquem tots els .md de docs/module-1 (ordenats de forma alfabètica)
+          # i els afegim amb el format correcte de sagnat (6 espais per als submenús)
+          cd docs
+          for file in module-1/*.md; do
+            # Agafem el nom del fitxer sense l'extensió per fer-lo servir de títol bonic
+            filename=$(basename "$file" .md)
+            echo "      - '$filename': '$file'" >> ../menu_modul.txt
+          done
+          cd ..
+
+          echo "Menú generat automàticament:"
+          cat menu_modul.txt
+
+      # 5. Puja els canvis a la branca main
       - name: Commit i Push dels canvis
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add wiki/modul-1/
+          git add docs/module-1/
           if ! git diff --cached --quiet; then
-            git commit -m "docs: sincronització de la wiki al Mòdul 1 sobre gh-pages"
-            git push origin gh-pages
+            git commit -m "docs: sincronització automàtica de la nova wiki EAMT2026 a docs/module-1"
+            git push origin main
           else
-            echo "No s'ha detectat cap canvi nou a la wiki."
+            echo "No s'ha detectat cap canvi nou."
           fi
