@@ -24,7 +24,7 @@ jobs:
           mkdir -p wiki/modul-1
           rsync -av --delete --exclude='.git' wiki-temporal/ wiki/modul-1/
 
-      # 4. Puja els canvis de tornada al teu repositori de GitHub
+      # 4. Puja els canvis de tornada al teu repositori de GitHub (a la branca gh-pages)
       - name: Commit i Push dels canvis
         run: |
           git config --global user.name "github-actions[bot]"
@@ -32,7 +32,7 @@ jobs:
           git add wiki/modul-1/
           if ! git diff --cached --quiet; then
             git commit -m "docs: sincronització de la wiki al Mòdul 1"
-            git push
+            git push origin HEAD:gh-pages # <-- AIXÒ ÉS EL CANVI CLAU
           else
             echo "No s'ha detectat cap canvi nou a la wiki."
           fi
