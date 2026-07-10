@@ -16,15 +16,8 @@ nav:
   - How to Navigate this Course: how-to-navigate.md
   
   - Module 1. Deployment, Integration and Evaluation:
-      - Overview: module-1/index.md
-      - Deployment: module-1/deployment.md
-      - Starting NMT models with MTUOC Server: module-1/mtuoc-server-nmt.md
-      - Starting LLM-based translation models: module-1/mtuoc-server-llm.md
-      - Integration into translation workflows: module-1/integration.md
-      - MTUOC Translator: module-1/mtuoc-translator.md
-      - Automatic evaluation: module-1/evaluation.md
-      - Practical activity: module-1/activity.md
-      - Self-assessment: module-1/self-assessment.md
+# INICI_WIKI_MODUL_1
+# FINAL_WIKI_MODUL_1
 
   - Module 2. Corpus Engineering:
       - Overview: module-2/index.md
