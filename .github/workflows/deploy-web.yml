@@ -1,0 +1,32 @@
+name: Deploy Web to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # S'executarà cada cop que pugis canvis a main (o master)
+  workflow_run:
+    workflows: ["Sincronització Completa des del nou Repositori de Wiki"]
+    types:
+      - completed # S'executarà també automàticament quan el bot acabi de sincronitzar la Wiki!
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          pip install mkdocs mkdocs-material
+
+      - name: Deploy to GitHub Pages
+        run: |
+          mkdocs gh-deploy --force
