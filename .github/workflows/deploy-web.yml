@@ -31,4 +31,4 @@ jobs:
         run: |
           mkdocs gh-deploy --force
         env:
-          GITHUB_TOKEN: ${{ secrets.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}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
