@@ -12,7 +12,7 @@ nav:
   - Home: index.md
   - About this Course: about.md
   - How to Navigate this Course: how-to-navigate.md
-  - Module 1. Deployment, Integration and Evaluation: module-1/
+  - Module 1. Deployment, Integration and Evaluation: module-1/index.md
   - Module 2. Corpus Engineering: module-2/
   - Module 3. NMT Training and Fine-tuning: module-3/
   - Module 4. LLMs for Translation: module-4/
