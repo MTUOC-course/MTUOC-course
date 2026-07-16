@@ -20,6 +20,7 @@ def sync_wiki():
 
     os.makedirs(DEST_DIR, exist_ok=True)
     
+    # Netejar la carpeta destí
     for filename in os.listdir(DEST_DIR):
         file_path = os.path.join(DEST_DIR, filename)
         if os.path.isfile(file_path):
@@ -42,6 +43,15 @@ def sync_wiki():
         else:
             shutil.copy2(s, d)
             copied_count += 1
+
+    # --- TRUC PER A MKDOCS ---
+    # Si la Wiki té un "Home.md", el reanomenem a "index.md" per a la pàgina de portada del mòdul
+    home_path = os.path.join(DEST_DIR, "Home.md")
+    index_path = os.path.join(DEST_DIR, "index.md")
+    if os.path.exists(home_path):
+        os.rename(home_path, index_path)
+        print("S'ha reanomenat 'Home.md' a 'index.md' per a la portada del mòdul.")
+    # -------------------------
 
     shutil.rmtree(TEMP_DIR)
     print(f"Sincronització completada! {copied_count} elements copiats.")
