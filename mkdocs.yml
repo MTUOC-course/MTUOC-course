@@ -9,20 +9,20 @@ theme:
     - search.highlight
     - search.suggest
     - content.code.copy
- 
+
+nav:
+  - Home: index.md
+  - About this Course: about.md
+  - How to Navigate this Course: how-to-navigate.md
   - Module 1. Deployment, Integration and Evaluation:
 # INICI_WIKI_MODUL_1
 # FINAL_WIKI_MODUL_1
-
   - Module 2. Corpus Engineering:
       - Overview: module-2/index.md
-
   - Module 3. NMT Training and Fine-tuning:
       - Overview: module-3/index.md
-
   - Module 4. LLMs for Translation:
       - Overview: module-4/index.md
-
   - Final project: final-project.md
   - Glossary: glossary.md
   - Troubleshooting: troubleshooting.md
@@ -34,9 +34,3 @@ markdown_extensions:
   - toc:
       permalink: true
   - tables
-  - fenced_code
-  - attr_list
-  
-extra_css:
-
-  - stylesheets/extra.css
