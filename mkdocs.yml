@@ -1,6 +1,8 @@
 site_name: MTUOC Course
 theme:
   name: material
+  features:
+    - navigation.sections
 
 plugins:
   - search
