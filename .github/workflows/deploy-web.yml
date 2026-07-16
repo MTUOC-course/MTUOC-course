@@ -3,11 +3,11 @@ name: Deploy Web to GitHub Pages
 on:
   push:
     branches:
-      - main  # S'executarà cada cop que pugis canvis a main (o master)
+      - main  # S'executarà cada cop que pugis canvis a main
   workflow_run:
-    workflows: ["Sincronització Completa des del nou Repositori de Wiki"]
+    workflows: ["Sincronització Automàtica Mòdul 1 (Wiki Externa)"] # <-- CANVIAT PERQUÈ COINCIDEIXI EXACTAMENT
     types:
-      - completed # S'executarà també automàticament quan el bot acabi de sincronitzar la Wiki!
+      - completed # S'executarà automàticament quan el bot de la Wiki acabi!
 
 permissions:
   contents: write
@@ -15,6 +15,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Només s'executa si el push és normal, o si el workflow_run s'ha completat AMB ÈXIT (success)
+    if: ${{ github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
 
