@@ -9,9 +9,7 @@ theme:
     - search.highlight
     - search.suggest
     - content.code.copy
-
-nav: [{Home: index.md}, {About this Course: about.md}, {How to Navigate this Course: how-to-navigate.md}]
-  
+ 
   - Module 1. Deployment, Integration and Evaluation:
 # INICI_WIKI_MODUL_1
 # FINAL_WIKI_MODUL_1
