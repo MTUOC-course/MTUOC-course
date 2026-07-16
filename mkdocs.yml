@@ -1,37 +1,21 @@
-site_name: "MTUOC: A Practical Course on Machine Translation Technologies"
-site_description: An open online course on machine translation technologies with MTUOC
-site_author: Antoni Oliver and Sergi Alvarez-Vidal
-
+site_name: MTUOC Course
 theme:
   name: material
-  features:
-    - navigation.top
-    - search.highlight
-    - search.suggest
-    - content.code.copy
+
+plugins:
+  - search
+  - awesome-pages # Això diu a MkDocs que busqui i llisti els fitxers de les carpetes automàticament
 
 nav:
   - Home: index.md
   - About this Course: about.md
   - How to Navigate this Course: how-to-navigate.md
-  - Module 1. Deployment, Integration and Evaluation:
-      # INICI_WIKI_MODUL_1
-      # FINAL_WIKI_MODUL_1
-  - Module 2. Corpus Engineering:
-      - Overview: module-2/index.md
-  - Module 3. NMT Training and Fine-tuning:
-      - Overview: module-3/index.md
-  - Module 4. LLMs for Translation:
-      - Overview: module-4/index.md
+  - Module 1. Deployment, Integration and Evaluation: module-1/
+  - Module 2. Corpus Engineering: module-2/
+  - Module 3. NMT Training and Fine-tuning: module-3/
+  - Module 4. LLMs for Translation: module-4/
   - Final project: final-project.md
   - Glossary: glossary.md
   - Troubleshooting: troubleshooting.md
   - References: references.md
   - Credits and licence: credits.md
-
-markdown_extensions:
-  - admonition
-  - toc:
-      permalink: true
-  - tables
-  
