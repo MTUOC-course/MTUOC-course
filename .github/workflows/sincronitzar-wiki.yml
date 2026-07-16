@@ -27,35 +27,65 @@ jobs:
           rsync -av --delete --exclude='.git' wiki-temporal/ docs/module-1/
           rm -rf wiki-temporal
 
-      # 4. SCRIPT EN BASH: Actualitza automàticament el fitxer mkdocs.yml
+      # 4. SCRIPT EN PYTHON/BASH: Actualitza automàticament el fitxer mkdocs.yml
       - name: Actualitzar el menú de mkdocs.yml
         run: |
           echo "Generant llista de fitxers per al menú..."
           
-          # Creem un fitxer temporal amb el contingut del mòdul formatat per a MkDocs
-          echo "    - 'Module 1. Deployment, Integration and Evaluation':" > menu_modul.txt
+          # Creem el submenú temporal buit
+          > menu_modul.txt
           
-          # Busquem tots els .md de docs/module-1 (ordenats de forma alfabètica)
-          # i els afegim amb el format correcte de sagnat (6 espais per als submenús)
+          # Busquem tots els .md de docs/module-1 (ordenats alfabèticament)
+          # i els formatem amb 6 espais de sagnat (submenús de Module 1)
           cd docs
           for file in module-1/*.md; do
-            # Agafem el nom del fitxer sense l'extensió per fer-lo servir de títol bonic
-            filename=$(basename "$file" .md)
-            echo "      - '$filename': '$file'" >> ../menu_modul.txt
+            # Ignorem fitxers si n'hi hagués de buits o temporals
+            if [ -f "$file" ]; then
+              filename=$(basename "$file" .md)
+              # Substituïm guionets per espais per tenir títols més bonics al menú
+              title=$(echo "$filename" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
+              echo "      - '$title': '$file'" >> ../menu_modul.txt
+            fi
           done
           cd ..
 
-          echo "Menú generat automàticament:"
+          echo "Submenú de la Wiki generat:"
           cat menu_modul.txt
 
-      # 5. Puja els canvis a la branca main
+          # Ara injectem aquest submenú a dins de mkdocs.yml entre les marques d'inici i final
+          # Fem servir Python per assegurar-nos que la substitució de blocs multilínia és 100% robusta
+          python3 -c "
+          with open('mkdocs.yml', 'r') as f:
+              content = f.read()
+          
+          with open('menu_modul.txt', 'r') as f:
+              menu_dinamic = f.read()
+          
+          pattern_start = '# INICI_WIKI_MODUL_1'
+          pattern_end = '# FINAL_WIKI_MODUL_1'
+          
+          if pattern_start in content and pattern_end in content:
+              parts = content.split(pattern_start)
+              first_part = parts[0]
+              second_part = parts[1].split(pattern_end)[1]
+              
+              new_content = first_part + pattern_start + '\n' + menu_dinamic + '      ' + pattern_end + second_part
+              
+              with open('mkdocs.yml', 'w') as f:
+                  f.write(new_content)
+              print('mkdocs.yml actualitzat correctament amb el nou menú!')
+          else:
+              print('ERROR: No s\'han trobat les etiquetes de comentari al mkdocs.yml!')
+          "
+
+      # 5. Puja els canvis de docs i del propi mkdocs.yml modificat a la branca main
       - name: Commit i Push dels canvis
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/module-1/
+          git add docs/module-1/ mkdocs.yml
           if ! git diff --cached --quiet; then
-            git commit -m "docs: sincronització automàtica de la nova wiki EAMT2026 a docs/module-1"
+            git commit -m "docs: sincronització automàtica de la nova wiki EAMT2026 i actualització de mkdocs.yml"
             git push origin main
           else
             echo "No s'ha detectat cap canvi nou."
