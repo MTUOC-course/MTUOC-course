@@ -1,5 +1,3 @@
-# Force refresh: 1
-
 site_name: "MTUOC: A Practical Course on Machine Translation Technologies"
 site_description: An open online course on machine translation technologies with MTUOC
 site_author: Antoni Oliver and Sergi Alvarez-Vidal
@@ -17,6 +15,8 @@ nav:
   - About this Course: about.md
   - How to Navigate this Course: how-to-navigate.md
   - Module 1. Deployment, Integration and Evaluation:
+      # INICI_WIKI_MODUL_1
+      # FINAL_WIKI_MODUL_1
   - Module 2. Corpus Engineering:
       - Overview: module-2/index.md
   - Module 3. NMT Training and Fine-tuning:
