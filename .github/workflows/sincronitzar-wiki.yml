@@ -1,92 +1,48 @@
-name: Sincronització Completa i Menú Automàtic
+name: Sincronització de la Wiki
 
 on:
   workflow_dispatch: # Botó manual a la web de GitHub
+  schedule:
+    - cron: '0 0 * * *' # S'executarà sol cada dia a les 12 de la nit per si hi ha apunts nous
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      # 1. Descarrega la teva branca principal de text (main)
+      # 1. Descarrega el teu repositori
       - name: Checkout el meu repositori
         uses: actions/checkout@v4
         with:
           ref: main
 
-      # 2. Descarrega la NOVA wiki del repositori EAMT2026-Tutorial
-      - name: Checkout Wiki externa (EAMT2026)
+      # 2. Descarrega la Wiki externa de mtuoc
+      - name: Checkout Wiki externa
         uses: actions/checkout@v4
         with:
           repository: mtuoc/EAMT2026-Tutorial.wiki
           path: wiki-temporal
 
-      # 3. Copia el contingut a la carpeta REAL de MkDocs (docs/module-1)
+      # 3. Copia els fitxers .md a la teva carpeta del Mòdul 1
       - name: Copiar fitxers a la carpeta de MkDocs
         run: |
           mkdir -p docs/module-1
-          rsync -av --delete --exclude='.git' wiki-temporal/ docs/module-1/
+          if [ -d "wiki-temporal" ] && [ "$(ls -A wiki-temporal)" ]; then
+            rsync -av --delete --exclude='.git' wiki-temporal/ docs/module-1/
+          else
+            echo "# Module 1: Deployment, Integration and Evaluation" > docs/module-1/index.md
+            echo "This module content is currently being synchronized from the Wiki. Please check back soon!" >> docs/module-1/index.md
+          fi
           rm -rf wiki-temporal
 
-      # 4. SCRIPT EN PYTHON/BASH: Actualitza automàticament el fitxer mkdocs.yml
-      - name: Actualitzar el menú de mkdocs.yml
-        run: |
-          echo "Generant llista de fitxers per al menú..."
-          
-          # Creem el submenú temporal buit
-          > menu_modul.txt
-          
-          # Busquem tots els .md de docs/module-1 (ordenats alfabèticament)
-          # i els formatem amb 6 espais de sagnat (submenús de Module 1)
-          cd docs
-          for file in module-1/*.md; do
-            # Ignorem fitxers si n'hi hagués de buits o temporals
-            if [ -f "$file" ]; then
-              filename=$(basename "$file" .md)
-              # Substituïm guionets per espais per tenir títols més bonics al menú
-              title=$(echo "$filename" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
-              echo "      - '$title': '$file'" >> ../menu_modul.txt
-            fi
-          done
-          cd ..
-
-          echo "Submenú de la Wiki generat:"
-          cat menu_modul.txt
-
-          # Ara injectem aquest submenú a dins de mkdocs.yml entre les marques d'inici i final
-          # Fem servir Python per assegurar-nos que la substitució de blocs multilínia és 100% robusta
-          python3 -c "
-          with open('mkdocs.yml', 'r') as f:
-              content = f.read()
-          
-          with open('menu_modul.txt', 'r') as f:
-              menu_dinamic = f.read()
-          
-          pattern_start = '# INICI_WIKI_MODUL_1'
-          pattern_end = '# FINAL_WIKI_MODUL_1'
-          
-          if pattern_start in content and pattern_end in content:
-              parts = content.split(pattern_start)
-              first_part = parts[0]
-              second_part = parts[1].split(pattern_end)[1]
-              
-              new_content = first_part + pattern_start + '\n' + menu_dinamic + '      ' + pattern_end + second_part
-              
-              with open('mkdocs.yml', 'w') as f:
-                  f.write(new_content)
-              print('mkdocs.yml actualitzat correctament amb el nou menú!')
-          else:
-              print('ERROR: No s\'han trobat les etiquetes de comentari al mkdocs.yml!')
-          "
-
-      # 5. Puja els canvis de docs i del propi mkdocs.yml modificat a la branca main
+      # 4. Puja els fitxers .md al teu repositori (això activarà el deploy automàticament)
       - name: Commit i Push dels canvis
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/module-1/ mkdocs.yml
+          git add docs/module-1/
           if ! git diff --cached --quiet; then
-            git commit -m "docs: sincronització automàtica de la nova wiki EAMT2026 i actualització de mkdocs.yml"
+            git commit -m "docs: sincronització de fitxers de la Wiki"
             git push origin main
           else
-            echo "No s'ha detectat cap canvi nou."
+            echo "No s'ha detectat cap canvi nou a la Wiki."
           fi
