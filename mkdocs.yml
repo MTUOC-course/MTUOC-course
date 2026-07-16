@@ -21,3 +21,6 @@ nav:
   - Troubleshooting: troubleshooting.md
   - References: references.md
   - Credits and licence: credits.md
+
+extra_css:
+  - stylesheets/extra.css
