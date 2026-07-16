@@ -10,22 +10,21 @@ DEST_DIR = os.path.join("docs", "module-1")
 
 def fix_wiki_links(file_path):
     """
-    Llegeix el fitxer (com index.md) i converteix els enllaços absoluts de la Wiki de GitHub
-    en enllaços relatius locals perquè MkDocs els obri dins de la teva pròpia web.
+    Llegeix un fitxer de text (com index.md o qualsevol altre fitxer de la wiki)
+    i converteix tots els enllaços absoluts de wikis de GitHub en enllaços relatius locals de MkDocs.
     """
     if not os.path.exists(file_path):
         return
 
-    print(f"Corregint enllaços absoluts de la Wiki a {file_path}...")
+    print(f"Corregint enllaços a: {file_path}")
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Aquest patró detecta qualsevol enllaç que contingui '/wiki/Nom-Del-Fitxer'
-    # de qualsevol repositori de GitHub (com MTUOC-course o mtuoc/EAMT2026-Tutorial)
+    # Aquest patró millorat detecta qualsevol enllaç que acabi a la wiki de GitHub de qualsevol usuari
+    # i extreu només el nom del fitxer final (fins a trobar el tancament de parèntesi ')')
     pattern = r'https://github\.com/[^/]+/[^/]+/wiki/([^)\s]+)'
     
-    # Substituïm la URL web pel nom del fitxer local amb l'extensió .md
-    # Exemple: [OpusMT](https://github.com/.../wiki/2.1.-OpusMT) -> [OpusMT](2.1.-OpusMT.md)
+    # Substituïm la URL de GitHub per: nom-del-fitxer.md
     fixed_content = re.sub(pattern, r'\1.md', content)
 
     with open(file_path, 'w', encoding='utf-8') as f:
@@ -45,7 +44,7 @@ def sync_wiki():
 
     os.makedirs(DEST_DIR, exist_ok=True)
     
-    # Netejar la carpeta destí abans de copiar els fitxers nous
+    # Netejar completament la carpeta destí abans de copiar per assegurar-nos de fer neteja del sidebar antic
     for filename in os.listdir(DEST_DIR):
         file_path = os.path.join(DEST_DIR, filename)
         if os.path.isfile(file_path):
@@ -59,8 +58,8 @@ def sync_wiki():
         s = os.path.join(TEMP_DIR, item)
         d = os.path.join(DEST_DIR, item)
         
-        # Ignorem la carpeta interna de git, el Sidebar i fitxers de sistema
-        if item == ".git" or item == "_Sidebar.md" or item.startswith('.'):
+        # Ignorem la carpeta interna de git, fitxers de sistema i QUALSEVOL variació de Sidebar (minúscules/majúscules)
+        if item == ".git" or "sidebar" in item.lower() or item.startswith('.'):
             continue
             
         if os.path.isdir(s):
@@ -85,13 +84,18 @@ def sync_wiki():
             os.remove(new_path)
         os.rename(old_path, new_path)
         print(f"S'ha reanomenat '{home_file}' a 'index.md' correctament.")
-        
-        # Corregim els enllaços del fitxer de portada perquè es quedin a la teva web de Pages
-        fix_wiki_links(new_path)
+
+    # --- CORRECCIÓ DE TOTS ELS FITXERS ---
+    # Ara l'script fa una passada per tots els fitxers .md de la carpeta 'module-1'
+    # i corregeix els enllaços a tot arreu, no només a index.md!
+    for filename in os.listdir(DEST_DIR):
+        if filename.endswith(".md"):
+            file_path = os.path.join(DEST_DIR, filename)
+            fix_wiki_links(file_path)
     
-    # Netegem la carpeta temporal per deixar el repositori polit
+    # Netegem la carpeta temporal
     shutil.rmtree(TEMP_DIR)
-    print(f"Sincronització completada! {copied_count} elements copiats i enllaços corregits.")
+    print(f"Sincronització completada! {copied_count} elements copiats, sidebars eliminats i enllaços corregits a tot arreu.")
 
 if __name__ == "__main__":
     sync_wiki()
