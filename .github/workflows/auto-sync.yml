@@ -1,0 +1,40 @@
+name: Sincronització Automàtica Mòdul 1 (Wiki Externa)
+
+on:
+  schedule:
+    # S'executarà automàticament cada dia a les 03:00 AM (hora UTC)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Això et permetrà activar-ho tu manualment des de GitHub quan vulguis
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar el codi del curs
+        uses: actions/checkout@v4
+        with:
+          # Permet que el bot torni a pujar els canvis amb els teus permisos
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Executar script de sincronització
+        run: |
+          python sync_wiki.py
+
+      - name: Comprovar si hi ha canvis i fer Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/module-1/
+          
+          if ! git diff --cached --quiet; then
+            git commit -m "Sincronització automàtica del Mòdul 1 des de la Wiki [skip ci]"
+            git push origin main
+          else
+            echo "No s'han detectat canvis a la Wiki externa."
+          fi
