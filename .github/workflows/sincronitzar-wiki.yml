@@ -3,45 +3,37 @@ name: Sincronització de la Wiki
 on:
   workflow_dispatch: # Botó manual a la web de GitHub
   schedule:
-    - cron: '0 0 * * *' # S'executarà sol cada dia a les 12 de la nit per si hi ha apunts nous
+    - cron: '0 0 * * *' # S'executarà sol cada dia a les 12 de la nit
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      # 1. Descarrega el teu repositori
+      # 1. Descarrega el teu repositori principal
       - name: Checkout el meu repositori
         uses: actions/checkout@v4
         with:
           ref: main
 
-      # 2. Descarrega la Wiki externa de mtuoc
-      - name: Checkout Wiki externa
-        uses: actions/checkout@v4
+      # 2. Configura Python al servidor
+      - name: Configurar Python
+        uses: actions/setup-python@v5
         with:
-          repository: mtuoc/EAMT2026-Tutorial.wiki
-          path: wiki-temporal
+          python-version: '3.x'
 
-      # 3. Copia els fitxers .md a la teva carpeta del Mòdul 1
-      - name: Copiar fitxers a la carpeta de MkDocs
+      # 3. Executa el teu script de Python (qui fa tota la feina bruta i corregeix els links)
+      - name: Executar script de sincronització i correcció
         run: |
-          mkdir -p docs/module-1
-          if [ -d "wiki-temporal" ] && [ "$(ls -A wiki-temporal)" ]; then
-            rsync -av --delete --exclude='.git' wiki-temporal/ docs/module-1/
-          else
-            echo "# Module 1: Deployment, Integration and Evaluation" > docs/module-1/index.md
-            echo "This module content is currently being synchronized from the Wiki. Please check back soon!" >> docs/module-1/index.md
-          fi
-          rm -rf wiki-temporal
+          python sync_wiki.py
 
-      # 4. Puja els fitxers .md al teu repositori (això activarà el deploy automàticament)
+      # 4. Puja els fitxers corregits al teu repositori (això activarà el deploy automàticament)
       - name: Commit i Push dels canvis
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/module-1/
           if ! git diff --cached --quiet; then
-            git commit -m "docs: sincronització de fitxers de la Wiki"
+            git commit -m "docs: sincronització automàtica i correcció d'enllaços de la Wiki"
             git push origin main
           else
             echo "No s'ha detectat cap canvi nou a la Wiki."
