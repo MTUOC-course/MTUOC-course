@@ -45,12 +45,24 @@ def sync_wiki():
             copied_count += 1
 
     # --- TRUC PER A MKDOCS ---
-    # Si la Wiki té un "Home.md", el reanomenem a "index.md" per a la pàgina de portada del mòdul
-    home_path = os.path.join(DEST_DIR, "Home.md")
-    index_path = os.path.join(DEST_DIR, "index.md")
-    if os.path.exists(home_path):
-        os.rename(home_path, index_path)
-        print("S'ha reanomenat 'Home.md' a 'index.md' per a la portada del mòdul.")
+    # Busquem "home.md" o "Home.md" per reanomenar-lo a "index.md"
+    home_file = None
+    for filename in os.listdir(DEST_DIR):
+        if filename.lower() == "home.md":
+            home_file = filename
+            break
+
+    if home_file:
+        old_path = os.path.join(DEST_DIR, home_file)
+        new_path = os.path.join(DEST_DIR, "index.md")
+        os.rename(old_path, new_path)
+        print(f"S'ha reanomenat '{home_file}' a 'index.md' correctament.")
+    
+    # Esborrem el fitxer "_Sidebar.md" si existeix (no el necessitem a la web)
+    sidebar_path = os.path.join(DEST_DIR, "_Sidebar.md")
+    if os.path.exists(sidebar_path):
+        os.remove(sidebar_path)
+        print("S'ha eliminat el fitxer '_Sidebar.md' de la Wiki per evitar problemes visual.")
     # -------------------------
 
     shutil.rmtree(TEMP_DIR)
