@@ -1,8 +1,10 @@
-# Module 1. Deployment, Integration and Evaluation
+# Integrating free NMT and LLMs into CAT tools with MTUOC
 
-This module is organized in the following sections:
+Tutorial held in the EAMT2026 - European Association for Machine Translation, on June, 15th, 2026.
 
-* [1. The MTUOC project](https://github.com/MTUOC-course/Module-1.-Deployment-Integration-and-Evaluation/wiki/1.-The-MTUOC-project)
+This tutorial is organized in the following sections:
+
+* [1. The MTUOC project](https://github.com/mtuoc/EAMT2026-Tutorial/wiki/1.-The-MTUOC-project)
 
 * [2. Open Neural Machine Translation models](https://github.com/mtuoc/EAMT2026-Tutorial/wiki/2.-Open-Neural-Machine-Translation-models)
 
@@ -19,5 +21,16 @@ This module is organized in the following sections:
 * [5. Large Language models integration into MTUOC server](https://github.com/mtuoc/EAMT2026-Tutorial/wiki/5.-Large-Language-models-integration-into-MTUOC-server)
   * [5.1. SalamandraTA](https://github.com/mtuoc/EAMT2026-Tutorial/wiki/5.1.-SalamandraTA)
   * [5.2. Gemma4](https://github.com/mtuoc/EAMT2026-Tutorial/wiki/5.2.-Gemma)
+
+This tutorial is partially supported by the projects:
+
+LLMTrad-IBE: Large Language Models for the translation of low-resource Romance languages of the Iberian peninsula (PID2024-158157OB-C33)
+
+TamTAS: Terminology-Aware Machine Translation for Accessible Science (Chist-era, PCI2025-167063-2)
+
+<img width="278" height="52" alt="image" src="https://github.com/user-attachments/assets/c708ca03-f430-4f55-be2e-ef861843d737" />
+
+
+
 
 
