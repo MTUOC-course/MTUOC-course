@@ -1,0 +1,868 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Building a language detector with fastText - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Building a language detector with fastText
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credits and licence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#iso-codes-of-languages-supported" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISO Codes of Languages Supported
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-building-your-own-language-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. Building your own Language Detector
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p>A step-by-step tutorial for building a language detector with <strong>fastText</strong></p>
+<h1 id="1-introduction">1. Introduction</h1>
+<p><strong>Language identification</strong> is the task of automatically recognizing the language of a given text, document, or audio sample.  For textual data, this task can be performed using a language identification model based on <strong>fastText</strong>, an open-source library designed for efficient learning of word representations and sentence classification.</p>
+<p>The resulting tool is fast and efficient, making it suitable for large-scale language detection tasks. It requires less than 1 MB of memory in its compressed form and is capable of processing thousands of documents per second, making it practical for real-time applications.</p>
+<p>For language identification, two pretrained models are available: <code>lid.176.bin</code> and its compressed version <code>lid.176.ftz</code>. These models are trained on large multilingual datasets and support a wide range of languages.</p>
+<p>We can download these models from the model release page: https://fasttext.cc/docs/en/language-identification.html</p>
+<p>Below we can see the list of ISO language codes corresponding to the supported languages.</p>
+<h3 id="iso-codes-of-languages-supported">ISO Codes of Languages Supported</h3>
+<pre><code>af als am an ar arz as ast av az azb ba bar bcl be bg bh bn bo bpy br bs bxr ca cbk ce ceb ckb co cs cv cy da de diq dsb dty dv el eml en eo es et eu fa fi fr frr fy ga gd gl gn gom gu gv he hi hif hr hsb ht hu hy ia id ie ilo io is it ja jbo jv ka kk km kn ko krc ku kv kw ky la lb lez li lmo lo lrc lt lv mai mg mhr min mk ml mn mr mrj ms mt mwl my myv mzn nah nap nds ne new nl nn no oc or os pa pam pfl pl pms pnb ps pt qu rm ro ru rue sa sah sc scn sco sd sh si sk sl so sq sr su sv sw ta te tg th tk tl tr tt tyv ug uk ur uz vec vep vi vls vo wa war wuu xal xmf yi yo yue zh
+
+</code></pre>
+<h2 id="11-building-your-own-language-detector">1.1. Building your own Language Detector</h2>
+<p>While the two pretrained models already available support 176 languages, they may not be sufficient for every use case. In particular, when working with low-resource or less commonly represented languages with limited annotated data, it may be necessary to train a custom language detector.</p>
+<p>In these situations, fastText allows you to build a fast and lightweight model using only a few command-line instructions, as we will demonstrate in the following sections of this tutorial.</p>
+<h1 id="2-practical-part">2. Practical Part</h1>
+<p>In this practical section, we will explain step by step how to build your own language detector using fastText. </p>
+<p>We will base the tutorial on a real case study: a language detection model designed to recognize both some major languages and several minor romance languages spoken in Italy that are not well covered by the available pretrained models (such as Ligurian, Friulian, and Ladin).</p>
+<p>In our setup, we trained a model capable of distinguishing 12 languages:</p>
+<pre><code>pms, lmo, rm, lij, fur, lld, la, it, en, fr, es, de
+
+</code></pre>
+<p>The inclusion of major languages (such as English, French, Spanish, German, and Italian) is important because they frequently appear in real-world data and often co-occur with minority languages. Adding them helps reduce misclassification and makes the model more robust in realistic multilingual settings.</p>
+<h2 id="21-building-fasttext-as-a-command-line-tool">2.1. Building <em>fastText</em> as a Command Line Tool</h2>
+<p>To get started with fastText, the first step is to install and build the library from source. This can be done by cloning the official repository and compiling it using <code>make</code>:</p>
+<pre><code>git clone https://github.com/facebookresearch/fastText.git
+cd fastText
+make
+
+</code></pre>
+<p>Once the compilation is completed, fastText is available as a command line tool. </p>
+<p>Running the binary without any arguments will display the built-in documentation and list all supported commands:</p>
+<pre><code>./fasttext
+
+</code></pre>
+<p>This will print an overview of the available functionalities:</p>
+<pre><code>
+usage: fasttext &lt;command&gt; &lt;args&gt;
+
+The commands supported by fasttext are:
+
+  supervised              train a supervised classifier
+  quantize                quantize a model to reduce the memory usage
+  test                    evaluate a supervised classifier
+  test-label              print labels with precision and recall scores
+  predict                 predict most likely labels
+  predict-prob            predict most likely labels with probabilities
+  skipgram                train a skipgram model
+  cbow                    train a cbow model
+  print-word-vectors      print word vectors given a trained model
+  print-sentence-vectors  print sentence vectors given a trained model
+  print-ngrams            print ngrams given a trained model and word
+  nn                      query for nearest neighbors
+  analogies               query for analogies
+  dump                    dump arguments,dictionary,input/output vectors
+
+</code></pre>
+<p>In this tutorial, we focus mainly on three core functionalities: <code>supervised</code>, <code>test</code>, and <code>predict</code>. </p>
+<p>These correspond respectively to training a language detector, evaluating its performance, and using it to make predictions on new unseen data.</p>
+<h2 id="22-our-data">2.2. Our Data</h2>
+<p>We need a dataset to train our model. The first step is to decide which languages we want to include in the language detector. This choice should be made carefully, considering the languages that are likely to appear in the texts we intend to process or clean.  </p>
+<p>Once the target languages have been defined, the next step is to collect a set of sentences for each language. It is important to try to keep the dataset relatively balanced, meaning that each language should be represented by a similar number of examples. This helps prevent the model from becoming biased toward languages with more training data and improves overall detection performance, especially for less frequent or smaller languages.</p>
+<p>In our case, we aimed for around 100,000 segments per language. However, since we were working with smaller languages, collecting data was not always easy, and for one of the 12 languages we only had about 50,000 segments. Despite these differences, maintaining a reasonably balanced dataset remains the most important factor.</p>
+<p>In our case, we used our own datasets, but an alternative is to use publicly available resources. One useful option is <strong>Tatoeba</strong>, which provides sentence-level data in many languages and can be downloaded from: https://tatoeba.org/ca/downloads</p>
+<p>If you decide to use this dataset, the training data can be downloaded and extracted as follows:</p>
+<pre><code>wget http://downloads.tatoeba.org/exports/sentences.tar.bz2
+bunzip2 sentences.tar.bz2
+tar xvf sentences.tar
+
+</code></pre>
+<h3 id="221-put-our-data-into-fasttext-format">2.2.1. Put our Data into <em>fastText</em> Format</h3>
+<p>To prepare our training data for fastText, we first need to convert the raw corpora into the required format, where each line starts with a label followed by the corresponding sentence. This format is essential because fastText uses labeled data for supervised learning: in the case of language detection, each label corresponds to an ISO language code and must begin with the <code>__label__</code> prefix. This allows the model to distinguish language labels from the words in the text. The classifier is then trained to predict the correct language label based on the words contained in each document.</p>
+<p>If the data comes from a structured source such as Tatoeba, this can be done directly from a CSV file using:</p>
+<pre><code>awk -F&quot;\t&quot; '{print&quot;__label__&quot;$2&quot; &quot;$3}' &lt; sentences.csv | shuf &gt; all.txt
+
+</code></pre>
+<p>This extracts the language label and the sentence, formats them according to fastText requirements, and shuffles the dataset to avoid ordering bias.</p>
+<p>When working with separate corpora for each language, we first standardize each file by adding the corresponding ISO language code as a label. In our case, for example with Piedmontese, we proceed as follows:</p>
+<pre><code>sed 's/^/__label__pms /' piemontese.txt &gt; corpus_pms.txt
+
+</code></pre>
+<p>This ensures that every line in the corpus is correctly labeled.</p>
+<p>Once all language-specific corpora are prepared, they can be combined into a single dataset:</p>
+<pre><code>cat corpus-pms.txt corpus_lmo.txt &gt; corpus_total.txt
+
+</code></pre>
+<p>For larger collections of files, we can concatenate everything in a folder using a wildcard. This approach is particularly useful when working with multiple corpora, as it avoids listing each file individually and allows us to process them all at once.</p>
+<p>In our case, we stored all the corpora for the 12 languages in a single directory called <code>my_corpora</code>. We then used <code>cat</code> to merge all <code>.txt</code> files in that folder, where the wildcard <code>*.txt</code> automatically selects all files without explicitly naming them.</p>
+<p>The output is then piped into <code>shuf</code>, which randomly shuffles the lines to ensure that the dataset is well mixed and not ordered by language or source. Finally, the resulting data is saved into a single combined file.</p>
+<pre><code>cat my_corpora/*.txt | shuf &gt; corpus_total.txt
+
+</code></pre>
+<h3 id="222-shuffle-the-data">2.2.2. Shuffle the Data</h3>
+<p>After combining all language-specific corpora into a single dataset, it is important to ensure that the final file is well mixed. Without this step, the data may still preserve a partial ordering based on the original files or languages, which could introduce bias during training and affect the quality of the model.</p>
+<p>For instance, after merging files such as:</p>
+<pre><code>cat corpus-pms.txt corpus_lmo.txt &gt; corpus_total.txt
+
+</code></pre>
+<p>the resulting dataset can still contain grouped segments from the same language. To avoid this, we randomly shuffle all lines in the final corpus:</p>
+<pre><code>shuf corpus_total.txt &gt; corpus_shuffled.txt
+
+</code></pre>
+<p>This operation ensures that examples from all languages are evenly distributed throughout the dataset, improving randomness and making the subsequent training and validation split more reliable.</p>
+<h3 id="223-training-and-validation">2.2.3. Training and Validation</h3>
+<p>Before training our first language detector, we need to split the data into train and validation. We will use the validation set to evaluate how good the learned classifier is on new data.
+A common and effective strategy is to reserve about 90% of the data for the training set and 10% for validation, although other splits can also be used depending on the specific task and dataset size.</p>
+<p>In our example, starting from the full corpus, we applied a 90/10 split. In our case, starting from a total of 1,137,455 examples, this corresponds to approximately 113,745 samples for validation and 1,023,710 samples for training. This allowed us to train the model on the majority of the data while still keeping a representative portion for validation.</p>
+<p>We applied this split as follows:</p>
+<pre><code>head -n 113745 corpus_total.txt &gt; validation.txt
+</code></pre>
+<pre><code>tail -n +113746 corpus_total.txt &gt; training.txt
+
+````
+## 2.3 Train and Evaluate the Model
+
+Now that the dataset has been prepared and properly formatted, we can proceed with the training phase. In this step, we use fastText to build the language detection model starting from the labeled data, so that it can later be evaluated on unseen examples.
+
+</code></pre>
+<p>$ ./fasttext supervised -input training.txt -output langdetect -dim 16</p>
+<p>Read 21M words
+Number of words:  1927126
+Number of labels: 12
+Progress: 100.0% words/sec/thread: 1779455 lr:  0.000000 avg.loss:  0.195806 ETA:   0h 0m 0s</p>
+<pre><code>
+The ```-input``` option specifies the training file containing the labeled examples, while the ```-output``` option defines the name of the model to be saved. At the end of training, fastText generates a ```.bin``` file (in this case ```langdetect.bin```) containing the trained language detector.
+
+During training, fastText also prints a log of the learning process, including information such as the number of words and labels, the current loss value, the learning rate, and the training speed. This output is useful to monitor how the model is converging and to check that the training process is proceeding correctly.
+
+Once the model has been trained, the next step is to evaluate its performance on unseen data. This allows us to understand how well the language detector generalizes beyond the training set.
+
+To evaluate the model, we use the validation set:
+
+</code></pre>
+<p>$ ./fasttext test langdetect.bin validation.txt</p>
+<p>N       113745
+P@1     0.911
+R@1     0.911</p>
+<pre><code>The evaluation reports two main metrics: precision at 1 ```(P@1)``` and recall at 1 ```(R@1)```.
+
+Precision measures how many of the predicted labels are correct, while recall measures how many of the true labels are correctly identified by the model. Both values are computed at the top prediction (k=1), meaning the model’s most likely label is considered.
+
+## 2.4. Improvements by Changing some Default Parameters
+
+We can improve the baseline fastText model by adjusting several training parameters. In our case, we used the following configuration:
+
+</code></pre>
+<p>./fasttext supervised -input training.txt -output langdetect_v2 -lr 0.8 -epoch 50 -wordNgrams 3 -minn 3 -maxn 6 -dim 100</p>
+<pre><code>As you can see from the command line above, we can improve the model’s performance by increasing the number of ```epochs```, which determines how many times the model sees the training data during training, allowing it to learn more stable and accurate patterns. In our case, we set it to ```50``` (```-epoch 50```).
+
+Another way to improve the model is by adjusting the ```learning rate```, which controls how much the model changes after processing each training example. In our case, we set the learning rate to ```0.8``` (```-lr 0.8```), allowing the model to learn faster by updating its weights more aggressively after each iteration.
+
+In addition, you can enable word ```n-grams```. We used word n-grams up to length 3 (```-wordNgrams 3```) to help the classifier capture short word sequences and contextual patterns, rather than relying only on single words.
+
+Another way to improve the baseline model is to use ```subword features```, which enhance the classifier by taking into account the internal structure of words. We activated these features with ```-minn 3``` and ```-maxn 6```, so that words were represented through character n-grams of length 3 to 6. For example, using character n-grams of length 3, the word skiing would be represented as:
+
+</code></pre>
+<p>{ skiing, ski, kii, iin, ing }</p>
+<pre><code>
+A key advantage of subword features is that out-of-vocabulary or misspelled words can still be represented through their character n-grams, making the classifier more robust, especially with small training datasets or morphologically rich languages.
+
+Finally, you can also set the ```embedding dimension```. In our case, we set it to ```100``` (```-dim 100```) in order to obtain richer vector representations while maintaining computational efficiency.
+
+## 2.5. How is the Model Performing?
+
+After training, we can analyse the model’s performance from different perspectives, moving from a global evaluation to a more detailed, label-level inspection. fastText provides several evaluation tools that help us understand not only how accurate the model is overall, but also how it behaves for each individual language and how confident its predictions are on single examples.
+
+The following command uses the trained fastText model to predict the top 3 most probable languages for each input sentence, along with their associated probabilities. It is particularly useful for inspecting individual predictions and understanding how confident the model is for each language.
+
+We can provide input either from a ```.txt file``` or by typing sentences directly in the terminal to test them interactively, as you can see from the following code:
+
+</code></pre>
+<p>$ ./fasttext predict-prob langdetect.bin - 3</p>
+<p>Une dì ti contarai di cuant che o jeri a vore a Meran.
+__label__fur 0.993979 __label__lij 0.00553351 __label__lmo 0.000478289
+O soi lade sù fin su la piche de mont.
+__label__fur 0.499733 __label__lmo 0.427202 __label__lij 0.0658742
+ O Martin Pénet, inte un çenscimento incompleto, o minsoña ciù che 90 interpretaçioin despæge incise in sce di çilindri
+__label__lij 0.999917 __label__fur 0.000103221 __label__lld 1.01267e-05
+L'omosessualitæ a se attreuva in ben ben de speçie animâ
+__label__lij 0.95412 __label__lmo 0.0314805 __label__fur 0.0132229
+Ch'el sia pur anca el rè di badee
+__label__lmo 1.00001 __label__rm 1.01738e-05 __label__fur 1.00501e-05</p>
+<pre><code>
+The next command evaluates the trained fastText language detection model at label level on the validation set, producing per-class metrics such as F1-score, precision, and recall:
+
+</code></pre>
+<p>$ ./fasttext test-label langdetect.bin validation.txt&gt; report_languages.txt</p>
+<p>$ more report_languages.txt</p>
+<p>F1-Score : 0.987379  Precision : 0.992258  Recall : 0.982548   __label__en
+F1-Score : 0.986892  Precision : 0.992872  Recall : 0.980984   __label__de
+F1-Score : 0.801937  Precision : 0.795819  Recall : 0.808149   __label__la
+F1-Score : 0.975089  Precision : 0.976219  Recall : 0.973962   __label__it
+F1-Score : 0.965646  Precision : 0.995738  Recall : 0.937318   __label__pms
+F1-Score : 0.993674  Precision : 0.997279  Recall : 0.990095   __label__lld
+F1-Score : 0.985455  Precision : 0.988032  Recall : 0.982891   __label__fr
+F1-Score : 0.987386  Precision : 0.993053  Recall : 0.981784   __label__es
+F1-Score : 0.797039  Precision : 0.794285  Recall : 0.799813   __label__lij
+F1-Score : 0.736924  Precision : 0.664821  Recall : 0.826569   __label__lmo
+F1-Score : 0.896763  Precision : 0.939293  Recall : 0.857916   __label__rm
+F1-Score : 0.752008  Precision : 0.810430  Recall : 0.701443   __label__fur
+N       113745
+P@1     0.911
+R@1     0.911</p>
+<pre><code>The output file reports the performance of the model for each language label individually. For each class, it shows Precision, Recall, and F1-score, which allow a more fine-grained evaluation compared to global accuracy. 
+
+For example, languages like English (```__label__en```), German (```__label__de```), and French (```__label__fr```) achieve very high scores (around ```0.98–0.99 F1```), indicating strong and balanced performance. Other varieties, such as Lombard (```__label__lmo```) or Ligurian (```__label__lij```), show lower scores, reflecting more difficulty in distinguishing these closely related or low-resource classes.
+
+This type of evaluation is useful to understand which languages are better learned by the model and which ones are more challenging, especially in a multilingual setting with similar linguistic varieties.
+
+## 2.6. Model Compression
+
+As a final step in our workflow, we can significantly reduce the size of the trained model using fastText’s built-in compression techniques.
+Compression allows us to obtain a much lighter model while preserving most of its predictive performance, and it can be done in the following way:
+
+</code></pre>
+<p>./fasttext quantize -input training.txt -output langdetect -qnorm -cutoff 50000 -retrain</p>
+<pre><code>This command shrinks your model by keeping only the most important information and simplifying its mathematical storage.
+
+First, Feature Selection (```-cutoff 50000```) acts as a filter, keeping only the 50,000 most relevant words and n-grams while discarding the rest. Second, Weight Quantization uses &quot;Product Quantization&quot; to replace heavy, precise decimal numbers with small, memory-efficient indexes (centroids).
+
+The specific parameters ensure a balance between size and quality: ```-qnorm``` maintains the consistency of the vectors, while -retrain fine-tunes the model after these cuts to recover lost accuracy. The result is a lightweight ```.ftz``` file that performs nearly as well as the original but occupies a fraction of the space.
+
+To verify the size of the files, we use the following commands, which allow us to check how much space a file or folder occupies on the server:
+
+
+</code></pre>
+<p>$ du -sh langdetect.bin
+162M langdetect.bin</p>
+<pre><code>
+</code></pre>
+<p>$ du -sh langdetect.ftz
+1.4M langdetect.ftz</p>
+<p>```
+As we can see, the model size is significantly reduced, going from 162MB to 1.4MB. This makes the compressed version much more efficient in terms of storage and deployment, while still maintaining good performance.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

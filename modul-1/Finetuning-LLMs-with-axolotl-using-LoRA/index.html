@@ -1,0 +1,846 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Finetuning LLMs with axolotl using LoRA - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Finetuning LLMs with axolotl using LoRA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credits and licence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-lora-low-rank-adaptation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is LoRA? (Low-Rank Adaptation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step-by-step-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Step-by-Step Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Step-by-Step Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-fine-tuning-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Fine-tuning (LoRA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-merging-the-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Merging the Adapters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-final-configuration-configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Final Configuration (config.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Finetuning LLMs with axolotl using LoRA</h1>
+
+<h2 id="1-introduction">1. Introduction</h2>
+<p>In this tutorial the process of finetuning an LLM with axolotl using LoRA is explained. If you want to perform a full finetuning, there is a separate tutorial available.</p>
+<p>In this tutorial we will divide the whole finetuning process in three steps: preprocessing, finetuning and merging.</p>
+<p>Before starting the tutorial, you should have a clear idea of what LoRA is:</p>
+<h3 id="what-is-lora-low-rank-adaptation">What is LoRA? (Low-Rank Adaptation)</h3>
+<p>LoRA is an efficient fine-tuning technique designed to adapt large pre-trained models to specific tasks or datasets without the massive computational cost of updating all the model's parameters.
+How it works:</p>
+<p>Instead of modifying the entire weight matrix of a model (which can have billions of parameters), LoRA freezes the original weights and injects two much smaller, trainable matrices (called A and B) into each layer.</p>
+<ul>
+<li>
+<p>The Analogy: Imagine you have a massive, heavy encyclopedia (the base model). Instead of rewriting every single page to add new information, you attach small "Post-it" notes (LoRA adapters) to the relevant pages. When you read the book, you combine the original text with what's on the notes.</p>
+</li>
+<li>
+<p>The "Rank" (r): In your config, you set lora_r: 64. This "rank" determines the size of these small matrices. A higher rank allows the model to learn more complex patterns but increases the file size and memory usage.</p>
+</li>
+</ul>
+<p><strong>Why use it?</strong></p>
+<ul>
+<li>Efficiency: You only train a tiny fraction (often &lt;1%) of the total parameters.</li>
+<li>Hardware Friendly: It allows you to fine-tune large models on consumer or mid-range GPUs much faster.</li>
+<li>Portability: The resulting "adapters" are very small (megabytes instead of gigabytes), making them easy to share or swap.</li>
+<li>No "Catastrophic Forgetting": Since the original weights are frozen, the model is less likely to lose the general knowledge it already had.</li>
+</ul>
+<p>After preprocessing and finetuning, by doing a Merge, you are taking those "Post-it notes" and permanently printing their information back into the pages of the encyclopedia to create a new, singular book.</p>
+<p><strong>Directory Infrastructure</strong></p>
+<p>To prevent naming conflicts between the host machine and the Docker container's root mount point, we can organize the host directory as follows:</p>
+<p>Host path: /unitname/username/dirname</p>
+<pre><code>/unitname/username/dirname
+├── model_base/          # Source weights (Salamandra-2B)
+├── dataset_files/       # Your JSONL files (train/val)
+├── temp_prepared/       # Tokenized output
+├── lora_output/         # Trained adapters and checkpoints
+└── config.yaml          # The configuration file
+</code></pre>
+<h2 id="2-step-by-step-workflow">2. Step-by-Step Workflow</h2>
+<h3 id="21-preprocessing">2.1. Preprocessing</h3>
+<p>This step tokenizes your raw text and prepares it for the GPU.</p>
+<pre><code>docker run --gpus all --rm --ipc=host -v /unitname/username/dirname/:/data -w /data axolotlai/axolotl:main-latest python3 -m axolotl.cli.preprocess config.yaml
+</code></pre>
+<h3 id="22-fine-tuning-lora">2.2. Fine-tuning (LoRA)</h3>
+<p>This initiates the actual training. We use accelerate launch to manage the 4-GPU distribution.</p>
+<pre><code>docker run --gpus all --rm --ipc=host --shm-size=32gb --ulimit memlock=-1 --ulimit stack=67108864 -v /unitname/username/dirname:/data   -w /data axolotlai/axolotl:main-latest accelerate launch -m axolotl.cli.train config.yaml
+</code></pre>
+<h3 id="23-merging-the-adapters">2.3. Merging the Adapters</h3>
+<p>This step mathematically merges the trained LoRA layers and the updated embeddings into the base model to create a standalone model.</p>
+<pre><code>docker run --gpus all --rm --ipc=host -v /unitname/username/dirname:/data -w /data axolotlai/axolotl:main-latest python3 -m axolotl.cli.merge_lora config.yaml --lora_model_dir=/data/lora_output
+</code></pre>
+<p>The final model will be stored in: /unitname/username/dirname/lora_output/merged</p>
+<h3 id="24-final-configuration-configyaml">2.4 Final Configuration (config.yaml)</h3>
+<p>All the previous processes have been performed using a configuration file. The exemple below is a valid configuration file for finetuning a SalamandraTA-instruct model already downloaded at /data/model_base/. For other LLMs some aspects should be adapted.</p>
+<p>Note how all paths now explicitly reference /data/ as the root, avoiding any ambiguity with the internal dataset_files folder.
+YAML</p>
+<pre><code># Model and Tokenizer
+base_model: /data/model_base/
+model_type: AutoModelForCausalLM
+tokenizer_type: AutoTokenizer
+is_llama_derived_model: true
+
+# New tokens for ChatML and EOS
+tokens:
+  - &quot;&lt;|im_start|&gt;&quot;
+  - &quot;&lt;|im_end|&gt;&quot;
+special_tokens:
+  eos_token: &quot;&lt;|im_end|&gt;&quot;
+  pad_token: &quot;&lt;|im_end|&gt;&quot;
+
+# Datasets
+datasets:
+  - path: /data/dataset_files/train.jsonl
+    ds_type: json
+    type: chat_template
+    chat_template: chatml
+    field_messages: conversations
+    message_property_mappings:
+      role: from
+      content: value
+
+test_datasets:
+  - path: /data/dataset_files/val.jsonl
+    ds_type: json
+    type: chat_template
+    chat_template: chatml
+    field_messages: conversations
+    message_property_mappings:
+      role: from
+      content: value
+
+val_set_size: 0
+dataset_prepared_path: /data/temp_prepared
+output_dir: /data/lora_output
+
+# Sequence Parameters
+sequence_length: 4096
+sample_packing: true
+pad_to_sequence_len: true
+
+# LoRA Configuration
+adapter: lora
+lora_r: 64
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target_modules:
+  - gate_proj
+  - down_proj
+  - up_proj
+  - q_proj
+  - v_proj
+  - k_proj
+  - o_proj
+
+# CRITICAL: Save layers for new tokens
+lora_modules_to_save:
+  - embed_tokens
+  - lm_head
+
+# Hyperparameters (Optimized for 4 GPUs @ 96GB)
+gradient_accumulation_steps: 4
+micro_batch_size: 8
+num_epochs: 3
+optimizer: adamw_torch
+learning_rate: 0.0002
+lr_scheduler: cosine
+
+# Evaluation and Saving Strategy
+evaluation_strategy: steps
+eval_steps: 100
+save_steps: 100
+logging_steps: 10
+save_total_limit: 2
+
+# Hardware Acceleration
+bf16: true
+tf32: true
+flash_attention: true
+
+# Parallelism
+fsdp: []
+fsdp_config: {}
+</code></pre>
+<p><strong>Final Considerations</strong></p>
+<ul>
+<li>Verification: After the merge, ensure the /data/lora_output/merged directory contains model.safetensors and the updated tokenizer_config.json.</li>
+<li>Clean-up: Once the merge is verified, you can safely delete temp_prepared and the intermediate checkpoint-XXXX folders to reclaim space on /scratch.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1036 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>GPU Cluster User Guide: Getting Started with SLURM - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GPU Cluster User Guide: Getting Started with SLURM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credits and licence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-what-is-slurm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. What is SLURM?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-essential-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Essential Commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-to-submit-a-training-job-sbatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How to Submit a Training Job (sbatch)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. How to Submit a Training Job (sbatch)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-basic-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Basic Template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-advanced-production-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Advanced Production Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-interactive-mode-srun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Interactive Mode (srun)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-important-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Important Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-non-gpu-tasks-must-also-use-slurm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Why Non-GPU Tasks Must Also Use SLURM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Why Non-GPU Tasks Must Also Use SLURM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711-preventing-memory-thrashing-swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.11. Preventing Memory Thrashing (Swap)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-cpu-affinity-and-data-bottlenecks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. CPU Affinity and Data Bottlenecks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-system-visibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. System Visibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-working-interactively-with-slurm-srun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Working Interactively with SLURM (srun)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-exploring-cluster-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Exploring Cluster Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Exploring Cluster Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-hardware-overview-sinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Hardware Overview (sinfo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-detailed-resource-breakdown-scontrol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2. Detailed Resource Breakdown (scontrol)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-real-time-hardware-specs-non-slurm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3. Real-time Hardware Specs (Non-SLURM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>GPU Cluster User Guide: Getting Started with SLURM</h1>
+
+<h2 id="1-introduction">1. Introduction</h2>
+<p>When operating in a shared-resource environment, it is critical to acknowledge that GPUs do not natively support process-level concurrency in the same way CPUs do. Once a GPU's VRAM or compute capacity is saturated, subsequent processes will fail to initialize. This often leads to resource contention: if a new task seizes resources during a temporary lull in an active process, the original job will likely crash upon resuming its workload. To mitigate these risks, we require a robust, deterministic scheduling system. To ensure equitable resource distribution and maintain system integrity, we have implemented <strong>SLURM (Simple Linux Utility for Resource Management)</strong>.</p>
+<h3 id="11-what-is-slurm">1.1. What is SLURM?</h3>
+<p>SLURM is a workload manager that acts as an intermediary between you and the server's hardware. Instead of running processes directly, you request resources (CPUs, RAM, GPUs).</p>
+<p>Key benefits:</p>
+<ul>
+<li>Resource Isolation: No more "Out of Memory" errors caused by other users.</li>
+<li>Job Queuing: If the GPUs are busy, SLURM queues your job and starts it automatically once they are free.</li>
+<li>Fairness: It prevents a single user from monopolizing all system resources.</li>
+</ul>
+<h2 id="2-essential-commands">2. Essential Commands</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>sinfo</code></td>
+<td style="text-align: left;">Check the overall status of the cluster nodes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>squeue</code></td>
+<td style="text-align: left;">View the current job queue (who is running what).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sbatch &lt;script.sh&gt;</code></td>
+<td style="text-align: left;">Submit a non-interactive job to the background.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>srun --pty bash</code></td>
+<td style="text-align: left;">Start an interactive session (for debugging/testing).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>scancel &lt;job_id&gt;</code></td>
+<td style="text-align: left;">Terminate a running or pending job.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-how-to-submit-a-training-job-sbatch">3. How to Submit a Training Job (sbatch)</h2>
+<p>To run a heavy training process, you must create a shell script (.sh). SLURM reads the configuration from special headers starting with #SBATCH.</p>
+<h3 id="a-basic-template">A. Basic Template</h3>
+<p>Ideal for simple tests or single-GPU tasks:</p>
+<pre><code>#!/bin/bash
+#SBATCH --job-name=my_experiment      # Name of the job
+#SBATCH --gres=gpu:1                  # Request 1 GPU (e.g., gpu:2 or gpu:4)
+#SBATCH --cpus-per-task=8             # Request 8 CPU cores
+#SBATCH --mem=64G                     # Request 64GB of RAM
+#SBATCH --output=logs/job_%j.log      # Standard output log (%j = Job ID)
+#SBATCH --error=logs/job_%j.err       # Error log
+
+# 1. Load your environment
+source /path/to/your/env/bin/activate
+
+# 2. Run your code
+python train.py --config my_config.yaml
+</code></pre>
+<h3 id="b-advanced-production-script">B. Advanced Production Script</h3>
+<p>For multi-GPU training and high-reliability tasks, we recommend this robust template:
+Bash</p>
+<pre><code>#!/bin/bash
+#SBATCH --job-name=train_eole_big
+#SBATCH --gres=gpu:4                  # Requesting 4 GPUs
+#SBATCH --cpus-per-task=32            # High CPU count for data loading
+#SBATCH --mem=350G                    # Memory allocation
+#SBATCH --output=logs/eole_%j.log
+#SBATCH --error=logs/eole_%j.err
+
+# --- Environment Setup ---
+# Ensures the script runs in the directory where it was submitted
+cd &quot;$SLURM_SUBMIT_DIR&quot;
+
+# Explicitly isolate assigned GPUs to prevent framework interference
+export CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES
+
+source /path/to/your/env/bin/activate
+
+# --- Execution ---
+export TORCH_NCCL_TIMEOUT=3600
+echo &quot;Starting job ${SLURM_JOB_ID} on $(date) with GPUs: $CUDA_VISIBLE_DEVICES&quot;
+
+eole train -config configBIG.yaml
+
+echo &quot;Job finished on $(date)&quot;
+</code></pre>
+<p><strong>Why use these specific commands?</strong></p>
+<p>While the #SBATCH headers request the hardware, the following lines ensure your code executes predictably within a shared cluster environment:</p>
+<ul>
+<li><code>cd "$SLURM_SUBMIT_DIR"</code>: By default, SLURM might initialize a job in a system path. This command forces the environment to switch to the directory where you executed the sbatch command. This ensures your relative file paths (e.g., configBIG.yaml or local datasets) are correctly resolved.</li>
+<li><code>export CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES</code>: Although SLURM manages resource allocation, some "eager" libraries (like PyTorch or TensorFlow) may attempt to scan all system GPUs. By re-exporting this variable, you create a strict sandbox. Your process will only "see" its assigned GPUs, preventing accidental memory collisions with other active users.</li>
+<li><code>%j</code> in filenames: Including this placeholder in your logs (e.g., job_%j.log) automatically appends the unique Job ID. This prevents new executions from overwriting the results of previous experiments.</li>
+</ul>
+<p>To launch it:</p>
+<p><code>sbatch train_job.sh</code></p>
+<p>Where train_job.sh is the name of you script.</p>
+<h2 id="4-interactive-mode-srun">4. Interactive Mode (srun)</h2>
+<p>If you need to test your code or run a quick script interactively, do not run it on the login node. Instead, request an interactive allocation:</p>
+<p><code>srun --gres=gpu:1 --mem=32G --cpus-per-task=4 --pty bash</code></p>
+<p>This will grant you a dedicated terminal session within the allocated resources. Once you type exit, the resources are released for others.</p>
+<h2 id="5-important-guidelines">5. Important Guidelines</h2>
+<ul>
+<li>Do Not Use nohup or &amp;: SLURM handles background execution. Once you sbatch, you can safely disconnect from the server.</li>
+<li>Resource Accuracy: Be conservative with RAM requests. Requesting 300GB of RAM for a 10GB task prevents others from working.</li>
+<li>GPU Visibility: SLURM automatically sets the CUDA_VISIBLE_DEVICES environment variable. Your code will only "see" the GPUs you have been assigned.</li>
+</ul>
+<h2 id="6-troubleshooting">6. Troubleshooting</h2>
+<p>If your job status is PD (Pending), run squeue to see why.</p>
+<ul>
+<li>(Resources): Waiting for GPUs/RAM to be freed.</li>
+<li>(Priority): Waiting for higher-priority jobs to finish.</li>
+</ul>
+<h2 id="7-why-non-gpu-tasks-must-also-use-slurm">7. Why Non-GPU Tasks Must Also Use SLURM</h2>
+<p>It is a common misconception that SLURM is only for GPU-bound training. In reality, managing CPU and RAM allocation is just as critical for system stability.</p>
+<h3 id="711-preventing-memory-thrashing-swap">7.11. Preventing Memory Thrashing (Swap)</h3>
+<p>If a user executes a high-RAM process (e.g., data preprocessing or large dataset extraction) outside of SLURM, the Operating System may run out of physical memory. This forces the kernel to use Swap (disk space as RAM), which causes an immediate and catastrophic drop in performance for everyone. SLURM prevents this by ensuring that if 350GB of RAM is reserved for training, it remains physically available.</p>
+<h3 id="72-cpu-affinity-and-data-bottlenecks">7.2. CPU Affinity and Data Bottlenecks</h3>
+<p>Deep learning is not just about GPUs; it requires significant CPU power for data augmentation and batch loading. If unmanaged CPU-intensive tasks monopolize the cores, your GPUs will sit idle while waiting for data. Using SLURM ensures your training job has dedicated access to the required number of cores.</p>
+<h3 id="73-system-visibility">7.3. System Visibility</h3>
+<p>By using SLURM for all significant tasks, the squeue command becomes a "single source of truth." It allows the team to see exactly what is consuming resources without having to investigate system-level processes.</p>
+<p><strong>Example: Submitting a CPU-only Job</strong></p>
+<p>If you need to preprocess a dataset or run a script that doesn't require a GPU, use the following template:
+Bash</p>
+<pre><code>#!/bin/bash
+#SBATCH --job-name=data_prep
+#SBATCH --cpus-per-task=16    # Requesting 16 cores
+#SBATCH --mem=128G            # Requesting 128GB of RAM
+#SBATCH --gres=gpu:0          # IMPORTANT: Request zero GPUs
+#SBATCH --output=logs/prep_%j.log
+#SBATCH --error=logs/prep_%j.err
+
+cd &quot;$SLURM_SUBMIT_DIR&quot;
+
+# Your CPU-intensive command
+python prepare_data.py --input /data/raw --output /data/processed
+</code></pre>
+<p><strong>Policy Rule:</strong> If your task is expected to run for more than 5 minutes or consume more than 8GB of RAM, it must be submitted via SLURM.</p>
+<h2 id="8-working-interactively-with-slurm-srun">8. Working Interactively with SLURM (srun)</h2>
+<p>Sometimes, you don't want to submit a script and wait; you need to debug code, explore a dataset, or test if your environment is correctly configured. For these cases, we use Interactive Sessions.</p>
+<p>Running a heavy process directly on the login shell (without SLURM) is strictly prohibited as it bypasses resource management and can crash the server for everyone. Instead, use srun to "check out" a terminal with dedicated resources.
+How to start an interactive session:</p>
+<p>To request a terminal with 1 GPU, 8 CPUs, and 32GB of RAM:</p>
+<p><code>srun --gres=gpu:1 --cpus-per-task=8 --mem=32G --pty bash</code></p>
+<p>What happens next?</p>
+<ul>
+<li>SLURM looks for an available slot.</li>
+<li>Once granted, your prompt will change (though it looks similar, you are now inside a "container" of resources).</li>
+</ul>
+<p>You can now run python, nvidia-smi, or any command as if you were on your local machine.</p>
+<p>Important: When you are finished, type <code>exit</code> to release the resources so others can use them.</p>
+<p><strong>Common Use Cases for srun</strong></p>
+<ul>
+<li>Debugging: Run your training script for just a few steps to ensure there are no ImportError or syntax issues before committing to a long sbatch job.</li>
+<li>Data Exploration: Open a Python shell to inspect large tensors or preprocess small samples of data.</li>
+<li>Environment Setup: Install new pip packages or compile C++ extensions that require significant CPU/RAM.</li>
+</ul>
+<p><strong>A Note on Persistence</strong></p>
+<p>Unlike sbatch (which runs in the background even if you close your laptop), an interactive srun session will terminate if your connection drops or you close your terminal. &gt; Recommendation: If you plan to run a long-running process, always use <code>sbatch</code>. If you are just "tinkering," use <code>srun</code>.</p>
+<p><strong>How do I know I am inside an active session?</strong></p>
+<p>It is easy to lose track of whether you are on the "Login Node" or inside a "Slurm Allocation." You can verify your status with these methods:</p>
+<ul>
+<li>Check the Job ID: Run echo $SLURM_JOB_ID. If it returns a number, you are successfully inside an allocation. If it returns an empty line, you are on the bare metal server (be careful!).</li>
+<li>Resource Limits: In an active session, Slurm will prevent you from using more CPUs or RAM than you requested, acting as a sandbox for your work.</li>
+</ul>
+<p><strong>Remember:</strong> Always type <code>exit</code> when you finish your interactive work to release the GPUs for your colleagues!</p>
+<h2 id="9-exploring-cluster-resources">9. Exploring Cluster Resources</h2>
+<p>Before submitting a job, it is good practice to check the available hardware to tailor your resource requests accurately. You can inspect the server's total capacity and current availability using these commands:</p>
+<h3 id="91-hardware-overview-sinfo">9.1. Hardware Overview (sinfo)</h3>
+<p>To see the general state of the node and how many resources are currently free:</p>
+<p><code>sinfo -o "%n %c %m %G %a"</code></p>
+<ul>
+<li>%n: Node name.</li>
+<li>%c: Total CPU cores.</li>
+<li>%m: Total RAM (in Megabytes).</li>
+<li>%G: Total GPUs.</li>
+<li>%a: Availability status (up/down).</li>
+</ul>
+<h3 id="92-detailed-resource-breakdown-scontrol">9.2. Detailed Resource Breakdown (scontrol)</h3>
+<p>If you want to see exactly how many CPUs are currently in use versus how many are idle, run:</p>
+<p><code>scontrol show node &lt;node_name&gt;</code></p>
+<p>(Replace <node_name> with your server's name, e.g., blackwell-server). Use localhost if you're running the command in the server you want to explore.</p>
+<p>Look for the <code>CfgTRES</code> (Configured Resources) and <code>AllocTRES</code> (Allocated Resources) lines. This will tell you:</p>
+<ul>
+<li>CPUs: Total cores vs. those already running jobs.</li>
+<li>Memory: Total RAM vs. reserved RAM.</li>
+<li>GRES: Total GPUs vs. those currently "checked out" by other users.</li>
+</ul>
+<h3 id="93-real-time-hardware-specs-non-slurm">9.3. Real-time Hardware Specs (Non-SLURM)</h3>
+<p>If you just want to see the "raw" hardware specifications:</p>
+<ul>
+<li>CPUs/Cores: <code>lscpu | grep "CPU(s):"</code></li>
+<li>Total RAM: <code>free -h</code></li>
+<li>GPU Models: <code>nvidia-smi -L</code></li>
+</ul>
+<p><strong>Efficiency First</strong> </p>
+<p>When checking resources, remember that requesting exactly what you need (and no more) allows more jobs to run concurrently.</p>
+<ul>
+<li>Avoid Over-allocating: If your data processing only needs 16GB of RAM, do not request 128GB.</li>
+<li>Check the Queue: Use squeue to see if a colleague is waiting for resources. If you see the server is at 90% capacity, consider if your task can run with fewer GPUs or less memory.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

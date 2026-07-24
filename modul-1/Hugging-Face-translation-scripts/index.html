@@ -1,0 +1,931 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hugging Face translation scripts - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hugging Face translation scripts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credits and licence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-salamandrata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. SalamandraTA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tower-plus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tower-Plus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-translategemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. TranslateGemma
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-llama-31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Llama 3.1
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Hugging Face translation scripts</h1>
+
+<h2 id="1-introduction">1. Introduction</h2>
+<p>In this tutorial we will explore several simple scripts to perform translations using models in <a href="https://huggingface.co">Hugging Face</a> using the Transformer library. These scripts are very simple and basic, but they can serve as a basis for more complex programs.</p>
+<h2 id="2-salamandrata">2. SalamandraTA</h2>
+<p>This is a model specially finetuned for translation-related taks that is distributed in two sizes. The description of the models can be found at:</p>
+<ul>
+<li><a href="https://huggingface.co/BSC-LT/salamandraTA-2b-instruct">salamandraTA-2b-instruct</a></li>
+<li><a href="https://huggingface.co/BSC-LT/salamandraTA-7b-instruct">salamandraTA-7b-instruct</a></li>
+</ul>
+<p>Basic program:</p>
+<p>requirements (<a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/HuggingFace/requirements.txt">requirements.txt</a>):</p>
+<pre><code>torch
+transformers
+accelerate
+</code></pre>
+<p>program (<a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/HuggingFace/translateSalamandraTA.py">translateSalamandraTA.py</a>):</p>
+<pre><code>import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+def translate_salamandra_manual(text, model_id, source_lang, target_lang):
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id,
+        device_map=&quot;auto&quot;,
+        dtype=torch.bfloat16
+    )
+
+
+    system_prompt = &quot;You are a professional translator.&quot;
+    user_prompt = f&quot;Translate the following text from {source_lang} into {target_lang}.\n{source_lang}: {text} \n{target_lang}:&quot;
+
+    full_prompt = (
+        f&quot;&lt;|im_start|&gt;system\n{system_prompt}&lt;|im_end|&gt;\n&quot;
+        f&quot;&lt;|im_start|&gt;user\n{user_prompt}&lt;|im_end|&gt;\n&quot;
+        f&quot;&lt;|im_start|&gt;assistant\n&quot;
+    )
+
+    inputs = tokenizer(full_prompt, return_tensors=&quot;pt&quot;, add_special_tokens=False).to(model.device)
+    input_length = inputs.input_ids.shape[1]
+
+    outputs = model.generate(
+        inputs.input_ids,
+        attention_mask=inputs.attention_mask,
+        max_new_tokens=400,
+        num_beams=5,
+        early_stopping=True,
+        pad_token_id=tokenizer.pad_token_id,
+        eos_token_id=tokenizer.convert_tokens_to_ids(&quot;&lt;|im_end|&gt;&quot;) # Forcem que sàpiga quan parar
+    )
+
+    result = tokenizer.decode(outputs[0][input_length:], skip_special_tokens=True)
+
+    return result.replace(&quot;&lt;|im_end|&gt;&quot;, &quot;&quot;).strip()
+
+if __name__ == &quot;__main__&quot;:
+    model_id = &quot;BSC-LT/salamandraTA-2b-instruct&quot;
+
+    src = &quot;English&quot;
+    tgt = &quot;Catalan&quot;
+    frase = &quot;Artificial intelligence (AI) is the capability of computational systems to perform tasks typically associated with human intelligence, such as learning, reasoning, problem-solving, perception, and decision-making..&quot;
+
+    traduccio = translate_salamandra_manual(frase, model_id, src, tgt)
+    print(f&quot;\nTranslation: {traduccio}&quot;)
+
+</code></pre>
+<h2 id="3-tower-plus">3. Tower-Plus</h2>
+<p>Tower-Plus is also a LLM specialized for translation. It is distributed in three sizes:</p>
+<ul>
+<li><a href="https://huggingface.co/Unbabel/Tower-Plus-2B">Tower-Plus-2B</a></li>
+<li><a href="https://huggingface.co/Unbabel/Tower-Plus-9B">Tower-Plus-9B</a></li>
+<li><a href="https://huggingface.co/Unbabel/Tower-Plus-72B">Tower-Plus-72B</a></li>
+</ul>
+<p>Basic program:</p>
+<p>requirements (<a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/HuggingFace/requirements.txt">requirements.txt</a>):</p>
+<pre><code>torch
+transformers
+accelerate
+</code></pre>
+<p>program (<a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/HuggingFace/translateTowerPlus.py">translateTowerPlus.py</a>)</p>
+<pre><code>import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+def translate_tower(text, model_id, source_lang, target_lang):
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id,
+        device_map=&quot;auto&quot;,
+        dtype=torch.bfloat16
+    )
+    messages = [
+        {
+            &quot;role&quot;: &quot;user&quot;, 
+            &quot;content&quot;: f&quot;Translate the following {source_lang} source text to {target_lang}:\n{source_lang}: {text}\n{target_lang}: &quot;
+        }
+    ]
+    prompt = tokenizer.apply_chat_template(
+        messages, 
+        tokenize=False, 
+        add_generation_prompt=True
+    )
+    inputs = tokenizer(prompt, return_tensors=&quot;pt&quot;, add_special_tokens=False).to(model.device)
+    input_length = inputs.input_ids.shape[1]
+    outputs = model.generate(
+        inputs.input_ids,
+        attention_mask=inputs.attention_mask,
+        max_new_tokens=256,
+        do_sample=False,  # Com diu l'exemple d'Unbabel
+        pad_token_id=tokenizer.pad_token_id,
+        eos_token_id=tokenizer.eos_token_id
+    )
+    full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    generated_tokens = outputs[0][input_length:]
+    translation = tokenizer.decode(generated_tokens, skip_special_tokens=True)
+    return translation.strip()
+
+if __name__ == &quot;__main__&quot;:
+    model_id = &quot;Unbabel/Tower-Plus-2B&quot;
+    src = &quot;English&quot;
+    tgt = &quot;Portuguese (Portugal)&quot; 
+    sentence = &quot;The bridge between two languages is built with artificial intelligence.&quot;
+
+    print(f&quot;Loading {model_id}...&quot;)
+    resultat = translate_tower(sentence, model_id, src, tgt)
+
+    print(&quot;-&quot; * 30)
+    print(f&quot;Source: {sentence}&quot;)
+    print(f&quot;Target: {resultat}&quot;)
+    print(&quot;-&quot; * 30)
+
+</code></pre>
+<h2 id="4-translategemma">4. TranslateGemma</h2>
+<p>TranslateGemma models are a family of specialized open-weight multimodal models, built upon Google's Gemma 2 architecture and fine-tuned specifically for high-fidelity translation tasks. Their core innovation lies in their ability to bridge visual and linguistic modalities, enabling the seamless extraction and translation of text directly from images—such as signs or documents—within a single inference step. By utilizing a structured instruction format with ISO language codes, they achieve professional-grade accuracy across dozens of languages while remaining efficient enough for local deployment.</p>
+<p>TranslateGemma models are distributed in three different sizes: 4B, 12B and 27B](https://huggingface.co/collections/google/translategemma)</p>
+<p>Basic program:</p>
+<p>requirements (<a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/HuggingFace/requirements.txt">requirements.txt</a>):</p>
+<p>program <a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/HuggingFace/translateTranslateGemma.py">translateTranslateGemma.py</a>:</p>
+<pre><code>import torch
+from transformers import pipeline, GenerationConfig
+
+def run_translategemma_demo():
+    model_id = &quot;google/translategemma-4b-it&quot;
+
+    print(f&quot;Loading {model_id}...&quot;)
+
+    pipe = pipeline(
+        &quot;image-text-to-text&quot;,
+        model=model_id,
+        device_map=&quot;auto&quot;,
+        dtype=torch.bfloat16
+    )
+
+
+    gen_config = GenerationConfig.from_pretrained(model_id)
+    gen_config.max_length = None 
+    gen_config.pad_token_id = pipe.tokenizer.eos_token_id
+
+    # --- EXAMPLE 1: TEXT TRANSLATION---
+    text_to_translate = &quot;The translation of this sentence was done by a multimodal model.&quot;
+    msg_text = [{
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;content&quot;: [{
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;source_lang_code&quot;: &quot;en&quot;,
+            &quot;target_lang_code&quot;: &quot;ca&quot;,
+            &quot;text&quot;: text_to_translate,
+        }]
+    }]
+
+    print(&quot;\n--- Translating Text ---&quot;)
+    gen_config.max_new_tokens = 200
+
+    out_text = pipe(text=msg_text, generate_kwargs={&quot;generation_config&quot;: gen_config})
+    print(f&quot;Translation: {out_text[0]['generated_text'][-1]['content']}&quot;)
+
+    # --- EXAMPLE 2: IMAGE TRANSLATION ---
+    image_url = &quot;https://c7.alamy.com/comp/2YAX36N/traffic-signs-in-czech-republic-pedestrian-zone-2YAX36N.jpg&quot;
+    msg_image = [{
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;content&quot;: [{
+            &quot;type&quot;: &quot;image&quot;,
+            &quot;source_lang_code&quot;: &quot;cs&quot;,
+            &quot;target_lang_code&quot;: &quot;ca&quot;,
+            &quot;url&quot;: image_url,
+        }]
+    }]
+
+    print(&quot;\n--- Translating Image ---&quot;)
+    out_image = pipe(text=msg_image, generate_kwargs={&quot;generation_config&quot;: gen_config})
+    print(f&quot;Result: {out_image[0]['generated_text'][-1]['content']}&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    run_translategemma_demo()
+</code></pre>
+<h2 id="4-llama-31">4. Llama 3.1</h2>
+<p>Meta’s Llama 3.1 is a collection of large language models (LLMs) built on a standard decoder-only transformer architecture, optimized for high-density data processing. The series is categorized by parameter count into three tiers: 8B, 70B, and 405B, each designed for specific hardware constraints and performance requirements. A key technical advancement in this release is the expansion of the context window to 128,000 tokens, which allows the model to retain and process significantly more information in a single prompt compared to previous iterations.</p>
+<p>In terms of deployment, the models utilize Grouped-Query Attention (GQA) across all sizes to maintain inference speed even as the context grows. The 405B variant serves as the primary engine for complex reasoning and data generation, while the 8B and 70B models are often used for downstream tasks and local integration due to their lower VRAM requirements. By releasing the model weights under a permissive license, the architecture facilitates independent benchmarking and fine-tuning, allowing developers to implement the system on private infrastructure without relying on external APIs.</p>
+<p>Llama 3.1 is a general-purpose Large Language Model (LLM) rather than a dedicated translation system. Unlike task-specific architectures, it is designed for a broad range of computational linguistics, including structured data extraction, logical inference, and code synthesis. Its underlying transformer architecture is optimized for diverse sequence-to-sequence tasks, enabling it to function as a versatile foundation for various natural language processing (NLP) applications.</p>
+<p>The model's multilingual capabilities are a result of extensive training on massive datasets incorporating over 30 languages. While it is not an encoder-decoder translation engine by design, its high-dimensional token embeddings and cross-lingual semantic mapping allow it to perform complex translation tasks effectively. Because it processes context at a systemic level, it can translate between language pairs while maintaining technical terminology and grammatical consistency, often outperforming smaller, specialized translation models in zero-shot scenarios.</p>
+<p>requirements <a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/HuggingFace/requirements.txt">requirements.txt</a>:</p>
+<p>program <a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/HuggingFace/testLlama.py">testLlama.py</a></p>
+<pre><code>import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TextStreamer
+
+def run_llama_inference():
+    model_id = &quot;meta-llama/Llama-3.1-8B-Instruct&quot;
+
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    quantization_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_compute_dtype=torch.bfloat16,
+        bnb_4bit_quant_type=&quot;nf4&quot;,
+        bnb_4bit_use_double_quant=True
+    )
+
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id,
+        device_map=&quot;auto&quot;,
+        quantization_config=quantization_config
+    )
+
+    prompt_text = &quot;Explain the importance of open-source AI models in three bullet points.&quot;
+
+    messages = [
+        {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;You are a technical assistant.&quot;},
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt_text}
+    ]
+
+    inputs = tokenizer.apply_chat_template(
+        messages,
+        add_generation_prompt=True,
+        return_tensors=&quot;pt&quot;,
+        return_dict=True
+    ).to(model.device)
+
+    # Initialize the streamer
+    streamer = TextStreamer(tokenizer, skip_prompt=True)
+
+    print(f&quot;Generating response for model: {model_id}\n&quot;)
+    print(&quot;-&quot; * 30)
+
+    # The generate method will now print tokens as they are created
+    model.generate(
+        **inputs,
+        max_new_tokens=256,
+        pad_token_id=tokenizer.pad_token_id,
+        eos_token_id=tokenizer.eos_token_id,
+        streamer=streamer
+    )
+
+    print(&quot;-&quot; * 30)
+
+if __name__ == &quot;__main__&quot;:
+    run_llama_inference()
+
+</code></pre>
+<p>Try changing the prompt and use some prompts for translation.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

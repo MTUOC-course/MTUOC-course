@@ -1,0 +1,1507 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>NLLB - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NLLB
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credits and licence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-opusmt-in-a-pyhton-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing OpusMT in a Pyhton script
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-starting-nllb-in-mtuoc-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Starting NLLB in MTUOC-server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-1-available-languages-and-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix 1. Available languages and codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>NLLB</h1>
+
+<h2 id="1-introduction">1. Introduction</h2>
+<p>NLLB (No Language Left Behind) is a multilingual neural machine translation model. This means that the same model can translate from and to many languages (in the case of the NLLB model, more than 200; the complete list of languages is provided in the appendix). The MTUOC-server can deploy this model and performs the download automatically. However, when launching the model, we must specify which language pair we require (although if we change it later, it will not be necessary to download the model again). </p>
+<p>To learn more about this model, you can read the following article: </p>
+<p><a href="https://doi.org/10.1038/s41586-024-07335-x">NLLB Team. Scaling neural machine translation to 200 languages. Nature 630, 841–846 (2024).</a></p>
+<h3 id="testing-opusmt-in-a-pyhton-script">Testing OpusMT in a Pyhton script</h3>
+<p>As we did with OpusMT, we can use a script to test a NLLB model. You can change the size of the model (see below), the source and target languages (see the list of available models in Appendix 1) and the sentence to translate. The script is <a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/NLLB/translateNLLB.py">translateNLLB.py</a><a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/NLLB/translateNLLB.py">translateNLLB.py</a>:</p>
+<pre><code>from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+def translate_nllb(text, model_name, source_lang, target_lang):
+    &quot;&quot;&quot;
+    Translates text using the NLLB model.
+    &quot;&quot;&quot;
+    # 1. Load the tokenizer and model
+    # NLLB uses Auto classes for easier loading
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+
+    # 2. Prepare the input and specify the source language
+    inputs = tokenizer(text, return_tensors=&quot;pt&quot;, padding=True)
+
+    # 3. Generate the translation specifying the target language code
+    # forced_bos_token_id tells the model which language to translate into
+    forced_bos_token_id = tokenizer.convert_tokens_to_ids(target_lang)
+    translated_tokens = model.generate(
+        **inputs, 
+        forced_bos_token_id=forced_bos_token_id
+    )
+
+    # 4. Decode the output
+    result = tokenizer.decode(translated_tokens[0], skip_special_tokens=True)
+    return result
+
+if __name__ == &quot;__main__&quot;:
+    # Model configuration
+    model_id = &quot;facebook/nllb-200-distilled-600M&quot;
+
+    # Language Codes: 
+    # Spanish: spa_Latn | English: eng_Latn | Catalan: cat_Latn
+    src_code = &quot;eng_Latn&quot; 
+    tgt_code = &quot;spa_Latn&quot;
+
+    input_sentence = &quot;This is a translated sentence using NLLB.&quot;
+
+    print(f&quot;Loading {model_id}...&quot;)
+
+    translation = translate_nllb(input_sentence, model_id, src_code, tgt_code)
+
+    print(&quot;-&quot; * 30)
+    print(f&quot;Source ({src_code}): {input_sentence}&quot;)
+    print(f&quot;Target ({tgt_code}): {translation}&quot;)
+    print(&quot;-&quot; * 30)
+</code></pre>
+<p>And the <a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/blob/main/NLLB/requirements.txt">requirements.txt</a>:</p>
+<pre><code>transformers
+torch
+</code></pre>
+<h2 id="2-starting-nllb-in-mtuoc-server">2. Starting NLLB in MTUOC-server</h2>
+<p>To start the MTUOC-server using an NLLB model we need to configure 2 files:</p>
+<p><strong>config-server.yaml</strong></p>
+<p>We simply need to set the <strong>MTEngine</strong> field to <strong>NLLB</strong></p>
+<pre><code>MTengine: NLLB
+...
+</code></pre>
+<p><strong>config-NLLB.yaml</strong></p>
+<p>We have to configure the following parameters:</p>
+<pre><code>NLLB:
+  model: facebook/nllb-200-distilled-600M
+  #A HuggingFace repository folder for the  model or full or relative path to a local ./NLLB-FT-model
+  src_lang: eng_Latn
+  tgt_lang: spa_Latn
+  device: cpu
+  beam_size: 5
+  num_hypotheses: 5
+</code></pre>
+<p>Firstly, we must state the <strong>model</strong>. The NLLB model is distributed in several sizes:</p>
+<ul>
+<li>facebook/nllb-200-distilled-600M</li>
+<li>facebook/nllb-200-1.3B</li>
+<li>facebook/nllb-200-distilled-1.3B</li>
+<li>facebook/nllb-200-3.3B</li>
+</ul>
+<p>You can also set a local path (both full or relative) to an already downloaded model or a fine-tuned one.</p>
+<p>The source language code (<strong>scr_lang</strong>) and target language code (<strong>tgt_lang</strong>) should be set, following the available languages and codes on Appendix 1.</p>
+<p>In the field <strong>device</strong> we should set whether we want to use the <strong>cpu</strong> or <strong>gpu</strong>.</p>
+<p>The parameters <strong>beam_search</strong> and <strong>num_hypotheses</strong> are related to the number of translation candidates the model will provide for each source sentence.</p>
+<h2 id="appendix-1-available-languages-and-codes">Appendix 1. Available languages and codes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Language Name</th>
+<th style="text-align: left;">NLLB-200 Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Adamawa Fulfulde</td>
+<td style="text-align: left;">fub_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Adamorobe Sign Language</td>
+<td style="text-align: left;">adr_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Adangme</td>
+<td style="text-align: left;">ada_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Adhola</td>
+<td style="text-align: left;">adh_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Aekyom</td>
+<td style="text-align: left;">aqy_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Afrikaans</td>
+<td style="text-align: left;">afr_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Aghem</td>
+<td style="text-align: left;">agq_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Akan</td>
+<td style="text-align: left;">aka_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Akebu</td>
+<td style="text-align: left;">keu_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Akoose</td>
+<td style="text-align: left;">bss_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: left;">aao_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">German</td>
+<td style="text-align: left;">deu_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Amharic</td>
+<td style="text-align: left;">amh_Ethi</td>
+</tr>
+<tr>
+<td style="text-align: left;">English</td>
+<td style="text-align: left;">eng_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Apurinã</td>
+<td style="text-align: left;">apu_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Modern Standard Arabic</td>
+<td style="text-align: left;">arb_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Algerian Arabic</td>
+<td style="text-align: left;">arq_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Moroccan Arabic</td>
+<td style="text-align: left;">ary_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tunisian Arabic</td>
+<td style="text-align: left;">aeb_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mesopotamian Arabic</td>
+<td style="text-align: left;">acm_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">North Levantine Arabic</td>
+<td style="text-align: left;">apc_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Egyptian Arabic</td>
+<td style="text-align: left;">arz_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sudanese Arabic</td>
+<td style="text-align: left;">apd_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Are</td>
+<td style="text-align: left;">maew_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Asháninka</td>
+<td style="text-align: left;">cjo_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Asu</td>
+<td style="text-align: left;">asa_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Asua</td>
+<td style="text-align: left;">sj_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Asturian</td>
+<td style="text-align: left;">ast_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Avar</td>
+<td style="text-align: left;">ava_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Aymara</td>
+<td style="text-align: left;">ayr_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">North Azerbaijani</td>
+<td style="text-align: left;">azj_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">South Azerbaijani</td>
+<td style="text-align: left;">azb_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bafanji</td>
+<td style="text-align: left;">bfj_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bambara</td>
+<td style="text-align: left;">bam_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Banjarese</td>
+<td style="text-align: left;">bjn_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Basaa</td>
+<td style="text-align: left;">bas_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Basque</td>
+<td style="text-align: left;">eus_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bats</td>
+<td style="text-align: left;">bbl_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bavarian</td>
+<td style="text-align: left;">bar_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Beja</td>
+<td style="text-align: left;">bej_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bemba</td>
+<td style="text-align: left;">bem_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bengali</td>
+<td style="text-align: left;">ben_Beng</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bhili</td>
+<td style="text-align: left;">bhb_Deva</td>
+</tr>
+<tr>
+<td style="text-align: left;">Belarusian</td>
+<td style="text-align: left;">bel_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bikol</td>
+<td style="text-align: left;">bik_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Burmese</td>
+<td style="text-align: left;">mya_Mymr</td>
+</tr>
+<tr>
+<td style="text-align: left;">Boko</td>
+<td style="text-align: left;">bqc_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bulgarian</td>
+<td style="text-align: left;">bul_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kabyle</td>
+<td style="text-align: left;">kab_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Catalan</strong></td>
+<td style="text-align: left;"><strong>cat_Latn</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Cebuano</td>
+<td style="text-align: left;">ceb_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chechen</td>
+<td style="text-align: left;">che_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Korean</td>
+<td style="text-align: left;">kor_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Croatian</td>
+<td style="text-align: left;">hrv_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Danish</td>
+<td style="text-align: left;">dan_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dari</td>
+<td style="text-align: left;">prs_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dyula</td>
+<td style="text-align: left;">dyu_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Southwestern Dinka</td>
+<td style="text-align: left;">dik_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Edo</td>
+<td style="text-align: left;">bin_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Estonian</td>
+<td style="text-align: left;">est_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ewondo</td>
+<td style="text-align: left;">ewo_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Western Persian</td>
+<td style="text-align: left;">pes_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fijian</td>
+<td style="text-align: left;">fij_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tagalog</td>
+<td style="text-align: left;">tgl_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Finnish</td>
+<td style="text-align: left;">fin_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fon</td>
+<td style="text-align: left;">fon_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">French</td>
+<td style="text-align: left;">fra_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Friulian</td>
+<td style="text-align: left;">fur_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ga</td>
+<td style="text-align: left;">gaa_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Galician</td>
+<td style="text-align: left;">glg_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Georgian</td>
+<td style="text-align: left;">kat_Geor</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gilbertese</td>
+<td style="text-align: left;">gil_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Greek</td>
+<td style="text-align: left;">ell_Grek</td>
+</tr>
+<tr>
+<td style="text-align: left;">Guaraní</td>
+<td style="text-align: left;">grn_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gujarati</td>
+<td style="text-align: left;">guj_Gujr</td>
+</tr>
+<tr>
+<td style="text-align: left;">Haitian Creole</td>
+<td style="text-align: left;">hat_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Hausa</td>
+<td style="text-align: left;">hau_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Hebrew</td>
+<td style="text-align: left;">heb_Hebr</td>
+</tr>
+<tr>
+<td style="text-align: left;">Hindi</td>
+<td style="text-align: left;">hin_Deva</td>
+</tr>
+<tr>
+<td style="text-align: left;">Hungarian</td>
+<td style="text-align: left;">hun_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Igbo</td>
+<td style="text-align: left;">ibo_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ilocano</td>
+<td style="text-align: left;">ilo_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Indonesian</td>
+<td style="text-align: left;">ind_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Irish</td>
+<td style="text-align: left;">gle_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Icelandic</td>
+<td style="text-align: left;">isl_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Italian</td>
+<td style="text-align: left;">ita_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Japanese</td>
+<td style="text-align: left;">jpn_Jpan</td>
+</tr>
+<tr>
+<td style="text-align: left;">Javanese</td>
+<td style="text-align: left;">jav_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Karakalpak</td>
+<td style="text-align: left;">kaa_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kanuri</td>
+<td style="text-align: left;">krc_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kazan Tatar</td>
+<td style="text-align: left;">stat_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kaqchikel</td>
+<td style="text-align: left;">cak_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kashmiri (Arabic)</td>
+<td style="text-align: left;">kas_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kashmiri (Devanagari)</td>
+<td style="text-align: left;">kas_Deva</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kazakh</td>
+<td style="text-align: left;">kaz_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Khmer</td>
+<td style="text-align: left;">khm_Khmer</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kikuyu</td>
+<td style="text-align: left;">kik_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kituba</td>
+<td style="text-align: left;">ktu_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kimbundu</td>
+<td style="text-align: left;">kmb_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kinyarwanda</td>
+<td style="text-align: left;">kin_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kyrgyz</td>
+<td style="text-align: left;">kir_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Komi</td>
+<td style="text-align: left;">kpv_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Konkani</td>
+<td style="text-align: left;">knn_Deva</td>
+</tr>
+<tr>
+<td style="text-align: left;">Konzo</td>
+<td style="text-align: left;">kng_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Krio</td>
+<td style="text-align: left;">kri_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kurdish (Kurmanji)</td>
+<td style="text-align: left;">kmr_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Kurdish (Sorani)</td>
+<td style="text-align: left;">ckb_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ladino</td>
+<td style="text-align: left;">lad_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lao</td>
+<td style="text-align: left;">lao_Laoo</td>
+</tr>
+<tr>
+<td style="text-align: left;">Latvian</td>
+<td style="text-align: left;">lav_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lingala</td>
+<td style="text-align: left;">lin_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lithuanian</td>
+<td style="text-align: left;">lit_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lombard</td>
+<td style="text-align: left;">lmo_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ganda</td>
+<td style="text-align: left;">lug_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Luyia</td>
+<td style="text-align: left;">luy_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Macedonian</td>
+<td style="text-align: left;">mkd_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Maithili</td>
+<td style="text-align: left;">mai_Deva</td>
+</tr>
+<tr>
+<td style="text-align: left;">Malay (Latin)</td>
+<td style="text-align: left;">zsm_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Malayalam</td>
+<td style="text-align: left;">mal_Mlym</td>
+</tr>
+<tr>
+<td style="text-align: left;">Maltese</td>
+<td style="text-align: left;">mlt_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Marathi</td>
+<td style="text-align: left;">mar_Deva</td>
+</tr>
+<tr>
+<td style="text-align: left;">Maori</td>
+<td style="text-align: left;">mri_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Meitei</td>
+<td style="text-align: left;">mni_Beng</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minangkabau (Arabic)</td>
+<td style="text-align: left;">min_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minangkabau (Latin)</td>
+<td style="text-align: left;">min_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mongi</td>
+<td style="text-align: left;">mon_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dutch</td>
+<td style="text-align: left;">nld_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Nepali</td>
+<td style="text-align: left;">nep_Deva</td>
+</tr>
+<tr>
+<td style="text-align: left;">Norwegian Bokmål</td>
+<td style="text-align: left;">nob_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Norwegian Nynorsk</td>
+<td style="text-align: left;">nno_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Nuer</td>
+<td style="text-align: left;">nus_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Odia</td>
+<td style="text-align: left;">ory_Orya</td>
+</tr>
+<tr>
+<td style="text-align: left;">Oromo</td>
+<td style="text-align: left;">orm_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Papiamento</td>
+<td style="text-align: left;">pap_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pashto</td>
+<td style="text-align: left;">pbt_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Polish</td>
+<td style="text-align: left;">pol_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Portuguese</td>
+<td style="text-align: left;">por_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Punjabi (Gurmukhi)</td>
+<td style="text-align: left;">pan_Guru</td>
+</tr>
+<tr>
+<td style="text-align: left;">Quechua</td>
+<td style="text-align: left;">quy_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Romanian</td>
+<td style="text-align: left;">ron_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Romansh</td>
+<td style="text-align: left;">roh_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rundi</td>
+<td style="text-align: left;">run_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Russian</td>
+<td style="text-align: left;">rus_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Samoan</td>
+<td style="text-align: left;">smo_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sango</td>
+<td style="text-align: left;">sag_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Santali</td>
+<td style="text-align: left;">sat_Olck</td>
+</tr>
+<tr>
+<td style="text-align: left;">Serbian</td>
+<td style="text-align: left;">srp_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Shan</td>
+<td style="text-align: left;">shn_Mymr</td>
+</tr>
+<tr>
+<td style="text-align: left;">Shona</td>
+<td style="text-align: left;">sna_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sicilian</td>
+<td style="text-align: left;">scn_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Silesian</td>
+<td style="text-align: left;">szl_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Somali</td>
+<td style="text-align: left;">som_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Upper Sorbian</td>
+<td style="text-align: left;">hsb_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lower Sorbian</td>
+<td style="text-align: left;">dsb_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Southern Sotho</td>
+<td style="text-align: left;">sot_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Spanish</strong></td>
+<td style="text-align: left;"><strong>spa_Latn</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Sundanese</td>
+<td style="text-align: left;">sun_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Swedish</td>
+<td style="text-align: left;">swe_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Swahili</td>
+<td style="text-align: left;">swh_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tamil</td>
+<td style="text-align: left;">tam_Taml</td>
+</tr>
+<tr>
+<td style="text-align: left;">Thai</td>
+<td style="text-align: left;">tha_Thai</td>
+</tr>
+<tr>
+<td style="text-align: left;">Telugu</td>
+<td style="text-align: left;">tel_Telu</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tetum</td>
+<td style="text-align: left;">tet_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tibetan</td>
+<td style="text-align: left;">bod_Tibt</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tigrinya</td>
+<td style="text-align: left;">tir_Ethi</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tok Pisin</td>
+<td style="text-align: left;">tpi_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tonga</td>
+<td style="text-align: left;">tog_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tswana</td>
+<td style="text-align: left;">tsn_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tumbuka</td>
+<td style="text-align: left;">tum_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Turkish</td>
+<td style="text-align: left;">tur_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Turkmen</td>
+<td style="text-align: left;">tuk_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Czech</td>
+<td style="text-align: left;">ces_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Twi</td>
+<td style="text-align: left;">twi_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ukrainian</td>
+<td style="text-align: left;">ukr_Cyrl</td>
+</tr>
+<tr>
+<td style="text-align: left;">Uyghur</td>
+<td style="text-align: left;">uig_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Urdu</td>
+<td style="text-align: left;">urd_Arab</td>
+</tr>
+<tr>
+<td style="text-align: left;">Uzbek</td>
+<td style="text-align: left;">uzn_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Venda</td>
+<td style="text-align: left;">ven_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Vietnamese</td>
+<td style="text-align: left;">vie_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Waray</td>
+<td style="text-align: left;">war_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Wolof</td>
+<td style="text-align: left;">wol_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Xhosa</td>
+<td style="text-align: left;">xho_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chinese (Simplified)</td>
+<td style="text-align: left;">zho_Hans</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chinese (Traditional)</td>
+<td style="text-align: left;">zho_Hant</td>
+</tr>
+<tr>
+<td style="text-align: left;">Yiddish</td>
+<td style="text-align: left;">ydd_Hebr</td>
+</tr>
+<tr>
+<td style="text-align: left;">Yoruba</td>
+<td style="text-align: left;">yor_Latn</td>
+</tr>
+<tr>
+<td style="text-align: left;">Zulu</td>
+<td style="text-align: left;">zul_Latn</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
