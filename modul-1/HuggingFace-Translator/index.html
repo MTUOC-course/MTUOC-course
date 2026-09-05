@@ -1,0 +1,697 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>HuggingFace Translator - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              HuggingFace Translator
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credits and licence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>HuggingFace Translator</h1>
+
+<h2 id="introduction">Introduction</h2>
+<p>Hugging Face is a technology company and community hub that provides the infrastructure for collaborative machine learning. It functions primarily as a central repository where developers can host, share, and version-control open-source models, datasets, and demo applications. By providing standardized libraries—most notably the Transformers library—the platform enables users to integrate sophisticated neural networks into their workflows with minimal friction, regardless of whether they are working on natural language processing, computer vision, or audio tasks.</p>
+<p>Beyond its role as a storage provider, the platform establishes a framework for reproducibility and transparency in AI development. Through the use of integrated tools for fine-tuning and evaluation, it allows researchers to build upon existing work rather than starting from scratch. Consequently, it has become the industry standard for managing the lifecycle of machine learning projects, facilitating the transition from experimental code to functional, deployed software.</p>
+<p>You can access and explore HuggingFace from: <a href="https://huggingface.co/">https://huggingface.co/</a></p>
+<p>MTUOC-server can start several models hosted at HuggingFace to perform translations (or other related tasks). In the examples provided in this tutorial we will explore only the task of translation. In other tutorials we will learn how to perform automatic post-edition and how can be explore models for other tasks.</p>
+<p>Before exploring the HuggingFace translator in MTUOC-server you may want to explore several simple scripts for translating with several different models available at HuggingFace: <a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/wiki/Hugging-Face-translation-scripts">Hugging Face translation scripts</a></p>
+<h2 id="general-configuration">General configuration</h2>
+<p>You should first state in config-server.yaml that you want to use the HuggingFace models for translation:</p>
+<pre><code>MTengine: HuggingFace
+</code></pre>
+<p>Then you should edit the config-HFTranslator.yaml:</p>
+<pre><code>HFTranslator:
+  model: &quot;BSC-LT/salamandraTA-7b-instruct&quot;
+  template: &quot;Translate the following text from English into Spanish.\nEnglish: {SLsegment} \nSpanish:&quot; 
+  #should include {SLsegment}
+  extract_regex: None
+  json: False
+  device_map: &quot;auto&quot;
+  trust_remote_code: true
+
+generation_params:
+  max_new_tokens: 400
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.95
+  repetition_penalty: 1.2
+  no_repeat_ngram_size: 3
+  num_beams: 1
+</code></pre>
+<p>The first important thing to decide is which <strong>model</strong> you want to test, as well as the size of the model if some sizes are available. We can here distinguish two kind of models: General models and models specifically fine-tuned for translation. General models are able to perform a lot of different tasks, translation among them. Fine-tuned for translation are able only to translate and perform some other related tasks, as they have forgotten to perform general tasks. You can try any model but we provide a list of useful models available in HuggingFace:</p>
+<p><strong>General models:</strong></p>
+<ul>
+<li>Llama3</li>
+<li>Mistral</li>
+</ul>
+<p><strong>Models fine-tuned for translation</strong></p>
+<ul>
+<li>SalamandraTA</li>
+<li>TowerInstruct</li>
+</ul>
+<p>The second most important parameter is the <strong>template</strong>, that is the prompt or instruction we will give to the model to perform the translation. Keep in mind that before sendint the prompt to the model the MTUOC-server will replace <strong>{SLsegment}</strong> with the actual source language segment to translate. Regarding the prompt, keep in mind that the results may vary depending on the prompt and that the fine-tuned for translation models may require an specific prompt.</p>
+<p>The <strong>extract_regex</strong> parameter is used to get the actual translation for the answer. It's not always required. The <strong>json</strong> parameter is used if you ask the model to get the answer in json to indicate which parameter holds the translation.</p>
+<p>The parameter <strong>device_map</strong> leverages the accelerate library to intelligently orchestrate model deployment across available hardware. By setting it to "auto", the system automatically calculates the most efficient distribution of model layers, prioritizing GPU VRAM and offloading to CPU RAM or even disk if the model size exceeds the available memory. This is essential for running large models like Salamandra-7B on consumer-grade or multi-GPU setups.</p>
+<p><strong>trust_remote_code</strong> Certain models on Hugging Face feature custom architectures or unique logic not yet integrated into the official transformers library. This flag grants the library permission to execute the model's own Python code locally. It is a mandatory requirement for specialized models (such as those from the SalamandraTA or TowerInstruct families) to ensure the neural network is instantiated exactly as the authors designed it.</p>
+<p><strong>max_new_tokens</strong> This establishes a definitive ceiling for the output length, specifically counting only the tokens generated by the model (excluding the input prompt). A value of 400 is generally sufficient for paragraph-level translations while preventing the model from entering infinite loops.</p>
+<p><strong>do_sample</strong> By enabling sampling, the model departs from a deterministic "greedy" approach (always picking the single most likely word) and instead chooses from a probability distribution. This introduces linguistic variety and leads to more natural-sounding, less repetitive translations.</p>
+<p><strong>temperature</strong> This parameter modulates the "creativity" of the output by scaling the logits. A value of 0.7 is considered a balanced middle ground: it flattens the distribution enough to avoid robotic phrasing but keeps it focused enough to ensure the translation remains accurate and contextually relevant.</p>
+<p><strong>Low Temperature (0.1 – 0.4): Deterministic and Precise</strong> When the temperature is set to a lower value, the model becomes more risk-averse. It significantly amplifies the probability of the most likely token while suppressing all other alternatives.
+* Behavior: The output is highly predictable, consistent, and focused. It follows the most probable path, which is ideal for tasks requiring high factual accuracy or structural integrity.
+* Best for: Technical translation, code generation, mathematical reasoning, and formal documentation.
+* Risk: Setting it too low (near 0) can lead to "repetitive loops" where the model gets stuck in a cycle of the same phrases because it refuses to explore less probable but more natural variations.</p>
+<p><strong>Moderate Temperature (0.5 – 0.8): Balanced and Fluid</strong> This is often considered the "Goldilocks zone" for general-purpose AI interactions. It allows for enough variety to sound human without losing the original intent of the prompt.
+* Behavior: The model occasionally selects the second or third most likely token, leading to more diverse vocabulary and varied sentence structures.
+* Best for: General translation, creative writing, and conversational agents.</p>
+<p><strong>High Temperature (0.9 – 1.5+): Creative and Erratic</strong> As the temperature increases, the probability distribution becomes "flatter." The gap between the most likely word and the least likely word narrows, making the model much more exploratory.
+* Behavior: The model becomes highly creative, imaginative, and unpredictable. It is more likely to use rare words or unconventional phrasing.
+* Best for: Poetry, brainstorming, fiction writing, or "hallucinating" new ideas where accuracy is secondary to novelty.
+* Risk: At very high values, the model may become incoherent or "hallucinate" nonsensical facts, as it starts choosing tokens that have almost no logical connection to the preceding context.</p>
+<p><strong>top_p</strong> (Nucleus Sampling) This filter restricts the model’s choices to the smallest set of tokens whose cumulative probability reaches 95%. It effectively "prunes" the long tail of low-probability, nonsensical words, ensuring that even when sampling is randomized, the output remains coherent.</p>
+<p><strong>repetition_penalty</strong> This applies a discount to the scores of tokens that have already appeared in the text. A penalty of 1.2 discourages the model from getting stuck in repetitive loops or reusing the same adjectives excessively, which is a common quirk in Causal LM architectures.</p>
+<p><strong>no_repeat_ngram_size</strong> This is a hard constraint that prevents the model from generating any sequence of three consecutive words more than once. It is a highly effective "fail-safe" for maintaining structural diversity in longer translations.</p>
+<p><strong>num_beams</strong> Setting this to 1 signifies that the model is performing a single-path search rather than "Beam Search." In the context of the other sampling parameters above, it means the model is prioritizing a faster, more fluid stochastic generation rather than an computationally expensive search for the most probable overall sequence.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1301 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Evaluation of MT with automatic metrics using Sacrebleu and COMET - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#files-for-the-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Evaluation of MT with automatic metrics using Sacrebleu and COMET
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credits and licence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#files-for-the-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files for the tutorial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-evaluating-machine-translation-metrics-and-methodologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Evaluating Machine Translation: Metrics and Methodologies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Evaluating Machine Translation: Metrics and Methodologies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-trade-offs-of-automated-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. The Trade-offs of Automated Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-sacrebleu-standardization-in-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. SacreBLEU: Standardization in Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-sacrebleu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sacrebleu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Sacrebleu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Basic usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-advanced-evaluation-statistical-significance-with-paired-bootstrap-resampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Advanced Evaluation: Statistical Significance with Paired Bootstrap Resampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-comet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. COMET
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. COMET">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-moving-beyond-string-matching-to-neural-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Moving Beyond String Matching to Neural Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-installation-and-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Installation and Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-selecting-the-right-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Selecting the Right Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-practical-evaluation-running-the-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Practical Evaluation: Running the Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-statistical-analysis-comet-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Statistical Analysis: comet-compare
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-final-conclusions-synthesizing-the-evaluation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Final Conclusions: Synthesizing the Evaluation Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Final Conclusions: Synthesizing the Evaluation Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-the-metric-gap-why-salamandra-flipped-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. The "Metric Gap": Why Salamandra Flipped the Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-the-golden-rule-human-in-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. The Golden Rule: Human-in-the-Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-final-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        #4.3. Final Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Evaluation of MT with automatic metrics using Sacrebleu and COMET</h1>
+
+<h2 id="files-for-the-tutorial">Files for the tutorial</h2>
+<p>To do this tutorial you can use your own files or the ones at: <a href="https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/tree/main/evaluation">https://github.com/mtuoc/MTUOC-Machine-Translation-Practical-Course/tree/main/evaluation</a></p>
+<h2 id="1-evaluating-machine-translation-metrics-and-methodologies">1. Evaluating Machine Translation: Metrics and Methodologies</h2>
+<p>The evaluation of Machine Translation (MT) is a critical bottleneck in the development of NLP systems. While human evaluation remains the "gold standard," it is often prohibitively expensive and time-consuming. This has led to the rise of automated metrics, which allow for rapid, reproducible, and scalable assessment.</p>
+<h3 id="11-the-trade-offs-of-automated-metrics">1.1. The Trade-offs of Automated Metrics</h3>
+<p>Before diving into the tools, it is essential to understand the inherent tension between efficiency and accuracy.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Advantages</th>
+<th style="text-align: left;">Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Speed</strong></td>
+<td style="text-align: left;">Instantaneous feedback during model training.</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Nuance</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Lack of Nuance: Difficulty capturing sarcasm, tone, or style.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cost</strong></td>
+<td style="text-align: left;">Cost-effectiveness: Eliminates the need for paid bilingual experts.</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Accuracy</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Surface-level Bias: Often over-penalizes synonyms that are technically correct.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Reliability</strong></td>
+<td style="text-align: left;">Reproducibility: Consistent scores across different environments.</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dependency</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Reference Dependency: Performance is strictly tied to the quality of the "Gold Standard" reference.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-sacrebleu-standardization-in-evaluation">1.2. SacreBLEU: Standardization in Evaluation</h3>
+<p>In the past, comparing MT research was difficult because different researchers used different preprocessing steps. SacreBLEU solved this by providing a tool that outputs "shareable, determinate, and reproducible" scores. </p>
+<p>If you want to know more about this tool, you can read:</p>
+<p><a href="https://aclanthology.org/W18-6319/">Post, M. (2018, October). A call for clarity in reporting BLEU scores. In Proceedings of the third conference on machine translation: Research papers (pp. 186-191).</a></p>
+<p>SacreBLEU manages three primary string-based metrics:</p>
+<ul>
+<li><strong>A. BLEU (Bilingual Evaluation Understudy)</strong> BLEU measures the precision of n-grams (sequences of words) between the MT output and the reference.</li>
+<li>Mechanism: It calculates how many words/phrases in the machine output appear in the human reference.  </li>
+<li>Limitation: It is notoriously bad at the sentence level and does not account for meaning if the exact words differ.</li>
+</ul>
+<p>[Papineni, K., Roukos, S., Ward, T., &amp; Zhu, W. J. (2002, July). Bleu: a method for automatic evaluation of machine translation. In Proceedings of the 40th annual meeting of the Association for Computational Linguistics (pp. 311-318).](https://aclanthology.org/P02-1040.Pdf]</p>
+<ul>
+<li>
+<p><strong>B. chrF2 (Character n-gram F-score)</strong>: Unlike BLEU, which looks at whole words, chrF looks at character sequences.</p>
+</li>
+<li>
+<p>Mechanism: It uses a combination of precision and recall on character n-grams.</p>
+</li>
+<li>Strength: It is particularly effective for morphologically rich languages (like Finnish or Hungarian) where word endings change frequently.</li>
+</ul>
+<p><a href="https://aclanthology.org/W15-3049.pdf">Popović, M. (2015, September). chrF: character n-gram F-score for automatic MT evaluation. In Proceedings of the tenth workshop on statistical machine translation (pp. 392-395).</a></p>
+<ul>
+<li>
+<p><strong>C. TER (Translation Edit Rate)</strong>: TER measures the amount of editing a human would need to do to make the machine output match the reference exactly.</p>
+</li>
+<li>
+<p>Mechanism: It calculates the number of insertions, deletions, substitutions, and shifts required.</p>
+</li>
+<li>Interpretation: A lower TER score indicates a better translation (less work for a human editor).</li>
+</ul>
+<p><a href="https://aclanthology.org/2006.amta-papers.25/">Snover, M., Dorr, B., Schwartz, R., Micciulla, L., &amp; Makhoul, J. (2006). A study of translation edit rate with targeted human annotation. In Proceedings of the 7th Conference of the Association for Machine Translation in the Americas: Technical Papers (pp. 223-231).</a></p>
+<ul>
+<li>
+<p><strong>3. COMET: The Neural Paradigm Shift</strong>: While SacreBLEU metrics look for literal overlaps in text, COMET (Cross-lingual Optimized Metric for Evaluation of Translation) represents a new generation of "neural metrics." Developed by Unbabel, COMET leverages multilingual embeddings (from models like XLM-RoBERTa) to evaluate translations based on meaning rather than just matching characters.</p>
+</li>
+<li>
+<p>Semantic Awareness: COMET can recognize that "The sofa is comfortable" and "The couch is cozy" are excellent translations of each other, even though they share zero n-grams.</p>
+</li>
+<li>Contextual Input: Unlike BLEU, COMET typically takes the Source Text into account alongside the Reference, allowing it to detect if the machine has hallucinated information not present in the original.</li>
+<li>Correlation: COMET currently shows a much higher correlation with human judgment than any of the string-based metrics mentioned above.</li>
+</ul>
+<p><a href="https://aclanthology.org/2020.emnlp-main.213/">Rei, R., Stewart, C., Farinha, A. C., &amp; Lavie, A. (2020, November). COMET: A neural framework for MT evaluation. In Proceedings of the 2020 conference on empirical methods in natural language processing (emnlp) (pp. 2685-2702).</a></p>
+<h2 id="2-sacrebleu">2. Sacrebleu</h2>
+<h3 id="21-installation">2.1. Installation</h3>
+<p>Install the official Python module from PyPI (Python&gt;=3.9 only):</p>
+<p><code>pip install sacrebleu</code></p>
+<h3 id="22-basic-usage">2.2. Basic usage</h3>
+<p>We have the test set newstest2019-ref.eng-GB.txt with the reference translation newstest2019-ref.spa.txt and the translation to evaluate eval.en-OpusMT.es. If we want to evaluate the BLEU score, we can write:</p>
+<p><code>sacrebleu newstest2019-ref.spa.txt -i eval.en-OpusMT.es -m bleu</code></p>
+<p>And well get: </p>
+<pre><code>{
+ &quot;name&quot;: &quot;BLEU&quot;,
+ &quot;score&quot;: 39.3,
+ &quot;signature&quot;: &quot;nrefs:1|case:mixed|eff:no|tok:13a|smooth:exp|version:2.6.0&quot;,
+ &quot;verbose_score&quot;: &quot;69.0/46.8/34.0/25.2 (BP = 0.965 ratio = 0.966 hyp_len = 52264 ref_len = 54116)&quot;,
+ &quot;nrefs&quot;: &quot;1&quot;,
+ &quot;case&quot;: &quot;mixed&quot;,
+ &quot;eff&quot;: &quot;no&quot;,
+ &quot;tok&quot;: &quot;13a&quot;,
+ &quot;smooth&quot;: &quot;exp&quot;,
+ &quot;version&quot;: &quot;2.6.0&quot;
+}
+</code></pre>
+<p>We can, of course, calculate several metrics at the same time:</p>
+<p><code>sacrebleu newstest2019-ref.spa.txt -i eval.en-OpusMT.es -m bleu chrf ter</code></p>
+<p>getting</p>
+<pre><code>sacrebleu newstest2019-ref.spa.txt -i eval.en-OpusMT.es -m bleu chrf ter
+[
+{
+ &quot;name&quot;: &quot;BLEU&quot;,
+ &quot;score&quot;: 39.3,
+ &quot;signature&quot;: &quot;nrefs:1|case:mixed|eff:no|tok:13a|smooth:exp|version:2.6.0&quot;,
+ &quot;verbose_score&quot;: &quot;69.0/46.8/34.0/25.2 (BP = 0.965 ratio = 0.966 hyp_len = 52264 ref_len = 54116)&quot;,
+ &quot;nrefs&quot;: &quot;1&quot;,
+ &quot;case&quot;: &quot;mixed&quot;,
+ &quot;eff&quot;: &quot;no&quot;,
+ &quot;tok&quot;: &quot;13a&quot;,
+ &quot;smooth&quot;: &quot;exp&quot;,
+ &quot;version&quot;: &quot;2.6.0&quot;
+},
+{
+ &quot;name&quot;: &quot;chrF2&quot;,
+ &quot;score&quot;: 63.6,
+ &quot;signature&quot;: &quot;nrefs:1|case:mixed|eff:yes|nc:6|nw:0|space:no|version:2.6.0&quot;,
+ &quot;nrefs&quot;: &quot;1&quot;,
+ &quot;case&quot;: &quot;mixed&quot;,
+ &quot;eff&quot;: &quot;yes&quot;,
+ &quot;nc&quot;: &quot;6&quot;,
+ &quot;nw&quot;: &quot;0&quot;,
+ &quot;space&quot;: &quot;no&quot;,
+ &quot;version&quot;: &quot;2.6.0&quot;
+},
+{
+ &quot;name&quot;: &quot;TER&quot;,
+ &quot;score&quot;: 46.6,
+ &quot;signature&quot;: &quot;nrefs:1|case:lc|tok:tercom|norm:no|punct:yes|asian:no|version:2.6.0&quot;,
+ &quot;nrefs&quot;: &quot;1&quot;,
+ &quot;case&quot;: &quot;lc&quot;,
+ &quot;tok&quot;: &quot;tercom&quot;,
+ &quot;norm&quot;: &quot;no&quot;,
+ &quot;punct&quot;: &quot;yes&quot;,
+ &quot;asian&quot;: &quot;no&quot;,
+ &quot;version&quot;: &quot;2.6.0&quot;
+}
+]
+</code></pre>
+<p>And we can get the values for several translations at the same time:</p>
+<pre><code>sacrebleu newstest2019-ref.spa.txt -i eval.en-OpusMT.es eval.en-NLLB600dist.es eval.en-salamandraTA-2b-instruct.es -m bleu chrf ter
+sacreBLEU: Found 3 systems.
+[
+    {
+        &quot;system&quot;: &quot;eval.en-OpusMT.es&quot;,
+        &quot;BLEU&quot;: &quot;39.3&quot;,
+        &quot;chrF2&quot;: &quot;63.6&quot;,
+        &quot;TER&quot;: &quot;46.6&quot;
+    },
+    {
+        &quot;system&quot;: &quot;eval.en-NLLB600dist.es&quot;,
+        &quot;BLEU&quot;: &quot;39.8&quot;,
+        &quot;chrF2&quot;: &quot;64.0&quot;,
+        &quot;TER&quot;: &quot;46.0&quot;
+    },
+    {
+        &quot;system&quot;: &quot;eval.en-salamandraTA-2b-instruct.es&quot;,
+        &quot;BLEU&quot;: &quot;35.0&quot;,
+        &quot;chrF2&quot;: &quot;61.5&quot;,
+        &quot;TER&quot;: &quot;52.5&quot;
+    }
+]
+</code></pre>
+<p>We have several options for the final results, for example <strong>text</strong>:</p>
+<pre><code>sacrebleu newstest2019-ref.spa.txt -i eval.en-OpusMT.es eval.en-NLLB600dist.es eval.en-salamandraTA-2b-instruct.es -m bleu chrf ter --format text
+sacreBLEU: Found 3 systems.
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">System</th>
+<th style="text-align: center;">BLEU</th>
+<th style="text-align: center;">chrF2</th>
+<th style="text-align: center;">TER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">eval.en-OpusMT.es</td>
+<td style="text-align: center;">39.3</td>
+<td style="text-align: center;">63.6</td>
+<td style="text-align: center;">46.6</td>
+</tr>
+<tr>
+<td style="text-align: left;">eval.en-NLLB600dist.es</td>
+<td style="text-align: center;">39.8</td>
+<td style="text-align: center;">64.0</td>
+<td style="text-align: center;">46.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">eval.en-salamandraTA-2b-instruct.es</td>
+<td style="text-align: center;">35.0</td>
+<td style="text-align: center;">61.5</td>
+<td style="text-align: center;">52.5</td>
+</tr>
+</tbody>
+</table>
+<pre><code>-----------------
+Metric signatures
+-----------------
+ - BLEU       nrefs:1|case:mixed|eff:no|tok:13a|smooth:exp|version:2.6.0
+ - chrF2      nrefs:1|case:mixed|eff:yes|nc:6|nw:0|space:no|version:2.6.0
+ - TER        nrefs:1|case:lc|tok:tercom|norm:no|punct:yes|asian:no|version:2.6.0
+
+</code></pre>
+<p>or <strong>latex</strong>:</p>
+<pre><code>sacrebleu newstest2019-ref.spa.txt -i eval.en-OpusMT.es eval.en-NLLB600dist.es eval.en-salamandraTA-2b-instruct.es -m bleu chrf ter --format latex
+sacreBLEU: Found 3 systems.
+\begin{tabular}{rccc}
+\toprule
+                              System &amp;  BLEU  &amp;  chrF2  &amp;  TER  \\
+\midrule
+                   eval.en-OpusMT.es &amp;  39.3  &amp;  63.6   &amp; 46.6  \\
+              eval.en-NLLB600dist.es &amp;  39.8  &amp;  64.0   &amp; 46.0  \\
+ eval.en-salamandraTA-2b-instruct.es &amp;  35.0  &amp;  61.5   &amp; 52.5  \\
+\bottomrule
+\end{tabular}
+
+-----------------
+Metric signatures
+-----------------
+ - BLEU       nrefs:1|case:mixed|eff:no|tok:13a|smooth:exp|version:2.6.0
+ - chrF2      nrefs:1|case:mixed|eff:yes|nc:6|nw:0|space:no|version:2.6.0
+ - TER        nrefs:1|case:lc|tok:tercom|norm:no|punct:yes|asian:no|version:2.6.0
+</code></pre>
+<p>Please, note that in both cases the system provides the "Metric signatures", that is, the exact configuration figures for each metric (in the example they are the default ones). This information is important and allow for the replication of the experiments and results.</p>
+<h3 id="23-advanced-evaluation-statistical-significance-with-paired-bootstrap-resampling">2.3. Advanced Evaluation: Statistical Significance with Paired Bootstrap Resampling</h3>
+<p>When comparing multiple MT systems, a higher score (e.g., +0.5 BLEU) does not automatically guarantee that one model is superior to another. To confirm that these improvements are mathematically significant and not due to chance, we can use Paired Bootstrap Resampling.</p>
+<p><strong>The Command</strong></p>
+<p>To execute this analysis, we designate the first input file as the baseline and compare subsequent systems against it. Append the --paired-bs flag to your command:</p>
+<p><code>sacrebleu newstest2019-ref.spa.txt -i eval.en-OpusMT.es eval.en-NLLB600dist.es eval.en-salamandraTA-2b-instruct.es -m bleu chrf ter \
+    --paired-bs --format text</code></p>
+<p><strong>How it Works: The Methodology</strong></p>
+<p>This feature is a high-performance implementation of the standard statistical tests used in MT research (compliant with the reference Moses implementation).</p>
+<ul>
+<li>Bootstrap Resampling (95% Confidence Intervals): The tool takes your original test set and creates thousands of "pseudo-test sets" by randomly sampling sentences with replacement. It calculates the metric for each sample to estimate a 95% Confidence Interval (CI). This tells us the range in which the true score likely falls.</li>
+<li>Significance Testing (p-values): By comparing the baseline (OpusMT) against the other systems (NLLB and salamandra) across these resamples, sacrebleu calculates a p-value. <strong>A p-value &lt; 0.05 typically indicates that the difference in performance is statistically significant.</strong></li>
+<li>Customization: By default, the tool performs 1000 iterations. You can increase this for higher precision using the --paired-bs-n flag, though the default is generally sufficient for most C1-level research papers.</li>
+</ul>
+<p><strong>Understanding the Output</strong> </p>
+<p>The output is a table like this one:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">System</th>
+<th style="text-align: center;">BLEU ($\mu \pm 95\%$ CI)</th>
+<th style="text-align: center;">chrF2 ($\mu \pm 95\%$ CI)</th>
+<th style="text-align: center;">TER ($\mu \pm 95\%$ CI)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Baseline: eval.en-OpusMT.es</strong></td>
+<td style="text-align: center;">39.3 (39.3 ± 0.9)</td>
+<td style="text-align: center;">63.6 (63.6 ± 0.6)</td>
+<td style="text-align: center;">46.6 (46.7 ± 0.8)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>eval.en-NLLB600dist.es</strong></td>
+<td style="text-align: center;">39.8 (39.8 ± 0.8) <br> <em>(p = 0.0180)</em>*</td>
+<td style="text-align: center;">64.0 (64.0 ± 0.6) <br> <em>(p = 0.0090)</em>*</td>
+<td style="text-align: center;">46.0 (46.0 ± 0.8) <br> <em>(p = 0.0010)</em>*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>eval.en-salamandraTA-2b-instruct.es</strong></td>
+<td style="text-align: center;">35.0 (35.0 ± 0.8) <br> <em>(p = 0.0010)</em>*</td>
+<td style="text-align: center;">61.5 (61.6 ± 0.5) <br> <em>(p = 0.0010)</em>*</td>
+<td style="text-align: center;">52.5 (52.5 ± 0.9) <br> <em>(p = 0.0010)</em>*</td>
+</tr>
+</tbody>
+</table>
+<p>And a text explanation:</p>
+<pre><code>------------------------------------------------------------
+Paired bootstrap resampling test with 1000 resampling trials
+------------------------------------------------------------
+ - Each system is pairwise compared to Baseline: eval.en-OpusMT.es.
+   Actual system score / bootstrap estimated true mean / 95% CI are provided for each metric.
+
+ - Null hypothesis: the system and the baseline translations are essentially
+   generated by the same underlying process. For a given system and the baseline,
+   the p-value is roughly the probability of the absolute score difference (delta)
+   or higher occurring due to chance, under the assumption that the null hypothesis is correct.
+
+ - Assuming a significance threshold of 0.05, the null hypothesis can be rejected
+   for p-values &lt; 0.05 (marked with &quot;*&quot;). This means that the delta is unlikely to be attributed
+   to chance, hence the system is significantly &quot;different&quot; than the baseline.
+   Otherwise, the p-values are highlighted in red.
+
+ - NOTE: Significance does not tell whether a system is &quot;better&quot; than the baseline but rather
+   emphasizes the &quot;difference&quot; of the systems in terms of the replicability of the delta.
+</code></pre>
+<p>When interpreting the results from a paired bootstrap resampling run, we move beyond point estimates to look at the distribution of potential scores.</p>
+<ol>
+<li>Mean and Confidence Intervals (μ±95% CI)</li>
+</ol>
+<p>The values shown as 39.8±0.8 represent the mean score (μ) across all bootstrap samples and the 95% Confidence Interval.</p>
+<p>Interpretation: We are 95% confident that the true BLEU score for the NLLB model on this domain lies between 39.0 and 40.6.</p>
+<p>If the intervals of two systems do not overlap, it is a strong visual indicator of a significant difference, though not a definitive statistical proof—which is why we need the p-value.</p>
+<ol>
+<li>The p-value (p)</li>
+</ol>
+<p>The p-value represents the probability that the observed difference between the system and the baseline occurred by pure chance.</p>
+<p>In this table: For the NLLB system's BLEU score, p=0.018.</p>
+<p>Significance Threshold: In most scientific literature, a threshold of p&lt;0.05 is required to reject the null hypothesis. Since 0.018&lt;0.05, we can officially state that NLLB performs significantly better than OpusMT on this dataset.</p>
+<ol>
+<li>The Asterisk (*)</li>
+</ol>
+<p>The asterisk is a shorthand notation used in research papers to denote Statistical Significance.</p>
+<ul>
+<li>One asterisk (*): Usually means p&lt;0.05.</li>
+<li>Two asterisks ():** Often used for p&lt;0.01.</li>
+<li>No asterisk: Indicates that even if the score is higher, the improvement is "marginal" or "statistically insignificant," meaning the models are essentially performing at the same level.</li>
+</ul>
+<p>Looking at the data in our example, NLLB600dist is the superior model across all three metrics (higher BLEU/chrF2 and lower TER), and these gains are statistically confirmed. Conversely, while salamandraTA-2b shows a significant difference (p=0.001), it is significantly worse than the baseline in this specific test set, as evidenced by its lower BLEU and higher TER.</p>
+<h2 id="3-comet">3. COMET</h2>
+<h3 id="31-moving-beyond-string-matching-to-neural-metrics">3.1 Moving Beyond String Matching to Neural Metrics</h3>
+<p>While SacreBLEU provides a reliable baseline, it often fails to account for synonyms and structural variations. COMET addresses this by using multilingual encoders (XLM-RoBERTa) to map source, machine output, and reference sentences into a shared vector space.</p>
+<h3 id="31-installation-and-requirements">3.1. Installation and Requirements</h3>
+<p>To run COMET it is advisable to have GPU support, but it can also be run without GPU support, but it will be quite slow (be patient). To install COMET (it is highly recommended to use a virtual environment) write:</p>
+<p><code>pip install unbabel-comet</code></p>
+<p>Note: COMET relies on heavy neural weights. Upon first execution, the tool will automatically download the required model checkpoints (often &gt;2GB). Ensure you have adequate disk space and a stable connection.</p>
+<h3 id="32-selecting-the-right-model">3.2. Selecting the Right Model</h3>
+<p>COMET is a framework, not a single algorithm. Depending on your needs, you can choose between different architectures:</p>
+<ul>
+<li>Unbabel/wmt22-comet-da (default and recommended): The current "workhorse" for MT evaluation. It is reference-based and trained on Direct Assessments (DA).</li>
+<li>Unbabel/wmt22-cometkiwi-da (Reference-free): A Quality Estimation (QE) model. It evaluates the translation by looking only at the source text, which is invaluable when no human reference is available.</li>
+<li>Unbabel/XCOMET-XL: A more recent, "explainable" model that not only gives a score but can also pinpoint specific errors within the sentence.</li>
+</ul>
+<h3 id="33-practical-evaluation-running-the-comparison">3.3. Practical Evaluation: Running the Comparison</h3>
+<p>To maintain consistency with our previous analysis, we will evaluate our three systems using the standard reference-based model.</p>
+<p>The Scoring Command: You can pass multiple translation files simultaneously. The source file (-s) and the reference file (-r) remain constant, while the hypotheses (-t) vary.
+Bash</p>
+<p><code>comet-score -s newstest2019-ref.eng-GB.txt -r newstest2019-ref.spa.txt -t eval.en-OpusMT.es eval.en-NLLB600dist.es eval.en-salamandraTA-2b-instruct.es --model Unbabel/wmt22-comet-da</code></p>
+<p>NOTE: as wmt22-comet-da is the default model, you can omit --model Unbabel/wmt22-comet-da. Anyway, it is always a good practice to indicate the model.</p>
+<p>As a result, you'll get a score for each segment and the final scores for each system.</p>
+<pre><code>eval.en-OpusMT.es   score: 0.8352
+eval.en-NLLB600dist.es  score: 0.8474
+eval.en-salamandraTA-2b-instruct.es score: 0.8548
+</code></pre>
+<h3 id="34-statistical-analysis-comet-compare">3.4. Statistical Analysis: comet-compare</h3>
+<p>Just as we did with SacreBLEU, we must determine if the COMET score differences are statistically significant. COMET provides a dedicated script for this that uses Paired T-Tests and Bootstrap Resampling.
+Bash</p>
+<p><code>comet-compare -s newstest2019-ref.eng-GB.txt -r newstest2019-ref.spa.txt -t eval.en-OpusMT.es eval.en-NLLB600dist.es eval.en-salamandraTA-2b-instruct.es --model Unbabel/wmt22-comet-da</code></p>
+<p>And we'll get:</p>
+<pre><code>x_name: eval.en-OpusMT.es
+y_name: eval.en-NLLB600dist.es
+
+Bootstrap Resampling Results:
+x-mean: 0.8354
+y-mean: 0.8476
+ties (%):   0.0000
+x_wins (%): 0.0000
+y_wins (%): 1.0000
+
+Paired T-Test Results:
+statistic:  -9.9123
+p_value:    0.0000
+Null hypothesis rejected according to t-test.
+Scores differ significantly across samples.
+eval.en-NLLB600dist.es outperforms eval.en-OpusMT.es.
+==========================
+x_name: eval.en-OpusMT.es
+y_name: eval.en-salamandraTA-2b-instruct.es
+
+Bootstrap Resampling Results:
+x-mean: 0.8354
+y-mean: 0.8549
+ties (%):   0.0000
+x_wins (%): 0.0000
+y_wins (%): 1.0000
+
+Paired T-Test Results:
+statistic:  -11.1545
+p_value:    0.0000
+Null hypothesis rejected according to t-test.
+Scores differ significantly across samples.
+eval.en-salamandraTA-2b-instruct.es outperforms eval.en-OpusMT.es.
+==========================
+x_name: eval.en-NLLB600dist.es
+y_name: eval.en-salamandraTA-2b-instruct.es
+
+Bootstrap Resampling Results:
+x-mean: 0.8476
+y-mean: 0.8549
+ties (%):   0.0033
+x_wins (%): 0.0000
+y_wins (%): 0.9967
+
+Paired T-Test Results:
+statistic:  -5.0565
+p_value:    0.0000
+Null hypothesis rejected according to t-test.
+Scores differ significantly across samples.
+eval.en-salamandraTA-2b-instruct.es outperforms eval.en-NLLB600dist.es.
+
+Summary
+If system_x is better than system_y then:
+Null hypothesis rejected according to t-test with p_value=0.05.
+Scores differ significantly across samples.
+system_x \ system_y                  eval.en-OpusMT.es    eval.en-NLLB600dist.es    eval.en-salamandraTA-2b-instruct.es
+-----------------------------------  -------------------  ------------------------  -------------------------------------
+eval.en-OpusMT.es                                         False                     False
+eval.en-NLLB600dist.es               True                                           False
+eval.en-salamandraTA-2b-instruct.es  True                 True
+</code></pre>
+<p><strong>Interpreting COMET Scores</strong></p>
+<p>Unlike BLEU, which ranges from 0 to 100, COMET scores typically range between 0 and 1 (though some older versions used different scales).
+* Higher is better: A score closer to 1.0 indicates a near-perfect translation according to the model's semantic understanding.
+* Negative Scores: Occasionally, very poor translations can result in negative values, indicating a total lack of semantic correspondence.</p>
+<p>Once the <code>comet-compare</code> execution is complete, the tool generates a comprehensive statistical report. Unlike simpler metrics, COMET utilizes Bootstrap Resampling and Paired T-Tests to ensure that the delta between two models is not merely a byproduct of data noise.</p>
+<p><strong>Statistical Foundations</strong></p>
+<p>The output provides a rigorous look at how two systems compare across thousands of iterations:</p>
+<ul>
+<li>Win Ratio (x_wins vs. y_wins): This metric represents the percentage of bootstrap samples in which a specific system outperformed its competitor. For instance, if y_wins is 1.0000, it signifies that System Y was superior in 100% of the simulated scenarios.</li>
+<li>Ties: This indicates the frequency with which the two systems performed identically. In neural evaluation, ties are increasingly rare due to the high sensitivity of the embeddings.</li>
+<li>The p-value: Following standard statistical conventions, a p&lt;0.05 allows us to reject the Null Hypothesis (the assumption that there is no significant difference between the models). In our current results, p=0.0000 indicates absolute statistical confidence.</li>
+</ul>
+<p>*<em>Current System Standings</em> </p>
+<p>Based on the COMET scores, we observe a clear hierarchy of performance that differs from our previous string-based analysis.</p>
+<p>I. OpusMT vs. NLLB600dist: While NLLB shows a respectable mean score of 0.8476, it significantly outperforms the OpusMT baseline (0.8354). The statistical test confirms this with a win ratio of 100%, suggesting that NLLB's neural architecture consistently produces more semantically accurate translations.</p>
+<p>II. The Emergence of SalamandraTA-2b-instruct. The most notable result is the performance of Salamandra.</p>
+<ul>
+<li>It achieves the highest mean score in the set (0.8549).</li>
+<li>In a direct head-to-head comparison with NLLB, it wins 99.67% of the time.</li>
+<li>The summary matrix explicitly marks the comparison as True, meaning Salamandra is statistically superior to both OpusMT and NLLB according to the WMT22-COMET-DA model.</li>
+</ul>
+<p><strong>Summary Matrix</strong> </p>
+<p>The summary table at the end of the report acts as a definitive leaderboard. If a cell is marked True, it confirms that the system in that row is statistically better than the system in that column.</p>
+<h2 id="4-final-conclusions-synthesizing-the-evaluation-results">4. Final Conclusions: Synthesizing the Evaluation Results</h2>
+<p>The discrepancy between our SacreBLEU and COMET results provides a profound case study in modern Machine Translation evaluation. While string-based metrics and neural-based metrics often correlate, the outliers—like SalamandraTA-2b-instruct—reveal the limitations of relying on a single source of truth.</p>
+<h3 id="41-the-metric-gap-why-salamandra-flipped-the-script">4.1. The "Metric Gap": Why Salamandra Flipped the Script</h3>
+<p>In our evaluation, Salamandra ranked last in BLEU but first in COMET. This phenomenon is typically attributed to the nature of Instruction-tuned Large Language Models (LLMs):</p>
+<ul>
+<li>Lexical Flexibility: BLEU requires a word-for-word match with the human reference. Because Salamandra is an "instruct" model, it tends to be more descriptive or uses more sophisticated synonyms. While semantically correct, these variations are penalized by BLEU as "errors."</li>
+<li>Semantic Adequacy: COMET recognizes that a translation can be "correct" without being an "exact match." It rewards the model for capturing the intent and nuances of the English source text, which is where Salamandra clearly excels.</li>
+<li>The Verdict: If your priority is a literal, predictable translation, BLEU's top model (NLLB) might be your choice. However, if you seek naturalness and semantic depth, COMET’s winner (Salamandra) is superior.</li>
+</ul>
+<h3 id="42-the-golden-rule-human-in-the-loop">4.2. The Golden Rule: Human-in-the-Loop</h3>
+<p>While automated metrics like SacreBLEU and COMET are indispensable for rapid iteration and statistical validation, they are not infallible. For high-stakes or professional-grade translation, Human Evaluation remains an mandatory final step.</p>
+<p>A comprehensive evaluation strategy should ideally include:</p>
+<ul>
+<li>Direct Assessment (DA): Human experts rate the translation on a scale (e.g., 0–100) based on how well it conveys the meaning of the source.</li>
+<li>Error Analysis (MQM): Utilizing frameworks like the Multidimensional Quality Metrics to categorize specific issues (e.g., terminology, grammar, style).</li>
+<li>Post-editing Effort: Measuring the time and number of keystrokes a human translator needs to correct the machine output.</li>
+</ul>
+<h2 id="43-final-recommendations">#4.3. Final Recommendations</h2>
+<p>To conclude this tutorial, remember that evaluation is not about finding a single "perfect" number, but about understanding the behavior of your model.</p>
+<ul>
+<li>Use SacreBLEU for a quick, reproducible baseline and to ensure lexical consistency.</li>
+<li>Use COMET to capture semantic quality and to better predict actual human preference.</li>
+<li>Always perform a qualitative check: Spend time reading at least 50–100 segments of the output. Often, a model with a high COMET score might still have "hallucinations" or stylistic quirks that no automated tool can yet fully quantify.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

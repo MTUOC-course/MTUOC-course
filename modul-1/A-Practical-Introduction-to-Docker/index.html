@@ -1,0 +1,1445 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>A Practical Introduction to Docker - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction-what-is-docker" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A Practical Introduction to Docker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credits and licence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction-what-is-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction: what is Docker?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-installation-setting-up-your-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Installation: Setting Up Your Environment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Installation: Setting Up Your Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2a-standard-installation-cpu-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.a. Standard Installation (CPU-only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2b-advanced-installation-with-gpu-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.b. Advanced Installation (With GPU Support)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-first-steps-hands-on-with-ubuntu-2404" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. First Steps: Hands-on with Ubuntu 24.04
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. First Steps: Hands-on with Ubuntu 24.04">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-creating-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Creating Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-working-inside-the-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Working Inside the Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-executing-commands-from-the-outside" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Executing Commands from the Outside
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-lifecycle-management-stop-remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Lifecycle Management (Stop &amp; Remove)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-final-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Final Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sharing-data-bind-mounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sharing Data: Bind Mounts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Sharing Data: Bind Mounts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4a-mapping-a-specific-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.a. Mapping a Specific Folder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4b-mounting-the-entire-hard-drive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.b. Mounting the Entire Hard Drive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4c-useful-shortcut-mounting-the-current-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.c. Useful Shortcut: Mounting the Current Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-leveraging-pre-built-images-for-machine-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Leveraging Pre-built Images for Machine Translation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Leveraging Pre-built Images for Machine Translation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4a-marian-nmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.a. Marian NMT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4b-opennmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.b. OpenNMT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4c-eole-specific-gpu-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.c. Eole (Specific GPU version)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-managing-images-the-pull-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Managing Images: The pull Command
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-automating-with-dockerfiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Automating with Dockerfiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Automating with Dockerfiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6a-the-anatomy-of-a-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.a. The Anatomy of a Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6b-a-practical-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.b. A Practical Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6c-building-the-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.c. Building the Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6d-running-your-custom-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.d. Running Your Custom Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-running-long-processes-using-tmux-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Running Long Processes: Using tmux with Docker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-conclusions-mastering-the-containerized-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Conclusions: Mastering the Containerized Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>A Practical Introduction to Docker</h1>
+
+<p>If you are tired of the "it works on my machine" excuse, Docker is the solution you have been looking for. This guide will walk you through the core concepts and help you run your first containerized application.</p>
+<h2 id="1-introduction-what-is-docker">1. Introduction: what is Docker?</h2>
+<p>To truly understand Docker, we need to compare it with the traditional way of isolating environments: Virtual Machines (VMs). While both allow you to run isolated instances of software, they do so at very different layers of your hardware.</p>
+<p><strong>Virtual Machines: The "Heavyweight" Approach</strong></p>
+<p>A Virtual Machine is an emulation of a physical computer. It runs on top of a Hypervisor (software like VMware or VirtualBox) that carves out a portion of your hardware—CPU, RAM, and Disk—to create a completely independent environment. The most important thing to note is that every VM includes its own full Guest Operating System. If you want to run a tiny Python script in a VM, you have to load several gigabytes of Windows or Linux just to support it. This leads to:</p>
+<ul>
+<li><strong>High overhead:</strong> Significant memory and CPU consumption.</li>
+<li><strong>Slow boot times:</strong> You have to wait for the entire OS to start.</li>
+</ul>
+<p><strong>Docker Containers: The "Lightweight" Alternative</strong></p>
+<p>Docker takes a different approach called OS-level virtualization. Instead of virtualizing the hardware, Docker virtualizes the Operating System itself. Containers run as isolated processes on the host machine but share the host's Linux kernel. They only package the application and the specific libraries needed to run it. They don't need a guest OS.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Virtual Machines (VMs)</th>
+<th style="text-align: left;">Docker Containers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Operating System</strong></td>
+<td style="text-align: left;">Each VM has its own full Guest OS.</td>
+<td style="text-align: left;">All containers share the Host OS kernel.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Size</strong></td>
+<td style="text-align: left;">Large (usually several GBs).</td>
+<td style="text-align: left;">Very small (often just a few MBs).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Startup Time</strong></td>
+<td style="text-align: left;">Minutes (needs to boot the OS).</td>
+<td style="text-align: left;">Seconds (starts like a normal app).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Isolation</strong></td>
+<td style="text-align: left;">Fully isolated (more secure by default).</td>
+<td style="text-align: left;">Process-level isolation (very secure, but shares kernel).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Efficiency</strong></td>
+<td style="text-align: left;">High resource consumption.</td>
+<td style="text-align: left;">Highly efficient; you can run dozens on one PC.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-installation-setting-up-your-environment">2. Installation: Setting Up Your Environment</h2>
+<p>Before we proceed, it is important to note that if you are working on a shared server (for example, a university cluster or a company staging environment), Docker is most likely already installed and configured by the system administrator. You should check this by typing <code>docker --version</code> in your terminal.</p>
+<p>However, if you wish to run Docker on your own local machine, follow the instructions below based on your hardware requirements.</p>
+<h3 id="2a-standard-installation-cpu-only">2.a. Standard Installation (CPU-only)</h3>
+<p>This is the go-to option for general web development and standard applications.</p>
+<p><strong>Windows &amp; macOS:</strong></p>
+<p>The easiest way is to download Docker Desktop. Go to the <a href="https://www.docker.com/products/docker-desktop/">official Docker website</a>. Download the installer and follow the wizard.</p>
+<p>Note for Windows users: Ensure that WSL 2 (Windows Subsystem for Linux) is enabled, as it provides significantly better performance than the old Hyper-V backend.</p>
+<p><strong>Linux (Ubuntu/Debian):</strong> </p>
+<p>You should install Docker using the official repository to ensure you get the latest version.</p>
+<pre><code>sudo apt-get update
+sudo apt-get install docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+</code></pre>
+<h3 id="2b-advanced-installation-with-gpu-support">2.b. Advanced Installation (With GPU Support)</h3>
+<p>If you are planning to work on Machine Learning, Deep Learning, or Heavy Graphics Processing, simply having Docker is not enough. You need to allow the container to "talk" to your NVIDIA graphics card.</p>
+<p>Requirements:</p>
+<ul>
+<li>A physical NVIDIA GPU.</li>
+<li>The latest NVIDIA Drivers installed on your host machine.</li>
+</ul>
+<p><strong>Steps for Linux:</strong></p>
+<p>To enable GPU support, you need to install the NVIDIA Container Toolkit. This acts as a bridge between Docker and your GPU drivers.</p>
+<ol>
+<li>Configure the production repository:</li>
+</ol>
+<p><code>curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg</code></p>
+<ol>
+<li>Install the toolkit:</li>
+</ol>
+<p><code>sudo apt-get install -y nvidia-container-toolkit</code></p>
+<ol>
+<li>Restart the Docker daemon to apply changes:</li>
+</ol>
+<p><code>sudo systemctl restart docker</code></p>
+<p><strong>How to verify the GPU installation:</strong> </p>
+<p>Run the following command. If everything is set up correctly, you should see a table showing your GPU statistics:</p>
+<p><code>docker run --rm --gpus all nvidia/cuda:12.0-base nvidia-smi</code></p>
+<p>Important: While Docker Desktop for Windows now supports GPU acceleration automatically through WSL2, Linux users must manually install the toolkit mentioned above to gain hardware access.</p>
+<h2 id="3-first-steps-hands-on-with-ubuntu-2404">3. First Steps: Hands-on with Ubuntu 24.04</h2>
+<p>In this section, we will learn how to create a container, manage its identity, and execute commands. We will use a "raw" Ubuntu 24.04 image, which is perfect for testing because it is essentially a blank slate.</p>
+<h3 id="step-1-creating-containers">Step 1: Creating Containers</h3>
+<p>When you create a container, you have two options for naming it.</p>
+<p><strong>Option A: The Anonymous Way (Random Name)</strong></p>
+<p>If you don't provide a name, Docker will invent one for you.</p>
+<p><code>docker run -it ubuntu:24.04 /bin/bash</code></p>
+<p>If you run docker <code>ps -a</code> in another terminal, you might see a name like goofy_pasteur or zen_archimedes.</p>
+<p><strong>Option B: The Professional Way (Custom Name)</strong></p>
+<p>It is much better to assign a specific name for easier management:</p>
+<p><code>docker run -it --name my_ubuntu_lab ubuntu:24.04 /bin/bash</code></p>
+<p>Note: The <code>-it</code> flags are crucial here. <code>-i</code> (interactive) keeps the input open, and <code>-t</code> (tty) gives you a functional terminal interface.</p>
+<h3 id="step-2-working-inside-the-container">Step 2: Working Inside the Container</h3>
+<p>Once inside the Ubuntu prompt, you are the root user. Let's try to use a tool that isn't installed yet:</p>
+<p><code>curl --version</code></p>
+<p>Result: bash: curl: command not found</p>
+<p>Install the tool:</p>
+<p><code>apt update &amp;&amp; apt install -y curl</code></p>
+<p>Verify it works:</p>
+<p><code>curl -I https://www.google.com</code></p>
+<p>Now, exit the container by typing <code>exit</code>.</p>
+<h3 id="step-3-executing-commands-from-the-outside">Step 3: Executing Commands from the Outside</h3>
+<p>One of the most useful features of Docker is the ability to run commands inside a container without entering its shell. This is perfect for automation.</p>
+<p>First, restart your container (since exit stops it):</p>
+<p><code>docker start my_ubuntu_lab</code></p>
+<p>Now, instead of "logging in," let's run curl directly from your host machine's terminal:</p>
+<p><code>docker exec my_ubuntu_lab curl -I https://www.github.com</code></p>
+<p>What happened? Docker sent the command to the running container, executed it, and printed the result directly to your screen. This is a very efficient way to interact with services without leaving your main workspace.</p>
+<h3 id="step-4-lifecycle-management-stop-remove">Step 4: Lifecycle Management (Stop &amp; Remove)</h3>
+<p>Before you can delete a container, you must ensure it is not running. Docker prevents the accidental deletion of active processes.</p>
+<ol>
+<li>Stop the container:</li>
+</ol>
+<p><code>docker stop my_ubuntu_lab</code></p>
+<ol>
+<li>Remove the container:</li>
+</ol>
+<p><code>docker rm my_ubuntu_lab</code></p>
+<p>The Shortcut: If you want to delete a container immediately without stopping it first, you can use the "force" flag:</p>
+<p><code>docker rm -f my_ubuntu_lab</code></p>
+<h3 id="step-5-final-check">Step 5: Final Check</h3>
+<p>To ensure everything is clean, list all your containers:</p>
+<p><code>docker ps -a</code></p>
+<p>If the list is empty, you have successfully mastered the basics of container creation, external execution, and cleanup!</p>
+<p><strong>Summary: basic commands:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>docker run -it --name &lt;name&gt; &lt;image&gt;</code></td>
+<td style="text-align: left;">Create and enter a new named container.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker ps -a</code></td>
+<td style="text-align: left;">Show all containers (running and stopped).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker start &lt;name&gt;</code></td>
+<td style="text-align: left;">Wake up a stopped container.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker exec &lt;name&gt; &lt;command&gt;</code></td>
+<td style="text-align: left;">Run a command inside a running container from the outside.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker stop &lt;name&gt;</code></td>
+<td style="text-align: left;">Stop a container gracefully.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker rm &lt;name&gt;</code></td>
+<td style="text-align: left;">Delete a stopped container permanently.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-sharing-data-bind-mounts">4. Sharing Data: Bind Mounts</h2>
+<p>In this section, we will see how to bridge the gap between your physical computer (the Host) and the virtualized environment of the container. This is crucial because, by default, containers are "ephemeral"—meaning any data created inside them is lost as soon as the container is deleted.</p>
+<p>A Bind Mount allows you to map a specific folder (or even your entire hard drive) from your computer to a directory inside the container. It works like a real-time mirror: any change made on one side is immediately reflected on the other.</p>
+<h3 id="4a-mapping-a-specific-folder">4.a. Mapping a Specific Folder</h3>
+<p>This is the most common and safest way to work. Suppose you have a project folder on your Desktop. You can "mount" it inside the Ubuntu container like this:</p>
+<p><strong>On Linux/macOS:</strong></p>
+<p><code>docker run -it --name lab_session -v /Users/yourname/Desktop/my_project:/work ubuntu:24.04 /bin/bash</code></p>
+<p><strong>On Windows (PowerShell):</strong></p>
+<p><code>docker run -it --name lab_session -v C:\Users\yourname\Desktop\my_project:/work ubuntu:24.04 /bin/bash</code></p>
+<ul>
+<li>Left side of the colon (:): The path on your real computer.</li>
+<li>Right side of the colon (:): The path inside the Docker container (it will be created automatically if it doesn't exist).</li>
+</ul>
+<h3 id="4b-mounting-the-entire-hard-drive">4.b. Mounting the Entire Hard Drive</h3>
+<p>In some advanced scenarios—for example, if you need to run a script that scans your whole system or accesses multiple drives—you might want to mount your entire user directory or even the root of your hard drive.</p>
+<p><strong>Warning: Be extremely careful when doing this. If you run a command like rm -rf / inside the container while your whole disk is mounted, you could delete the files on your actual computer.</strong></p>
+<p>To mount your entire User folder:</p>
+<ul>
+<li>Linux/macOS: <code>-v ~:/host_system</code></li>
+<li>Windows: <code>-v C:\:/host_system</code></li>
+</ul>
+<p><strong>Example command (Linux/macOS):</strong></p>
+<p><code>docker run -it --name full_access -v /:/total_disk ubuntu:24.04 /bin/bash</code></p>
+<p>Once inside, if you type ls /total_disk, you will see your computer's actual file system (Applications, Users, System, etc.).</p>
+<h3 id="4c-useful-shortcut-mounting-the-current-directory">4.c. Useful Shortcut: Mounting the Current Directory</h3>
+<p>If you are already in the terminal and you are inside the folder you want to share, you don't need to type the full path. You can use these variables:</p>
+<ul>
+<li>Linux/macOS: <code>-v $(pwd):/app</code></li>
+<li>Windows (PowerShell): <code>-v ${PWD}:/app</code></li>
+</ul>
+<p><strong>Why is this better than copying files?</strong></p>
+<ul>
+<li>No Duplicate Data: You aren't "uploading" files to the container; you are just giving the container permission to see them.</li>
+<li>Live Editing: You can keep your favorite code editor (VS Code, Sublime) open on your computer. Every time you save a file, the container sees the update instantly.</li>
+<li>Persistence: You can delete the container, upgrade the image, or restart Docker. Your files stay exactly where they were on your hard drive.</li>
+</ul>
+<p><strong>Summary Table: Volume Flags</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Flag Syntax</th>
+<th style="text-align: left;">Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-v /absolute/path:/target</code></td>
+<td style="text-align: left;">Mounts a specific local folder from your computer.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-v $(pwd):/target</code></td>
+<td style="text-align: left;">Mounts the folder you are currently in (Linux/macOS).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-v /:/target</code></td>
+<td style="text-align: left;">Mounts the entire root of your hard drive (Use with caution!).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-v /path:/target:ro</code></td>
+<td style="text-align: left;"><strong>Read-Only:</strong> The container can see files but cannot modify them.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-leveraging-pre-built-images-for-machine-translation">4. Leveraging Pre-built Images for Machine Translation</h2>
+<p>One of the greatest advantages of Docker is avoiding "dependency hell." Instead of spending hours compiling C++ libraries or fixing Python version conflicts, you can use images where the software is already optimized and ready to go.</p>
+<h3 id="4a-marian-nmt">4.a. Marian NMT</h3>
+<p>Marian is a high-performance NMT engine. Compiling it manually requires specific versions of Boost and CUDA. With Docker, you can simply pull it:</p>
+<p><code>docker run --rm -it lefterav/marian-nmt:1.11.0_sentencepiece_cuda-11.3.0</code></p>
+<p>Benefit: Provides a ready-to-use environment for training and translation with Marian.</p>
+<h3 id="4b-opennmt">4.b. OpenNMT</h3>
+<p>OpenNMT is one of the most popular frameworks for neural translation. Since it relies heavily on PyTorch or TensorFlow, using the official Docker image ensures the backend is correctly configured.</p>
+<p><code>docker run --rm -it yujioshima/opennmt-py</code></p>
+<h3 id="4c-eole-specific-gpu-version">4.c. Eole (Specific GPU version)</h3>
+<p>Eole is a modern toolkit built on top of OpenNMT. Because it requires very specific versions of the NVIDIA drivers and PyTorch to function correctly, the "tags" (the text after the colon) can be quite long.</p>
+<p><code>docker run --rm -it ghcr.io/eole-nlp/eole:0.1.2-torch2.5.1-ubuntu22.04-cuda12.4</code></p>
+<h2 id="5-managing-images-the-pull-command">5. Managing Images: The pull Command</h2>
+<p>Until now, we have primarily used docker run, which is a "three-in-one" command that:</p>
+<ul>
+<li>Downloads the image (if not present locally).</li>
+<li>Creates the container instance.</li>
+<li>Executes the specified process.</li>
+</ul>
+<p>However, in professional environments—especially when dealing with massive Machine Translation images (which can exceed 10GB)—it is standard practice to separate the download from the execution using <code>docker pull</code>.</p>
+<p>Why use docker pull?</p>
+<ul>
+<li>Pre-loading Environments: You can download heavy images (like Eole or Marian) in the background while you continue other tasks.</li>
+<li>Offline Readiness: Once an image is "pulled," you no longer require an internet connection to instantiate containers from it.</li>
+<li>Verification: Performing a pull first allows you to verify that the tag and registry permissions are correct before committing to a complex run command with multiple volumes and GPU flags.</li>
+</ul>
+<p><strong>Step-by-Step Execution</strong></p>
+<p>To download the specific Eole image we verified earlier without running it immediately:</p>
+<p><code>docker pull ghcr.io/eole-nlp/eole:0.1.2-torch2.5.1-ubuntu22.04-cuda12.4</code></p>
+<p>Once the download is complete, you can verify that the image is stored on your local disk:</p>
+<p><code>docker images</code></p>
+<p>Now, when you are ready to work, executing the run command will be instantaneous because Docker will find the image locally:
+Bash</p>
+<p><code>docker run --rm -it --gpus all ghcr.io/eole-nlp/eole:0.1.2-torch2.5.1-ubuntu22.04-cuda12.4</code></p>
+<p><strong>Comparison: run vs. pull</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;"><code>docker run</code></th>
+<th style="text-align: left;"><code>docker pull</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Primary Action</strong></td>
+<td style="text-align: left;">Creates and starts a container instance.</td>
+<td style="text-align: left;">Only downloads the image to the local host.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Internet Dependency</strong></td>
+<td style="text-align: left;">Required only if the image is missing locally.</td>
+<td style="text-align: left;">Always required to check for the latest version.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>System Impact</strong></td>
+<td style="text-align: left;">Consumes RAM, CPU, and Disk (active process).</td>
+<td style="text-align: left;">Consumes Disk Space only (static storage).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Typical Use Case</strong></td>
+<td style="text-align: left;">Immediate execution, testing, or processing.</td>
+<td style="text-align: left;">Preparing environments or updating specific tags.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Updated Commands Table for GitHub Wiki</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>docker pull &lt;image&gt;</code></td>
+<td style="text-align: left;">Downloads the image from a registry to your local host.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker images</code></td>
+<td style="text-align: left;">Lists all images currently stored on your machine.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker rmi &lt;image_id&gt;</code></td>
+<td style="text-align: left;"><strong>Remove Image:</strong> Deletes the image from your disk to free up space.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker run &lt;image&gt;</code></td>
+<td style="text-align: left;">Instantiates a container (pulls automatically if missing).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-automating-with-dockerfiles">6. Automating with Dockerfiles</h2>
+<p>Creating your own image ensures that your environment is exactly the same every time you (or a colleague) run it.</p>
+<h3 id="6a-the-anatomy-of-a-dockerfile">6.a. The Anatomy of a Dockerfile</h3>
+<p>Create a file named Dockerfile (no extension) in your project folder. Here are the most common instructions:</p>
+<ul>
+<li>FROM: The base image you are starting from (e.g., ubuntu:24.04).</li>
+<li>WORKDIR: Sets the "home" directory inside the container for any subsequent commands.</li>
+<li>COPY: Moves files from your real computer into the container image.</li>
+<li>RUN: Executes commands during the build process (like installing software).</li>
+<li>CMD: The default command that runs only when the container starts.</li>
+</ul>
+<h3 id="6b-a-practical-example">6.b. A Practical Example</h3>
+<p>Let's create an image that comes pre-installed with curl and a custom script.</p>
+<p>The Dockerfile:</p>
+<pre><code># Start from Ubuntu 24.04
+FROM ubuntu:24.04
+
+# Avoid prompts during installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies
+RUN apt update &amp;&amp; apt install -y curl python3
+
+# Create a working directory
+WORKDIR /app
+
+# Copy a local script into the container
+# (Assuming you have a 'script.py' in your folder)
+COPY script.py .
+
+# What to do when the container starts
+CMD [&quot;python3&quot;, &quot;script.py&quot;]
+</code></pre>
+<h3 id="6c-building-the-image">6.c. Building the Image</h3>
+<p>Once your Dockerfile is saved, you need to "bake" it into an image using the build command.</p>
+<p><code>docker build -t my_custom_tool:v1 .</code></p>
+<ul>
+<li>-t: Stands for "tag." It gives your image a name and a version (v1).</li>
+<li>.: This is very important! It tells Docker to look for the Dockerfile in the current directory.</li>
+</ul>
+<h3 id="6d-running-your-custom-image">6.d. Running Your Custom Image</h3>
+<p>Now that the image is built, you can run it just like you did with the official Ubuntu image:</p>
+<p><code>docker run --name test_run my_custom_tool:v1</code></p>
+<p><strong>Why use a Dockerfile instead of manual changes?</strong></p>
+<ul>
+<li>Version Control: You can put your Dockerfile on GitHub. Anyone can download it and recreate your exact environment.</li>
+<li>Layer Caching: If you change your script but not your installations, Docker is smart enough to only rebuild the "COPY" part, making updates extremely fast.</li>
+<li>Documentation: The Dockerfile itself serves as documentation of exactly what software and versions your project requires.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Instruction / Command</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>FROM &lt;image&gt;</code></td>
+<td style="text-align: left;">Defines the base Operating System or environment (e.g., <code>ubuntu:24.04</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>WORKDIR /path</code></td>
+<td style="text-align: left;">Sets the default working directory for all following instructions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>COPY &lt;src&gt; &lt;dest&gt;</code></td>
+<td style="text-align: left;">Copies files or directories from the Host (your PC) to the Image.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>RUN &lt;command&gt;</code></td>
+<td style="text-align: left;">Executes commands during the <strong>build</strong> process (e.g., installing software).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CMD ["cmd"]</code></td>
+<td style="text-align: left;">Specifies the default command that runs when the <strong>container starts</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>docker build -t &lt;name&gt; .</code></td>
+<td style="text-align: left;">The CLI command used to create an image from your <code>Dockerfile</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-running-long-processes-using-tmux-with-docker">7. Running Long Processes: Using tmux with Docker</h2>
+<p>When performing heavy tasks like model training, you should never run Docker directly in your main terminal. If the connection is interrupted, the container stops. Instead, you should run it inside a tmux session.</p>
+<p><strong>What is tmux?</strong></p>
+<p>tmux creates a "persistent" terminal session on your computer. You can start a process, "detach" from the session (leave it running in the background), and "attach" back later to check the progress.</p>
+<p><strong>A. Basic Workflow</strong></p>
+<ol>
+<li>Create a new session:</li>
+</ol>
+<p>Give it a name so you can find it later (e.g., translation).</p>
+<p><code>tmux new -s sessionname</code></p>
+<ol>
+<li>Inside this new screen, start your long-running process:</li>
+</ol>
+<p><code>docker run --rm -it --gpus all eole-image eole train ...</code></p>
+<ol>
+<li>Detach from the session:</li>
+</ol>
+<p>Press Ctrl + B, then let go and press D.</p>
+<p>The terminal will return to your normal prompt, but Docker is still running in the background.</p>
+<ol>
+<li>Re-attach later:</li>
+</ol>
+<p>When you want to see if the process is finished:</p>
+<p><code>tmux attach -t sessionname</code></p>
+<p><strong>B. Why this is essential for Docker</strong></p>
+<ul>
+<li>Stability: If your SSH connection to a server drops, tmux keeps the session alive.</li>
+<li>Multi-tasking: You can have one tmux window showing nvidia-smi (to monitor GPU usage) and another window running the actual Docker container.</li>
+<li>Logging: You can scroll back through the tmux history to see logs that might have been lost in a standard terminal buffer.</li>
+</ul>
+<p><strong>C. Useful tmux Shortcuts for your Wiki</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Action</th>
+<th style="text-align: left;">Shortcut / Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Create New Session</strong></td>
+<td style="text-align: left;"><code>tmux new -s &lt;name&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Detach</strong> (Leave session running in background)</td>
+<td style="text-align: left;"><code>Ctrl + B</code>, then <code>D</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>List All Active Sessions</strong></td>
+<td style="text-align: left;"><code>tmux ls</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Re-attach to a Session</strong></td>
+<td style="text-align: left;"><code>tmux attach -t &lt;name&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Kill/Terminate a Session</strong></td>
+<td style="text-align: left;"><code>tmux kill-session -t &lt;name&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Enter Scroll Mode</strong></td>
+<td style="text-align: left;"><code>Ctrl + B</code>, then <code>[</code> (Use arrow keys to navigate)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>D. Combining Docker Detach and tmux</strong> </p>
+<p>While Docker has its own "detached" mode (-d), using tmux is generally preferred for interactive tasks because it allows you to see the standard output (STDOUT) in real-time and interact with the container if it asks for input.</p>
+<p>If you are training a model on a remote server, always start tmux first. It is the best insurance against a lost internet connection ruining hours of work.</p>
+<h2 id="8-conclusions-mastering-the-containerized-workflow">8. Conclusions: Mastering the Containerized Workflow</h2>
+<p>By implementing the strategies outlined in this tutorial, you have moved from a manual, error-prone setup to a modern, scalable development environment. Whether you are training neural translation models or deploying linguistics tools, Docker provides the consistency needed for academic and professional success.</p>
+<p><strong>Summary of Key Concepts</strong></p>
+<ul>
+<li>Environment Isolation: No more "it works on my machine" excuses. Docker ensures that dependencies like CUDA, PyTorch, and specialized C++ libraries (Marian/Eole) are encapsulated and version-controlled.</li>
+<li>Data Persistence: Using Bind Mounts (-v) allows you to keep your heavy datasets and models on your host machine while the container handles the processing power.</li>
+<li>Automation: Moving from manual commands to Dockerfiles and Build Scripts allows you to recreate complex environments in seconds rather than hours.</li>
+<li>Operational Stability: Tools like tmux ensure that your long-running translation tasks are protected from network interruptions or local crashes.</li>
+</ul>
+<p><strong>The Golden Rules for a Docker Expert</strong></p>
+<ul>
+<li>Always use Specific Tags: Avoid using :latest in production. Always specify the version (e.g., 0.1.2-cuda12.4) to ensure your results are reproducible next year.</li>
+<li>Keep Images Clean: Use the --rm flag for one-off tasks to prevent "container bloat" from filling up your hard drive.</li>
+<li>Security First: Never mount your entire root directory (/) unless absolutely necessary, and prefer Read-Only (:ro) mounts for your source datasets.</li>
+<li>Monitor Resources: Use docker stats and nvidia-smi to ensure your containers are utilizing your hardware efficiently.</li>
+</ul>
+<p><strong>Final Commands Cheat Sheet</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Essential Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Cleanup</strong></td>
+<td style="text-align: left;"><code>docker system prune</code> — Deletes all unused containers, networks, and images.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Monitoring</strong></td>
+<td style="text-align: left;"><code>docker stats</code> — Displays a live stream of container(s) resource usage statistics (CPU/RAM).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hardware</strong></td>
+<td style="text-align: left;"><code>nvidia-smi</code> — Verifies GPU availability and memory usage both inside and outside Docker.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Background</strong></td>
+<td style="text-align: left;"><code>tmux ls</code> — Lists all active persistent sessions to check for running training tasks.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,41 @@
+/* Make left navigation titles bolder */
+.md-nav__title {
+  font-weight: 700;
+}
+
+/* Make top-level navigation items bolder */
+.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
+  font-weight: 700;
+}
+
+/* Make collapsible section labels bolder */
+.md-nav__item--section > .md-nav__link {
+  font-weight: 700;
+}
+/* Make main page titles larger */
+
+
+
+
+/* Make the site title in the top banner larger */
+
+.md-header__title {
+
+  font-size: 1.25rem;
+
+  font-weight: 700;
+
+}
+
+/* Hide the repeated site title in the left sidebar */
+
+.md-sidebar--primary .md-nav__title {
+
+  display: none !important;
+
+}
+
+/* Selector per a la nova estructura d'awesome-pages */
+.md-nav__list .md-nav__link {
+  font-weight: 700 !important;
+}
