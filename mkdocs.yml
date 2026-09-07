@@ -11,6 +11,7 @@ plugins:
 nav:
   - Home: index.md
   - About this Course: about.md
+  - About the Authors: authors.md
   - How to Navigate this Course: how-to-navigate.md
   - Module 1. Deployment, Integration and Evaluation: module-1/index.md
   - Module 2. Corpus Engineering: module-2/
