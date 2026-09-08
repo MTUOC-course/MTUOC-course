@@ -32,20 +32,6 @@ By the end of the course, learners will be able to:
 - explore the role of large language models in translation workflows;
 - critically reflect on the possibilities and limitations of machine translation technologies.
 
-## Authors and contact
-
-This course has been developed by:
-
-- **Antoni Oliver**  
-  Universitat Oberta de Catalunya  
-  <aoliverg@uoc.edu>
-
-- **Sergi Alvarez-Vidal**  
-  Universitat Autònoma de Barcelona  
-  <sergi.alvarez@uab.cat>
-
-For questions about the course contents, technical issues or possible reuse of the materials, learners and instructors may contact the authors by email.
-
 ## Support and acknowledgements
 
 This work is supported by the project granted by **MCI-U/AEI/10.13039/50110011033/FEDER, UE**, with reference **PID2024-18157OB-C33**.
