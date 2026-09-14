@@ -1,4 +1,5 @@
 site_name: MTUOC Course
+
 theme:
   name: material
   features:
@@ -7,6 +8,11 @@ theme:
 plugins:
   - search
   - awesome-pages # Això diu a MkDocs que busqui i llisti els fitxers de les carpetes automàticament
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 
 nav:
   - Home: index.md
@@ -18,10 +24,6 @@ nav:
   - Module 3. NMT Training and Fine-tuning: module-3/
   - Module 4. LLMs for Translation: module-4/
   - Final project: final-project.md
-  - Glossary: glossary.md
-  - Troubleshooting: troubleshooting.md
-  - References: references.md
-  - Credits and licence: credits.md
 
 extra_css:
   - stylesheets/extra.css
