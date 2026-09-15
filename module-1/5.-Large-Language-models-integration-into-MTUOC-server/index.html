@@ -1,0 +1,1582 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>5. Large Language Models Integration into MTUOC-server - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5-large-language-models-integration-into-mtuoc-server" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Large Language Models Integration into MTUOC-server
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About the Authors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#50-from-llms-to-mtuoc-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.0. From LLMs to MTUOC-server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-salamandrata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. SalamandraTA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1. SalamandraTA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-testing-salamandrata-with-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1. Testing SalamandraTA with Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-installing-salamandrata-with-mtuoc-server-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.2. Installing SalamandraTA with MTUOC-server-manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513-server-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.3. Server Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-model-and-prompt-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.4. Model and Prompt Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1.4. Model and Prompt Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prompt-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generation-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generation Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515-starting-and-testing-salamandrata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.5. Starting and Testing SalamandraTA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#516-adapting-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.6. Adapting the Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#517-practical-activity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.7. Practical Activity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-gemma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Gemma
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2. Gemma">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-testing-gemma-with-python-and-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.1. Testing Gemma with Python and Ollama
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-installing-gemma-with-mtuoc-server-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.2. Installing Gemma with MTUOC-server-manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-server-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.3. Server Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#524-model-and-prompt-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.4. Model and Prompt Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2.4. Model and Prompt Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ollama-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ollama Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generation-parameters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generation Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-settings_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#525-where-is-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.5. Where Is the Model?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#526-testing-gemma-through-mtuoc-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.6. Testing Gemma through MTUOC-server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#527-practical-activity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.7. Practical Activity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-comparing-the-two-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Comparing the Two Approaches
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="5-large-language-models-integration-into-mtuoc-server">5. Large Language Models Integration into MTUOC-server</h1>
+<div class="admonition abstract">
+<p class="admonition-title">Learning Objectives</p>
+<p>After completing this section, you should be able to:</p>
+<ul>
+<li>
+<p>Deploy and configure open LLMs locally for translation with MTUOC-server.</p>
+</li>
+<li>
+<p>Configure prompts and generation parameters as components of an LLM-based translation system.</p>
+</li>
+<li>
+<p>Deploy and test a translation-specific LLM with SalamandraTA and a general-purpose LLM with Gemma.</p>
+</li>
+<li>
+<p>Compare direct local model loading through Hugging Face Transformers with model deployment through Ollama and make both types of models available to external applications through MTUOC-server.</p>
+</li>
+</ul>
+</div>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">Suggested Reading</p>
+<p>To gain a deeper understanding of the two LLM families used in this section, we recommend the following technical and academic papers:</p>
+<ul>
+<li><strong>Garcia Gilabert, J., Liao, X., Da Dalt, S., Bohman, E., Mash, A., De Luca Fornaciari, F., Baucells, I., Llop, J., Claramunt, M., Escolano, C., &amp; Melero, M. (2025).</strong> <em>From SALAMANDRA to SALAMANDRATA: BSC Submission for WMT25 General Machine Translation Shared Task.</em> In <em>Proceedings of the Tenth Conference on Machine Translation</em>, pages 614–637.</li>
+</ul>
+<p><a href="https://aclanthology.org/2025.wmt-1.37/">Read Paper on ACL Anthology</a></p>
+<ul>
+<li><strong>Gemma Team (2026).</strong> <em>Gemma 4 Technical Report.</em> arXiv:2607.02770.</li>
+</ul>
+<p><a href="https://arxiv.org/abs/2607.02770">Read Technical Report on arXiv</a></p>
+</div>
+<hr />
+<h2 id="50-from-llms-to-mtuoc-server">5.0. From LLMs to MTUOC-server</h2>
+<p>In Section 4, we explored how Large Language Models can be used for translation and translation-related tasks. We also saw that, unlike conventional NMT systems, LLM-based translation normally requires a <strong>prompt</strong> that tells the model what to do and may provide additional information such as context, terminology, examples, or output constraints.</p>
+<p>We will now put these principles into practice by integrating LLMs into <strong>MTUOC-server</strong>.</p>
+<p>The overall architecture remains the same as in the previous sections:</p>
+<div class="highlight"><pre><span></span><code>translation model → MTUOC-server → CAT tool → translator
+</code></pre></div>
+<p>However, when the translation model is an LLM, additional elements become part of the translation system:</p>
+<figure>
+
+  <img src="https://raw.githubusercontent.com/wiki/MTUOC-course/Module-1.-Deployment-Integration-and-Evaluation/images/llm-translation-workflow.png" alt="LLM-based translation workflow" width="700">
+
+  <figcaption>LLM-based translation workflow through MTUOC-server.</figcaption>
+
+</figure>
+
+<p>In this section, we will work with two different models:</p>
+<ul>
+<li><strong>SalamandraTA</strong>, a model specifically adapted for translation and translation-related tasks;</li>
+<li><strong>Gemma</strong>, a general-purpose LLM that can be instructed to perform translation.</li>
+</ul>
+<p>They also illustrate two different deployment architectures. SalamandraTA will be loaded and run locally through the <strong>Hugging Face</strong> engine, while Gemma will be managed through <strong>Ollama</strong>.</p>
+<p>As in Section 2, we will follow a simple deployment principle:</p>
+<ol>
+<li>understand the model and its requirements;</li>
+<li>test it independently;</li>
+<li>configure it for MTUOC-server;</li>
+<li>start the server;</li>
+<li>test the complete translation workflow.</li>
+</ol>
+<hr />
+<h2 id="51-salamandrata">5.1. SalamandraTA</h2>
+<p><strong>SalamandraTA</strong> is a family of models developed by the Barcelona Supercomputing Center (BSC) and specifically trained for translation and translation-related tasks.</p>
+<p>Unlike a general-purpose instruction model, SalamandraTA has been specifically trained for translation and translation-related tasks. In addition to direct translation, the model can be used for tasks such as automatic post-editing, paragraph-level translation, named entity recognition, and grammar correction.</p>
+<p>SalamandraTA is available in different sizes, including:</p>
+<div class="highlight"><pre><span></span><code>salamandraTA-2b-instruct
+salamandraTA-7b-instruct
+</code></pre></div>
+<p>In this exercise, we will use the smaller <strong>2B instruct model</strong>, which has lower computational requirements and is therefore more suitable for local deployment.</p>
+<h3 id="511-testing-salamandrata-with-python">5.1.1. Testing SalamandraTA with Python</h3>
+<p>Before integrating SalamandraTA into MTUOC-server, we will test the model independently.</p>
+<p>SalamandraTA can be loaded directly using the Hugging Face <strong>Transformers</strong> library.</p>
+<p>Make sure that the following Python packages are installed:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>transformers<span class="w"> </span>accelerate
+</code></pre></div>
+<p>The following script loads SalamandraTA and translates a sentence from English into Spanish:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">translate_salamandra_manual</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">model_id</span><span class="p">,</span> <span class="n">source_lang</span><span class="p">,</span> <span class="n">target_lang</span><span class="p">):</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+        <span class="n">model_id</span><span class="p">,</span>
+        <span class="n">device_map</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 1. Construct the prompt following the model format</span>
+    <span class="n">system_prompt</span> <span class="o">=</span> <span class="s2">"You are a professional translator."</span>
+
+    <span class="n">user_prompt</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"Translate the following text from </span><span class="si">{</span><span class="n">source_lang</span><span class="si">}</span><span class="s2"> into </span><span class="si">{</span><span class="n">target_lang</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">source_lang</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">target_lang</span><span class="si">}</span><span class="s2">:"</span>
+    <span class="p">)</span>
+
+    <span class="n">full_prompt</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"&lt;|im_start|&gt;system</span><span class="se">\n</span><span class="si">{</span><span class="n">system_prompt</span><span class="si">}</span><span class="s2">&lt;|im_end|&gt;</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"&lt;|im_start|&gt;user</span><span class="se">\n</span><span class="si">{</span><span class="n">user_prompt</span><span class="si">}</span><span class="s2">&lt;|im_end|&gt;</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"&lt;|im_start|&gt;assistant</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 2. Tokenization</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span>
+        <span class="n">full_prompt</span><span class="p">,</span>
+        <span class="n">return_tensors</span><span class="o">=</span><span class="s2">"pt"</span><span class="p">,</span>
+        <span class="n">add_special_tokens</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="n">input_length</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">input_ids</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># 3. Generation</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+        <span class="n">inputs</span><span class="o">.</span><span class="n">input_ids</span><span class="p">,</span>
+        <span class="n">attention_mask</span><span class="o">=</span><span class="n">inputs</span><span class="o">.</span><span class="n">attention_mask</span><span class="p">,</span>
+        <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+        <span class="n">num_beams</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">pad_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span><span class="p">,</span>
+        <span class="n">eos_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">(</span><span class="s2">"&lt;|im_end|&gt;"</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 4. Decoding</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+        <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">input_length</span><span class="p">:],</span>
+        <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"&lt;|im_end|&gt;"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+
+    <span class="c1"># If you want to load the model directly from Hugging Face:</span>
+    <span class="c1"># model_id = "BSC-LT/salamandraTA-2b-instruct"</span>
+
+    <span class="c1"># If the model has already been downloaded locally:</span>
+    <span class="n">model_id</span> <span class="o">=</span> <span class="s2">"../../models/salamandraTA-2b-instruct"</span>
+
+    <span class="n">src</span> <span class="o">=</span> <span class="s2">"English"</span>
+    <span class="n">tgt</span> <span class="o">=</span> <span class="s2">"Spanish"</span>
+
+    <span class="n">sentence</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">"Artificial intelligence (AI) is the capability of computational "</span>
+        <span class="s2">"systems to perform tasks typically associated with human intelligence, "</span>
+        <span class="s2">"such as learning, reasoning, problem-solving, perception, and "</span>
+        <span class="s2">"decision-making."</span>
+    <span class="p">)</span>
+
+    <span class="n">translation</span> <span class="o">=</span> <span class="n">translate_salamandra_manual</span><span class="p">(</span>
+        <span class="n">sentence</span><span class="p">,</span>
+        <span class="n">model_id</span><span class="p">,</span>
+        <span class="n">src</span><span class="p">,</span>
+        <span class="n">tgt</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Translation: </span><span class="si">{</span><span class="n">translation</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<p>The output should be similar to:</p>
+<div class="highlight"><pre><span></span><code>Translation: La inteligencia artificial (IA) es la capacidad de los sistemas computacionales para realizar tareas típicamente asociadas con la inteligencia humana,
+tales como el aprendizaje, el razonamiento, la resolución de problemas, la percepción y la toma de decisiones.
+</code></pre></div>
+<p>There are several important elements in this script.</p>
+<p>First, the model is loaded using:</p>
+<div class="highlight"><pre><span></span><code><span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">()</span>
+</code></pre></div>
+<p>Unlike the dedicated NMT models used earlier in the course, SalamandraTA is therefore loaded as a <strong>causal language model</strong>.</p>
+<p>Second, translation is specified through a prompt:</p>
+<div class="highlight"><pre><span></span><code>Translate the following text from English into Spanish.
+English: [source text]
+Spanish:
+</code></pre></div>
+<p>The script constructs the complete interaction using special delimiters:</p>
+<div class="highlight"><pre><span></span><code>&lt;|im_start|&gt;system
+You are a professional translator.&lt;|im_end|&gt;
+&lt;|im_start|&gt;user
+...
+&lt;|im_end|&gt;
+&lt;|im_start|&gt;assistant
+</code></pre></div>
+<p>These delimiters identify the different parts of the interaction.</p>
+<p>Finally, after generation, the script decodes only the tokens generated after the input prompt:</p>
+<div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">input_length</span><span class="p">:]</span>
+</code></pre></div>
+<p>This prevents the original prompt from being included in the returned translation.</p>
+<h3 id="512-installing-salamandrata-with-mtuoc-server-manager">5.1.2. Installing SalamandraTA with MTUOC-server-manager</h3>
+<p>Once we have verified that the model works independently, we can deploy it through MTUOC-server.</p>
+<p>The easiest method is to use <strong>MTUOC-server-manager</strong> and download the following recipe:</p>
+<div class="highlight"><pre><span></span><code>recipe-SalamandraTA.yaml
+</code></pre></div>
+<p>The recipe downloads the <strong>2B model</strong> together with the configuration files required for an English-to-Spanish translation server.</p>
+<p>The resulting structure includes the server configuration:</p>
+<div class="highlight"><pre><span></span><code>config-server-SalamandraTA.yaml
+</code></pre></div>
+<p>and, inside the model directory:</p>
+<div class="highlight"><pre><span></span><code>salamandraTA-2b-instruct/
+└── config-model-SalamandraTA.yaml
+</code></pre></div>
+<p>The default configuration is prepared for <strong>English → Spanish</strong>, but both the translation direction and other settings can be adapted.</p>
+<h3 id="513-server-configuration">5.1.3. Server Configuration</h3>
+<p>Open:</p>
+<div class="highlight"><pre><span></span><code>config-server-SalamandraTA.yaml
+</code></pre></div>
+<p>The file contains:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">MTengine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HuggingFace</span>
+<span class="c1">#download, Marian, Eole, OpusMT, NLLB, HuggingFace, Ollama, GoogleT, DeepL</span>
+<span class="nt">system_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SalamandraTA</span>
+<span class="nt">model_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./salamandraTA-2b-instruct/config-model-SalamandraTA.yaml</span>
+
+<span class="nt">MTUOCServer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MTUOC</span>
+<span class="w">  </span><span class="c1">#one of MTUOC, Moses, ModernMT, OpenNMT, NMTWizard</span>
+<span class="w">  </span><span class="nt">verbosity_level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">log_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">log.log</span>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45</span>
+
+<span class="nt">dopreprocess</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">preprocess_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="nt">dotokenization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">tokenization_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="nt">dopostprocess</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">postprocess_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+
+<span class="nt">TranslationMemory</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">use</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="w">  </span><span class="nt">memo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="w">  </span><span class="nt">minsim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</code></pre></div>
+<p>The most important setting for this exercise is:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">MTengine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HuggingFace</span>
+</code></pre></div>
+<p>This tells MTUOC-server that the model will be loaded using the <strong>Hugging Face</strong> engine.</p>
+<p>The corresponding model configuration is specified here:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">model_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./salamandraTA-2b-instruct/config-model-SalamandraTA.yaml</span>
+</code></pre></div>
+<p>Notice that the model configuration is located inside the SalamandraTA model directory.</p>
+<h3 id="514-model-and-prompt-configuration">5.1.4. Model and Prompt Configuration</h3>
+<p>Now open:</p>
+<div class="highlight"><pre><span></span><code>salamandraTA-2b-instruct/config-model-SalamandraTA.yaml
+</code></pre></div>
+<p>The default configuration is:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">prompt_settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">"Translate</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">following</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">English</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">Spanish.\nEnglish:</span><span class="nv"> </span><span class="s">{SLsegment}\nSpanish:"</span>
+<span class="w">  </span><span class="nt">json_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="w">  </span><span class="nt">regex_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+
+<span class="nt">model_settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"./salamandraTA-2b-instruct"</span>
+<span class="w">  </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="s">"cpu"</span>
+<span class="w">  </span><span class="c1">#cpu or cuda</span>
+<span class="w">  </span><span class="nt">trust_remote_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">generation_params</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">max_new_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">  </span><span class="nt">repetition_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.2</span>
+<span class="w">  </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span>
+<span class="w">  </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+<span class="w">  </span><span class="nt">no_repeat_ngram_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">num_beams</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">use_eos_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">stop_sequences</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"&lt;|im_end|&gt;"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"\nEnglish:"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"###"</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>The file contains three main groups of parameters:</p>
+<ol>
+<li><strong>prompt settings</strong>;</li>
+<li><strong>model settings</strong>;</li>
+<li><strong>generation parameters</strong>.</li>
+</ol>
+<h4 id="prompt-settings">Prompt Settings</h4>
+<p>The translation prompt is defined here:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">"Translate</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">following</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">English</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">Spanish.\nEnglish:</span><span class="nv"> </span><span class="s">{SLsegment}\nSpanish:"</span>
+</code></pre></div>
+<p><code>{SLsegment}</code> is automatically replaced with the source segment received by MTUOC-server.</p>
+<p>For example, if the server receives:</p>
+<div class="highlight"><pre><span></span><code>This is a translation test.
+</code></pre></div>
+<p>the prompt becomes:</p>
+<div class="highlight"><pre><span></span><code>Translate the following text from English into Spanish.
+English: This is a translation test.
+Spanish:
+</code></pre></div>
+<p>The translation direction can therefore be changed by adapting the prompt.</p>
+<p>For example, for Spanish-to-English translation:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">"Translate</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">following</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">Spanish</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">English.\nSpanish:</span><span class="nv"> </span><span class="s">{SLsegment}\nEnglish:"</span>
+</code></pre></div>
+<p>The other two prompt settings are:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">json_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="nt">regex_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div>
+<p>They can be used when the model returns structured or additional content that needs to be processed. They are not required for the present configuration.</p>
+<h4 id="model-settings">Model Settings</h4>
+<p>The model itself is specified here:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"./salamandraTA-2b-instruct"</span>
+</code></pre></div>
+<p>The device used for inference is configured with:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="s">"cpu"</span>
+</code></pre></div>
+<p>If a compatible GPU is available and the environment has been configured appropriately, this can be changed to:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="s">"cuda"</span>
+</code></pre></div>
+<p>Running the model on a GPU can substantially accelerate inference.</p>
+<h4 id="generation-parameters">Generation Parameters</h4>
+<p>The final section controls text generation:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">generation_params</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">max_new_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">  </span><span class="nt">repetition_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.2</span>
+<span class="w">  </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span>
+<span class="w">  </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+<span class="w">  </span><span class="nt">no_repeat_ngram_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">num_beams</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">use_eos_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">stop_sequences</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"&lt;|im_end|&gt;"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"\nEnglish:"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"###"</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>As discussed in Section 4, these parameters influence the model's generation behaviour.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+</code></pre></div>
+<p>reduces randomness, while:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">max_new_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+</code></pre></div>
+<p>limits the maximum length of the generated response.</p>
+<p>The <code>stop_sequences</code> setting specifies sequences that indicate that generation should stop:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">stop_sequences</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"&lt;|im_end|&gt;"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"\nEnglish:"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"###"</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>For this practical exercise, the default values can be retained.</p>
+<h3 id="515-starting-and-testing-salamandrata">5.1.5. Starting and Testing SalamandraTA</h3>
+<p>Once the model and configuration files are ready, start MTUOC-server using:</p>
+<div class="highlight"><pre><span></span><code>config-server-SalamandraTA.yaml
+</code></pre></div>
+<p>During startup, MTUOC-server will load the SalamandraTA model specified in the configuration.</p>
+<p>Once the server is running, send it an English test segment such as:</p>
+<div class="highlight"><pre><span></span><code>Artificial intelligence is changing the translation industry.
+</code></pre></div>
+<p>The server should return a Spanish translation.</p>
+<p>At this point, the complete workflow is:</p>
+<div class="highlight"><pre><span></span><code>source segment
+      ↓
+MTUOC-server
+      ↓
+translation prompt
+      ↓
+SalamandraTA
+      ↓
+generated translation
+      ↓
+MTUOC-server
+      ↓
+client application
+</code></pre></div>
+<p>From the perspective of a CAT tool or another client application, SalamandraTA now behaves as a translation engine accessible through MTUOC-server.</p>
+<h3 id="516-adapting-the-configuration">5.1.6. Adapting the Configuration</h3>
+<p>The recipe provides a working English-to-Spanish configuration, but it can be adapted to different requirements.</p>
+<p>The most relevant elements to modify are:</p>
+<p><strong>Translation direction</strong></p>
+<p>Change the language names in the prompt:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">"Translate</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">following</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">Spanish</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">English.\nSpanish:</span><span class="nv"> </span><span class="s">{SLsegment}\nEnglish:"</span>
+</code></pre></div>
+<p><strong>Device</strong></p>
+<p>Use:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="s">"cpu"</span>
+</code></pre></div>
+<p>or, where appropriate:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="s">"cuda"</span>
+</code></pre></div>
+<p><strong>Prompt</strong></p>
+<p>Additional instructions can be incorporated using the prompting techniques introduced in Section 4.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">"Translate</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">following</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">English</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">Spanish.</span><span class="nv"> </span><span class="s">Use</span><span class="nv"> </span><span class="s">formal</span><span class="nv"> </span><span class="s">Spanish</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">provide</span><span class="nv"> </span><span class="s">only</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">translation.\nEnglish:</span><span class="nv"> </span><span class="s">{SLsegment}\nSpanish:"</span>
+</code></pre></div>
+<p>This illustrates an important characteristic of LLM-based deployment: <strong>the prompt itself becomes part of the translation engine configuration</strong>.</p>
+<h3 id="517-practical-activity">5.1.7. Practical Activity</h3>
+<p>Deploy SalamandraTA through MTUOC-server and perform the following steps:</p>
+<ol>
+<li>Download <code>recipe-SalamandraTA.yaml</code> using MTUOC-server-manager.</li>
+<li>Locate <code>config-server-SalamandraTA.yaml</code> and <code>config-model-SalamandraTA.yaml</code>.</li>
+<li>Check that the model is configured to use the appropriate device (<code>cpu</code> or <code>cuda</code>).</li>
+<li>Start MTUOC-server.</li>
+<li>Translate several English sentences into Spanish.</li>
+<li>Modify the prompt to add one additional translation instruction.</li>
+<li>Restart the server if necessary and translate the same sentences again.</li>
+<li>Compare the translations produced with the two prompts.</li>
+</ol>
+<p>After completing the activity, you should be able to identify the three main elements involved in this deployment:</p>
+<div class="highlight"><pre><span></span><code>MTUOC-server configuration
+        +
+SalamandraTA model
+        +
+translation prompt
+</code></pre></div>
+<p>Together, these components turn the locally deployed LLM into a translation service that can be accessed by external applications.</p>
+<hr />
+<h2 id="52-gemma">5.2. Gemma</h2>
+<p>We will now use <strong>Gemma</strong>, a family of open-weight models developed by Google.</p>
+<p>Gemma models are based on research and technology related to Google's Gemini models, but their weights can be downloaded and the models can be run locally. This makes them particularly interesting for experimenting with local LLM deployment and integration into translation workflows.</p>
+<p>The Gemma family includes models of different sizes and variants designed for different tasks. In this practical exercise, we will use:</p>
+<div class="highlight"><pre><span></span><code>gemma4:e4b
+</code></pre></div>
+<p>Rather than treating the model as a conventional MT engine, we will explicitly instruct it to translate through a <strong>translation prompt</strong>. This provides a practical example of the prompting principles introduced in Section 4.</p>
+<h3 id="521-testing-gemma-with-python-and-ollama">5.2.1. Testing Gemma with Python and Ollama</h3>
+<p>Before integrating the model into MTUOC-server, we will test it independently. In this example, Gemma will be accessed through <strong>Ollama</strong>.</p>
+<p>Make sure that Ollama is installed and running on your computer. You will also need the Ollama Python library:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<p>The following Python script sends a translation prompt to the model:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">ollama</span>
+
+<span class="c1"># --- OLLAMA SERVER &amp; MODEL SETTINGS ---</span>
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"gemma4:e4b"</span>
+<span class="n">HOST</span> <span class="o">=</span> <span class="s2">"http://localhost:11434"</span>
+
+<span class="c1"># --- LLM GENERATION PARAMETERS (Ollama Options) ---</span>
+<span class="n">generation_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"temperature"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="s2">"num_predict"</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+    <span class="s2">"num_ctx"</span><span class="p">:</span> <span class="mi">2048</span><span class="p">,</span>
+    <span class="s2">"repeat_penalty"</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>
+    <span class="s2">"top_k"</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="s2">"top_p"</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+    <span class="s2">"seed"</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="s2">"stop"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"###"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">executePrompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">ollama</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">HOST</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+            <span class="n">prompt</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">generation_params</span>
+        <span class="p">)</span>
+
+        <span class="n">output_text</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">"response"</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"--- Gemma 4 answer ---"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">output_text</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error in connection or generation: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+
+    <span class="n">source_text</span> <span class="o">=</span> <span class="s2">"This is an example of translation using a large language model."</span>
+
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""Translate the following text from English into Spanish.</span>
+<span class="s2">Provide only the translation.</span>
+<span class="s2">English: </span><span class="si">{</span><span class="n">source_text</span><span class="si">}</span><span class="s2">"""</span>
+
+    <span class="n">executePrompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+</code></pre></div>
+<p>If the model and Ollama are working correctly, the output should be similar to:</p>
+<div class="highlight"><pre><span></span><code>--- Gemma 4 answer ---
+Este es un ejemplo de traducción utilizando un modelo de lenguaje grande.
+</code></pre></div>
+<p>Notice that the source sentence is incorporated into a <strong>prompt</strong>:</p>
+<div class="highlight"><pre><span></span><code>Translate the following text from English into Spanish.
+Provide only the translation.
+English: This is an example of translation using a large language model.
+</code></pre></div>
+<p>The instruction:</p>
+<div class="highlight"><pre><span></span><code>Provide only the translation.
+</code></pre></div>
+<p>is particularly important for integration into an automated workflow. MTUOC-server needs to return the translated segment rather than explanations or additional text generated by the LLM.</p>
+<p>The script also defines a set of <strong>generation parameters</strong>. These control aspects of the model's output, such as maximum generation length, context size, repetition, and token selection.</p>
+<p>For translation, the configuration uses:</p>
+<div class="highlight"><pre><span></span><code>temperature: 0.0
+</code></pre></div>
+<p>This reduces randomness in generation and makes the output more deterministic, which is generally desirable when using an LLM as part of a translation workflow.</p>
+<h3 id="522-installing-gemma-with-mtuoc-server-manager">5.2.2. Installing Gemma with MTUOC-server-manager</h3>
+<p>Once we have verified that the model works independently, we can integrate it into MTUOC-server.</p>
+<p>Use <strong>MTUOC-server-manager</strong> and download the following recipe:</p>
+<div class="highlight"><pre><span></span><code>recipe-ollama-Gemma4.yaml
+</code></pre></div>
+<p>The recipe creates the configuration files required to connect MTUOC-server to the model running through Ollama.</p>
+<p>Two configuration files are particularly important:</p>
+<div class="highlight"><pre><span></span><code>config-server-ollama-Gemma4.yaml
+config-model-ollama-Gemma4.yaml
+</code></pre></div>
+<p>They perform different functions:</p>
+<p><strong><code>config-server-ollama-Gemma4.yaml</code></strong> configures MTUOC-server itself and specifies which model configuration should be used.</p>
+<p><strong><code>config-model-ollama-Gemma4.yaml</code></strong> defines how MTUOC-server communicates with Ollama and how the LLM should generate the translation.</p>
+<h3 id="523-server-configuration">5.2.3. Server Configuration</h3>
+<p>Open:</p>
+<div class="highlight"><pre><span></span><code>config-server-ollama-Gemma4.yaml
+</code></pre></div>
+<p>The configuration is:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">MTengine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ollama</span>
+<span class="c1">#download, Marian, Eole, OpusMT, NLLB, HuggingFace, Ollama, GoogleT, DeepL</span>
+<span class="nt">system_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ollama</span>
+<span class="nt">model_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config-model-ollama-Gemma4.yaml</span>
+
+<span class="nt">TranslationMemory</span><span class="p">:</span>
+<span class="c1">#path to memory or None</span>
+<span class="w">  </span><span class="nt">Path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="w">  </span><span class="nt">sl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">es</span>
+<span class="w">  </span><span class="nt">tl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en</span>
+
+<span class="nt">MTUOCServer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MTUOC</span>
+<span class="w">  </span><span class="c1">#one of MTUOC, Moses, ModernMT, OpenNMT, NMTWizard</span>
+<span class="w">  </span><span class="nt">verbosity_level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">log_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">log.log</span>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45</span>
+
+<span class="nt">dopreprocess</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">preprocess_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="nt">dotokenization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">tokenization_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="nt">dopostprocess</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="nt">postprocess_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div>
+<p>The most important line for this exercise is:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">MTengine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ollama</span>
+</code></pre></div>
+<p>This tells MTUOC-server that translation requests will be handled through Ollama.</p>
+<p>The following line identifies the separate model configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">model_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config-model-ollama-Gemma4.yaml</span>
+</code></pre></div>
+<p>The <strong>server configuration</strong> determines how MTUOC-server operates, while the <strong>model configuration</strong> determines which LLM is used and how prompts are sent to it.</p>
+<h3 id="524-model-and-prompt-configuration">5.2.4. Model and Prompt Configuration</h3>
+<p>Now open:</p>
+<div class="highlight"><pre><span></span><code>config-model-ollama-Gemma4.yaml
+</code></pre></div>
+<p>The complete configuration is:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># --- OLLAMA SERVER &amp; MODEL SETTINGS ---</span>
+<span class="nt">ollama_settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">"gemma4:e4b"</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">"http://localhost:11434"</span>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="c1"># --- LLM GENERATION PARAMETERS (Ollama Options) ---</span>
+<span class="nt">generation_params</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">  </span><span class="nt">num_predict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">  </span><span class="nt">num_ctx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2048</span>
+<span class="w">  </span><span class="nt">repeat_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.2</span>
+<span class="w">  </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span>
+<span class="w">  </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+<span class="w">  </span><span class="nt">seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+<span class="w">  </span><span class="nt">stop</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"\n"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"###"</span><span class="p p-Indicator">]</span>
+
+<span class="c1"># --- LLM PROMPT AND RESPONSE PARSING ---</span>
+<span class="nt">prompt_settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">prompt_template</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">Translate the following text from English into Spanish. Provide only the translation.</span>
+<span class="w">    </span><span class="no">English: {SLsegment}</span>
+
+<span class="w">  </span><span class="nt">json_key</span><span class="p">:</span><span class="w"> </span><span class="s">"None"</span>
+<span class="w">  </span><span class="nt">regex_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div>
+<p>The file contains three main groups of settings:</p>
+<ol>
+<li><strong>Ollama and model settings</strong>;</li>
+<li><strong>generation parameters</strong>;</li>
+<li><strong>prompt and response processing</strong>.</li>
+</ol>
+<h4 id="ollama-settings">Ollama Settings</h4>
+<p>The model is specified here:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">"gemma4:e4b"</span>
+</code></pre></div>
+<p>and the location of the Ollama service here:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">"http://localhost:11434"</span>
+</code></pre></div>
+<p>In this example, Ollama is running locally on the same computer as MTUOC-server.</p>
+<h4 id="generation-parameters_1">Generation Parameters</h4>
+<p>The second part contains the generation parameters used by the model.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+</code></pre></div>
+<p>makes generation more deterministic, while:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">num_predict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+</code></pre></div>
+<p>limits the maximum number of tokens generated.</p>
+<p>At this stage, you do not need to modify these parameters. The important point is to understand that <strong>LLM generation behaviour forms part of the translation engine configuration</strong>.</p>
+<h4 id="prompt-settings_1">Prompt Settings</h4>
+<p>The translation prompt is defined as:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">prompt_template</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">Translate the following text from English into Spanish. Provide only the translation.</span>
+<span class="w">  </span><span class="no">English: {SLsegment}</span>
+</code></pre></div>
+<p><code>{SLsegment}</code> is replaced automatically with the source segment received by MTUOC-server.</p>
+<p>For example, if the server receives:</p>
+<div class="highlight"><pre><span></span><code>This is an example.
+</code></pre></div>
+<p>the prompt sent to Gemma becomes:</p>
+<div class="highlight"><pre><span></span><code>Translate the following text from English into Spanish. Provide only the translation.
+English: This is an example.
+</code></pre></div>
+<p>This illustrates one of the main differences between the NMT systems used earlier in the course and LLM-based translation:</p>
+<div class="highlight"><pre><span></span><code>NMT:
+source segment → model
+
+LLM:
+source segment → prompt construction → model
+</code></pre></div>
+<p>The configuration also contains:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">json_key</span><span class="p">:</span><span class="w"> </span><span class="s">"None"</span>
+<span class="nt">regex_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div>
+<p>These options can be used when the model's response needs additional processing.</p>
+<p>In this case, no JSON key or regular expression is required because the prompt asks Gemma to return only the translation.</p>
+<h3 id="525-where-is-the-model">5.2.5. Where Is the Model?</h3>
+<p>There is an important difference between this configuration and the SalamandraTA configuration.</p>
+<p>When using Ollama, there is <strong>no model folder inside the MTUOC-server directory</strong>.</p>
+<p>The model is managed by Ollama and stored in an Ollama-specific directory. The exact location may depend on the operating system and installation method.</p>
+<p>MTUOC-server therefore does not load the Gemma model directly from its own directory. Instead, it sends the prompt to the <strong>local Ollama service</strong>, which manages the model and returns the generated response.</p>
+<p>The architecture can be represented as:</p>
+<div class="highlight"><pre><span></span><code>CAT tool
+   ↓
+MTUOC-server
+   ↓
+Ollama
+   ↓
+Gemma
+   ↓
+Ollama
+   ↓
+MTUOC-server
+   ↓
+CAT tool
+</code></pre></div>
+<p>This distinction is useful when troubleshooting the system: <strong>MTUOC-server, Ollama, and the LLM are separate components</strong>, even though together they behave as a single translation service from the perspective of the CAT tool.</p>
+<h3 id="526-testing-gemma-through-mtuoc-server">5.2.6. Testing Gemma through MTUOC-server</h3>
+<p>Once the configuration files are ready and Ollama is running, start MTUOC-server using the Gemma configuration.</p>
+<p>Send a test segment to the server and verify that the response contains only the Spanish translation.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>This is an example of translation using a large language model.
+</code></pre></div>
+<p>should produce a response similar to:</p>
+<div class="highlight"><pre><span></span><code>Este es un ejemplo de traducción utilizando un modelo de lenguaje grande.
+</code></pre></div>
+<p>At this point, the complete workflow is operational:</p>
+<div class="highlight"><pre><span></span><code>source segment
+      ↓
+MTUOC-server
+      ↓
+translation prompt
+      ↓
+Ollama
+      ↓
+Gemma
+      ↓
+generated translation
+      ↓
+MTUOC-server
+      ↓
+client application
+</code></pre></div>
+<p>You have therefore converted a locally running LLM into a translation service that can be accessed through the same MTUOC-server interface used elsewhere in this course.</p>
+<h3 id="527-practical-activity">5.2.7. Practical Activity</h3>
+<p>Using the Gemma configuration created in this subsection:</p>
+<ol>
+<li>Start Ollama and make sure that <code>gemma4:e4b</code> is available.</li>
+<li>Start MTUOC-server with the Gemma configuration.</li>
+<li>Translate several English sentences into Spanish.</li>
+<li>Check whether Gemma returns only the translation.</li>
+<li>Modify the translation prompt by adding one instruction introduced in Section 4, for example:</li>
+<li>a terminology requirement;</li>
+<li>information about the domain;</li>
+<li>a register requirement.</li>
+<li>Restart the server if necessary and translate the same sentences again.</li>
+<li>Compare the two outputs.</li>
+</ol>
+<p>The objective is not simply to obtain a translation, but to observe how <strong>the prompt becomes part of the configuration of an LLM-based translation system</strong>.</p>
+<hr />
+<h2 id="53-comparing-the-two-approaches">5.3. Comparing the Two Approaches</h2>
+<p>SalamandraTA and Gemma illustrate two different ways of integrating an open LLM into MTUOC-server.</p>
+<p>With <strong>SalamandraTA</strong>, MTUOC-server uses the Hugging Face engine to load and run the locally stored model directly:</p>
+<div class="highlight"><pre><span></span><code>MTUOC-server → Hugging Face engine → SalamandraTA
+</code></pre></div>
+<p>With <strong>Gemma</strong>, model execution is managed by Ollama. MTUOC-server communicates with the local Ollama service, which in turn runs the model:</p>
+<div class="highlight"><pre><span></span><code>MTUOC-server → Ollama → Gemma
+</code></pre></div>
+<p>The two configurations can be compared as follows:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>SalamandraTA</strong></th>
+<th><strong>Gemma</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model</td>
+<td><code>salamandraTA-2b-instruct</code></td>
+<td><code>gemma4:e4b</code></td>
+</tr>
+<tr>
+<td>Model type</td>
+<td>Translation-specific LLM</td>
+<td>General-purpose LLM</td>
+</tr>
+<tr>
+<td>MTUOC engine</td>
+<td>Hugging Face</td>
+<td>Ollama</td>
+</tr>
+<tr>
+<td>Model execution</td>
+<td>Loaded locally through Hugging Face Transformers</td>
+<td>Managed by Ollama</td>
+</tr>
+<tr>
+<td>Model location</td>
+<td>Local model directory</td>
+<td>Ollama model storage</td>
+</tr>
+<tr>
+<td>Translation task</td>
+<td>Translation-oriented model + prompt</td>
+<td>Defined through the prompt</td>
+</tr>
+<tr>
+<td>Prompt configuration</td>
+<td>MTUOC model configuration</td>
+<td>MTUOC model configuration</td>
+</tr>
+<tr>
+<td>Generation parameters</td>
+<td>Configured in YAML</td>
+<td>Configured in YAML</td>
+</tr>
+<tr>
+<td>Local execution</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Despite these differences, MTUOC-server provides the same external interface to client applications. A CAT tool does not need to know whether the underlying translation is being generated by a model loaded directly through the Hugging Face engine or by a model managed through Ollama.</p>
+<p>This illustrates one of the main purposes of MTUOC-server: <strong>different translation technologies can be exposed through a common interface and incorporated into the same translation workflow</strong>.</p>
+<p>It also shows why LLM deployment involves more than simply selecting a model. The complete translation system includes the <strong>model, execution framework, prompt, generation parameters, response processing, and server configuration</strong>.</p>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">Key Takeaways</p>
+<p>After completing this section, you should remember that:</p>
+<ul>
+<li>
+<p>Open LLMs can be integrated into MTUOC-server and made available to external applications through the same translation interface used for other MT systems.</p>
+</li>
+<li>
+<p>SalamandraTA and Gemma illustrate two different deployment approaches: direct local model loading through the Hugging Face engine and model management through Ollama.</p>
+</li>
+<li>
+<p>In LLM-based translation, the prompt and generation parameters become part of the translation system configuration and determine how source segments are processed and responses are generated.</p>
+</li>
+<li>
+<p>The underlying model and deployment framework remain separate from the client application, allowing different LLM-based translation systems to be integrated into the same MTUOC-server workflow.</p>
+</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
