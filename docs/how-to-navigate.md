@@ -40,10 +40,10 @@ The calendar below will be updated once the final dates have been confirmed.
 
 | Module | Available From | Suggested Completion |
 | --- | --- | --- |
-| Module 1 | **TBD** | **TBD** |
-| Module 2 | **TBD** | **TBD** |
-| Module 3 | **TBD** | **TBD** |
-| Module 4 | **TBD** | **TBD** |
+| Module 1 | 02/11/2026 | 29/11/2026 |
+| Module 2 | 01/02/2027 | 28/02/2027 |
+| Module 3 | 01/04/2027 | 29/04/2027 |
+| Module 4 | 01/06/2027 | 29/06/2027 |
 
 ---
 
