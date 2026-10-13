@@ -38,10 +38,12 @@ Organized with the support of the [Faculty of Arts and Humanities](https://www.u
 
 This work is also supported by the projects:
 
-* TamTAS: Terminology-Aware Machine Translation for Accessible Science, project PCI2025-167063-2, founded by MICIU/AEI/10.13039/501100011033 and by the European Union<img width="442" height="59" alt="image" src="https://github.com/user-attachments/assets/36f06f63-e73d-45a6-bbfc-1591c5f54043" />
+* TamTAS: Terminology-Aware Machine Translation for Accessible Science, project PCI2025-167063-2, founded by MICIU/AEI/10.13039/501100011033 and by the European Union.
+* LLMTrad-IBE: Large Language Models for Translating Low-Resource Romance Languages of the Iberian
+Peninsula, project PID2024-158157OB-C33 founded by MICIU/AEI/10.13039/501100011033/ FEDER, UE.
 
 
-granted by **MCI-U/AEI/10.13039/50110011033/FEDER, UE**, with reference **PID2024-18157OB-C33**.
+
 
 ## Licence and reuse
 
