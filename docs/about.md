@@ -34,6 +34,8 @@ By the end of the course, learners will be able to:
 
 ## Support and acknowledgements
 
+Organized with the support of the [Faculty of Arts and Humanities](https://www.uoc.edu/en/university/educational-model/areas-study/arts-humanities) of the [Universitat Oberta de Catalunya (UOC)](https://www.uoc.edu/en). This open course is organized within the framework of the Master's degree in [Translation and Technologies](https://www.uoc.edu/ca/estudis/masters/master-universitari-traduccio-tecnologies).
+
 This work is supported by the project granted by **MCI-U/AEI/10.13039/50110011033/FEDER, UE**, with reference **PID2024-18157OB-C33**.
 
 ## Licence and reuse
