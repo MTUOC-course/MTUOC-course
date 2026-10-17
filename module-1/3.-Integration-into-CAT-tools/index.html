@@ -1,0 +1,963 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>3. Integration into CAT Tools - MTUOC Course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-integration-into-cat-tools" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MTUOC Course" class="md-header__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MTUOC Course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3. Integration into CAT Tools
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MTUOC Course" class="md-nav__button md-logo" aria-label="MTUOC Course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MTUOC Course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About the Authors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-navigate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Navigate this Course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1. Deployment, Integration and Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2. Corpus Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3. NMT Training and Fine-tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4. LLMs for Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../final-project.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#30-from-mtuoc-server-to-the-cat-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.0. From MTUOC-Server to the CAT Tool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-omegat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. OmegaT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. OmegaT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-omegat-and-machine-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1. OmegaT and Machine Translation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312-installing-the-mtuoc-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2. Installing the MTUOC Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313-configuring-the-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3. Configuring the Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314-testing-and-using-the-mt-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.4. Testing and Using the MT Engine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-rws-trados-studio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. RWS Trados Studio
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. RWS Trados Studio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-trados-studio-and-machine-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1. Trados Studio and Machine Translation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-downloading-and-installing-the-mtuoc-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2. Downloading and Installing the MTUOC Plugin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.2. Downloading and Installing the MTUOC Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unsigned-plugin-warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unsigned Plugin Warning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-configuring-the-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3. Configuring the Connection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.3. Configuring the Connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General Tab
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324-testing-the-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4. Testing the Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325-advanced-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.5. Advanced Settings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.5. Advanced Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translation-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translation Score
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#326-using-mtuoc-server-in-a-trados-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.6. Using MTUOC-Server in a Trados Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="3-integration-into-cat-tools">3. Integration into CAT Tools</h1>
+<div class="admonition abstract">
+<p class="admonition-title">Learning Objectives</p>
+<p>After completing this section, you should be able to:</p>
+<ul>
+<li>
+<p>Explain how MTUOC-server connects machine translation systems with professional CAT tools.</p>
+</li>
+<li>
+<p>Install and configure the MTUOC plugins for OmegaT and RWS Trados Studio.</p>
+</li>
+<li>
+<p>Configure and test the connection between a CAT tool and a running MTUOC-server.</p>
+</li>
+<li>
+<p>Use machine translation suggestions from MTUOC-server within a CAT-tool workflow alongside other translation resources.</p>
+</li>
+</ul>
+</div>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">Suggested Reading</p>
+<p>Before working through this section, you may find the following practical resources useful:</p>
+<ul>
+<li>
+<p><strong>OmegaT for CAT Beginners.</strong> An introduction to the basic concepts and workflow of OmegaT.<br />
+<a href="https://hackmd.io/@omegat/for_cat_beginners">OmegaT for CAT Beginners</a></p>
+</li>
+<li>
+<p><strong>OmegaT User Manual – Machine Translation.</strong> Documentation on using machine translation services within OmegaT.<br />
+<a href="https://omegat.sourceforge.io/manual-standard/en/chapter.panes.html#panes.machinetranslation">OmegaT Manual: Machine Translation</a></p>
+</li>
+<li>
+<p><strong>RWS Trados Studio – Level 1 Course.</strong> An introduction to the Trados Studio workflow, including the use of neural machine translation providers within translation projects.<br />
+<a href="https://www.rws.com/media/images/trados-studio-level-1-course-outline_tcm228-165629.pdf">Trados Studio Level 1 Course Outline</a></p>
+</li>
+</ul>
+</div>
+<hr />
+<h2 id="30-from-mtuoc-server-to-the-cat-tool">3.0. From MTUOC-Server to the CAT Tool</h2>
+<p>In the previous sections, we examined two fundamental components of the machine translation workflow. In Section 1, we introduced <strong>MTUOC-server</strong> as the middleware that manages communication between translation engines and external applications. In Section 2, we deployed open neural machine translation models such as <strong>OpusMT</strong> and <strong>NLLB</strong> through the server.</p>
+<p>The next step is to make these translation services available within the environment where professional translators actually work: the <strong>Computer-Assisted Translation (CAT) tool</strong>.</p>
+<p>The basic architecture can be represented as follows:</p>
+<p><strong>MT model → MTUOC-server → CAT tool → translator</strong></p>
+<p>The machine translation model generates the translation, while MTUOC-server makes the translation service accessible to the CAT tool. The translator can then receive MT suggestions directly within the translation environment, alongside other resources such as translation memories.</p>
+<p>MTUOC provides dedicated plugins for two CAT tools covered in this section:</p>
+<ul>
+<li><strong>OmegaT</strong>, a free and open-source CAT tool.</li>
+<li><strong>RWS Trados Studio</strong>, a commercial CAT tool widely used in professional translation environments.</li>
+</ul>
+<p>Although the installation and configuration procedures differ, the underlying principle is the same. The plugin acts as a client of MTUOC-server: it sends source segments to the server and receives the corresponding machine translations.</p>
+<p>For this communication to work, the CAT tool needs to know where the server is running. Two parameters are particularly important:</p>
+<ul>
+<li><strong>IP address or server name:</strong> identifies the computer on which MTUOC-server is running.</li>
+<li><strong>Port:</strong> identifies the communication endpoint configured for that server.</li>
+</ul>
+<p>If MTUOC-server and the CAT tool are running on the same computer, the connection can be entirely local. If the server is running on another computer, the plugin can connect to it using the appropriate server address and port.</p>
+<p>Before configuring either CAT tool, make sure that the MTUOC-server you want to use is running.</p>
+<hr />
+<h2 id="31-omegat">3.1. OmegaT</h2>
+<h3 id="311-omegat-and-machine-translation">3.1.1. OmegaT and Machine Translation</h3>
+<p><a href="https://omegat.org/">OmegaT</a> is a free and open-source CAT tool. It provides support for translation memories, terminology, machine translation, and other resources used during the translation process.</p>
+<p>This section assumes that you are already familiar with the basic OmegaT workflow. If you have not used OmegaT before, consult the <strong>OmegaT for CAT Beginners</strong> resource listed under <em>Suggested Reading</em> before continuing.</p>
+<p>MTUOC-server can be integrated into OmegaT through the <strong>MTUOC MT Engine plugin</strong>. Once configured, translations generated by MTUOC-server become available directly in OmegaT's <strong>Machine Translation</strong> pane.</p>
+<h3 id="312-installing-the-mtuoc-plugin">3.1.2. Installing the MTUOC Plugin</h3>
+<p>Download the MTUOC plugin:</p>
+<p><a href="https://github.com/aoliverg/MTUOC-OmegaT-plugin/releases/download/v0.1.0/MtuocTranslatePlugin-0.1.0.jar">MtuocTranslatePlugin-0.1.0.jar</a></p>
+<p>Place the downloaded JAR file in the appropriate OmegaT plugin directory for your operating system:</p>
+<ul>
+<li><strong>Windows:</strong> <code>C:\Program Files\OmegaT\plugin</code></li>
+<li><strong>Linux:</strong> <code>$HOME/.omegat/plugin</code></li>
+<li><strong>macOS:</strong> <code>~/Library/Preferences/OmegaT/plugins</code></li>
+</ul>
+<p>NOTE: These paths may vary depending on your OmegaT installation and configuration.</p>
+<p>Once the JAR file has been copied to the appropriate directory, launch OmegaT.</p>
+<h3 id="313-configuring-the-connection">3.1.3. Configuring the Connection</h3>
+<p>To configure the MTUOC plugin:</p>
+<ol>
+<li>Go to <strong>Options &gt; Preferences</strong>.</li>
+</ol>
+<p><img width="590" height="370" alt="OmegaT Preferences menu" src="https://github.com/user-attachments/assets/f2c47d8f-93dd-40a9-a6fc-8bff123c3c31" /></p>
+<ol>
+<li>
+<p>Select <strong>Machine Translation</strong> in the sidebar.</p>
+</li>
+<li>
+<p>Select <strong>MTUOC MT Engine</strong> and click <strong>Configure</strong>.</p>
+</li>
+</ol>
+<p><img width="277" height="170" alt="MTUOC MT Engine configuration in OmegaT" src="https://github.com/user-attachments/assets/d14783a0-32a1-459f-8950-f9696c23001c" /></p>
+<ol>
+<li>Enter the connection details for the MTUOC-server you want to use. The server can be running either locally or on a remote computer.</li>
+</ol>
+<p>The connection details should correspond to the IP address and port displayed when you started MTUOC-server.</p>
+<h3 id="314-testing-and-using-the-mt-engine">3.1.4. Testing and Using the MT Engine</h3>
+<p>Once the connection details have been entered, click <strong>Test connection</strong>.</p>
+<p>If OmegaT can communicate correctly with MTUOC-server, the following message will be displayed:</p>
+<div class="highlight"><pre><span></span><code>Server connection OK
+</code></pre></div>
+<p>The MTUOC machine translation engine is now available in OmegaT.</p>
+<p>When you work on a translation project, source segments can be sent to MTUOC-server and the resulting translations will appear automatically in the <strong>Machine Translation</strong> pane.</p>
+<p>The translation model used by OmegaT is determined by the MTUOC-server to which the plugin is connected. For example, if the server is running the English–Spanish OpusMT model configured in Section 2, the plugin will receive translations generated by that model.</p>
+<p>For additional information about machine translation integration in OmegaT, consult the <a href="https://omegat.sourceforge.io/manual-standard/en/chapter.panes.html#panes.machinetranslation">OmegaT User Manual</a>.</p>
+<hr />
+<h2 id="32-rws-trados-studio">3.2. RWS Trados Studio</h2>
+<h3 id="321-trados-studio-and-machine-translation">3.2.1. Trados Studio and Machine Translation</h3>
+<p><strong>RWS Trados Studio</strong> is a commercial CAT tool that allows translators to combine different translation resources within the same project, including translation memories and machine translation providers.</p>
+<p>MTUOC provides a dedicated plugin that allows Trados Studio to connect to MTUOC-server and retrieve machine translation suggestions.</p>
+<p>As with OmegaT, the plugin does not run the translation model itself. It sends source segments to the configured MTUOC-server and receives the resulting translations.</p>
+<h3 id="322-downloading-and-installing-the-mtuoc-plugin">3.2.2. Downloading and Installing the MTUOC Plugin</h3>
+<p>Download the MTUOC plugin corresponding to your version of Trados Studio and unzip the downloaded file.</p>
+<p>Before installing a new version of the MTUOC plugin, uninstall any previous version that may already be installed.</p>
+<p>Open the uncompressed folder and double-click the plugin installation file:</p>
+<p><img src="https://github.com/aoliverg/imageswiki/raw/main/arxiu-MTUOC-Trados-Plugin.PNG" width="700"></p>
+<p>The installation interface will appear:</p>
+<p><img src="https://github.com/aoliverg/imageswiki/raw/main/installador-MTUOC-Trados-Plugin-eng.PNG" width="700"></p>
+<p>Select the appropriate version of Trados Studio and choose where the plugin should be installed. Then click <strong>Next</strong> and complete the installation.</p>
+<h4 id="unsigned-plugin-warning">Unsigned Plugin Warning</h4>
+<p>Depending on the plugin version, Trados Studio may display a warning indicating that the plugin is unsigned:</p>
+<p><img src="https://github.com/aoliverg/imageswiki/raw/main/sinfirmar-MTUOC-Trados-Plugin-eng.PNG" width="700"></p>
+<p>If you are installing the MTUOC plugin obtained from the official MTUOC distribution, click <strong>Yes</strong> to continue.</p>
+<p>Some newly released versions of the plugin may temporarily be unsigned while the corresponding signing process is being completed.</p>
+<hr />
+<h3 id="323-configuring-the-connection">3.2.3. Configuring the Connection</h3>
+<p>Open a Trados Studio project and go to <strong>Project Settings</strong>.</p>
+<p>Select <strong>Translation Memory and Automated Translation</strong> for either all language pairs or the specific language pair you want to configure.</p>
+<p>Select <strong>MTUOC-MACHINE TRANSLATION</strong> as a translation provider.</p>
+<p><img src="https://github.com/aoliverg/imageswiki/raw/main/use-MTUOC-Trados-Plugin.PNG" width="700"></p>
+<p>Open <strong>Settings</strong> to access the MTUOC plugin configuration.</p>
+<p>The configuration interface contains three main tabs:</p>
+<ul>
+<li><strong>General</strong></li>
+<li><strong>Connection test</strong></li>
+<li><strong>Advanced</strong></li>
+</ul>
+<h4 id="general-tab">General Tab</h4>
+<p><img src="https://github.com/aoliverg/imageswiki/raw/main/general-MTUOC-Trados-Plugin-eng.PNG" width="700"></p>
+<p>The <strong>General</strong> tab contains the basic connection parameters.</p>
+<p>Enter:</p>
+<ul>
+<li>the IP address or server name of the MTUOC-server;</li>
+<li>the port used by that server.</li>
+</ul>
+<p>The language pair is not specified in the plugin itself. Each IP address and port combination connects to a particular running MTUOC-server configuration, and the plugin does not verify whether the language pair used by the server corresponds to the language pair of the Trados project.</p>
+<p>You should therefore make sure that the MTUOC-server configuration corresponds to the translation direction required by your project.</p>
+<hr />
+<h3 id="324-testing-the-connection">3.2.4. Testing the Connection</h3>
+<p>Before using the server in your project, open the <strong>Connection test</strong> tab:</p>
+<p><img src="https://github.com/aoliverg/imageswiki/raw/main/prueba%20de%20conexi%C3%B3n-MTUOC-Trados-Plugin-eng.PNG" width="700"></p>
+<p>Enter or paste a source sentence and click <strong>Send</strong>.</p>
+<p>This test allows you to verify that:</p>
+<ol>
+<li>Trados can connect to the specified IP address and port;</li>
+<li>MTUOC-server is running;</li>
+<li>the server can process the request and return a translation.</li>
+</ol>
+<p>Testing the connection before beginning a translation project can help distinguish connection problems from problems related to the CAT-tool project itself.</p>
+<hr />
+<h3 id="325-advanced-settings">3.2.5. Advanced Settings</h3>
+<p>The <strong>Advanced</strong> tab provides additional options for integrating machine translation into the Trados workflow.</p>
+<p><img src="https://github.com/aoliverg/imageswiki/raw/main/avanzado-MTUOC-Trados-Plugin-eng.PNG" width="700"></p>
+<h4 id="cache">Cache</h4>
+<p>The <strong>Keep the cache (days)</strong> setting determines how long translations retrieved from MTUOC-server are stored in the plugin cache.</p>
+<p>The cache can also be cleared manually using the <strong>Delete cache</strong> button.</p>
+<h4 id="translation-score">Translation Score</h4>
+<p>The <strong>Score</strong> setting assigns a score to machine translation results.</p>
+<p>This is particularly relevant when machine translation is used alongside a translation memory. The score allows the MT result to be compared with translation memory matches so that the different translation resources can be combined within the same workflow.</p>
+<h4 id="description">Description</h4>
+<p>The <strong>Description</strong> setting determines how translations produced through the MTUOC plugin are identified in the project's SDLXLIFF file.</p>
+<p>Available values include:</p>
+<div class="highlight"><pre><span></span><code>Unknown
+TM
+Machine translation
+Alignment
+Context TM
+Adaptative Machine Translation
+Nmt
+AutomaticTranslation
+</code></pre></div>
+<p>These settings allow machine translation output to be identified and managed as part of the wider Trados project workflow.</p>
+<h3 id="326-using-mtuoc-server-in-a-trados-project">3.2.6. Using MTUOC-Server in a Trados Project</h3>
+<p>Once the plugin has been configured and the connection tested, activate the MTUOC translation provider in the project. Source segments can then be sent to the configured MTUOC-server, and the returned translations become available alongside the other translation resources in Trados Studio.</p>
+<p>If you want to change the underlying translation model — for example, from an OpusMT model to an NLLB model — the change takes place on the <strong>MTUOC-server side</strong>. The CAT tool continues to communicate with MTUOC-server through the configured IP address and port.</p>
+<p>NOTE: If you experience problems installing, updating, or uninstalling the MTUOC plugin, consult the <strong>Troubleshooting</strong> section of the course.</p>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">Key Takeaways</p>
+<p>After completing this section, you should remember that:</p>
+<ul>
+<li>
+<p>MTUOC-server acts as a bridge between translation models and professional CAT tools, while the CAT tool itself does not run the translation model.</p>
+</li>
+<li>
+<p>OmegaT and RWS Trados Studio can connect to MTUOC-server through dedicated plugins using the server IP address and port.</p>
+</li>
+<li>
+<p>Once connected, machine translation suggestions can be incorporated into the CAT-tool workflow alongside other resources such as translation memories.</p>
+</li>
+<li>
+<p>The translation model remains separate from the CAT tool: models can be changed on the MTUOC-server side without changing the basic CAT-tool integration architecture.</p>
+</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
