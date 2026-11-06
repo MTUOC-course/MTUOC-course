@@ -67,7 +67,7 @@ Use these channels to:
 | **#module-4** | Module 4 discussions |
 
 
-**To be a part of the Discord channel for the MTUOC course, [follow this link](https://discord.gg/wGUNTg7sz).**
+**To be a part of the Discord channel for the MTUOC course, [follow this link](https://discord.gg/fnP3w7VxH).**
 
 ---
 
